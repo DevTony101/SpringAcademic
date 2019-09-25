@@ -1,14 +1,19 @@
 package edu.unimagdalena.springacademic.entities;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -19,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ResponsableAlumno {
+public class ResponsableAlumno implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +39,9 @@ public class ResponsableAlumno {
   private String telefono;
   @Column(name = "correo", length = 100, nullable = false)
   private String correo;  
+
+  @OneToMany(mappedBy = "responsable")
+  @NonNull
+  private Set<Alumno> alumnos;
   
 }

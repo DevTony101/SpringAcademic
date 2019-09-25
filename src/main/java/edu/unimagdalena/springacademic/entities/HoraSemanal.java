@@ -1,14 +1,19 @@
 package edu.unimagdalena.springacademic.entities;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -19,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Hora_Semanal {
+public class HoraSemanal implements Serializable {
     
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +37,9 @@ public class Hora_Semanal {
   private Integer diaIndice;
   @Column(name = "hora_indice", nullable = false) 
   private Integer horaIndice;
+
+  @ManyToMany(mappedBy = "horasSemanales")
+  @NonNull
+  private Set<Clase> clases;
 
 }

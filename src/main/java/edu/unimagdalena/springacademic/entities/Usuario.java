@@ -1,5 +1,7 @@
 package edu.unimagdalena.springacademic.entities;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +22,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Usuario {
+public class Usuario implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,14 +1,19 @@
 package edu.unimagdalena.springacademic.entities;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -19,7 +24,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Profesor {
+public class Profesor implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,4 +42,7 @@ public class Profesor {
   @Column(name = "titulacion", length = 100, nullable = true)
   private String titulacion;
 
+  @OneToMany(mappedBy = "profesor")
+  @NonNull
+  private Set<Clase> clases;
 }

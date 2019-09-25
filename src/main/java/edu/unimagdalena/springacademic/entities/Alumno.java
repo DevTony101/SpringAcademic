@@ -4,14 +4,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +29,7 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Alumno {
+public class Alumno implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,5 +56,13 @@ public class Alumno {
   @ManyToOne
   @JoinColumn(name = "curso")
   private Curso curso;
+
+  @ManyToOne
+  @JoinColumn(name = "responsable")
+  private ResponsableAlumno responsable;
   
+  @ManyToMany
+  @JoinTable(name="ALUMNO_CLASE", joinColumns= @JoinColumn( name="id_alumno", referencedColumnName="id"), inverseJoinColumns=@JoinColumn( name="id", referencedColumnName="id"))
+  @NonNull
+  private Set<Clase> clases;
 }
