@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -45,4 +46,7 @@ public class Profesor implements Serializable {
   @OneToMany(mappedBy = "profesor")
   @NonNull
   private Set<Clase> clases;
+
+  @OneToOne(mappedBy = "usuarioProfesor")
+  private Usuario usuario;
 }

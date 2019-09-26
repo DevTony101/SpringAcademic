@@ -7,6 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -65,4 +66,7 @@ public class Alumno implements Serializable {
   @JoinTable(name="ALUMNO_CLASE", joinColumns= @JoinColumn( name="id_alumno", referencedColumnName="id"), inverseJoinColumns=@JoinColumn( name="id", referencedColumnName="id"))
   @NonNull
   private Set<Clase> clases;
+
+  @OneToOne(mappedBy = "usuarioAlumno")
+  private Usuario usuario;
 }
