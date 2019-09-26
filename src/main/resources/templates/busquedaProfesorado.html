@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<head th:replace="layout/base::head('Busqueda de Profesores')"></head>
+
+<body>
+  <header th:replace="layout/base::header('Profesorado')"></header>
+  <div class="container-fluid" style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-6">
+        <div class="card border-success">
+          <div class="card-header">Búsqueda de Profesores</div>
+          <div class="card-body">
+            <form id="searchForm" class="form-inline active-purple-4">
+              <i class="fas fa-user-edit" style="margin-right: 20px;"></i>
+              <label for="searchName" style="margin-right: 20px;">Nombre</label>
+              <input id="searchName" class="form-control form-control-sm mr-3 w-75" type="text"
+                placeholder="Nombre del Profesor..." aria-label="Search" style="height: 40px;">
+              <!-- ------------------ -->
+              <i class="far fa-id-card" style="margin-right: 20px;"></i>
+              <label for="searchNif" style="margin-right: 60px;">Nif</label>
+              <input id="searchNif" class="form-control form-control-sm mr-3 w-75" type="text"
+                placeholder="Nif del Profesor..." aria-label="Search" style="height: 40px; margin-top: 10px;">
+              <input type="submit" class="btn btn-success" style="margin-top: 10px;" value="Buscar">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card border-success">
+          <div class="card-header">Filtros</div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-6">
+                <span>Por Curso</span>
+                <select id="slDeportes" class="form-control">
+                  <option value="Todos">Todos</option>
+                  <option value="Matematicas">Matematicas</option>
+                  <option value="Biologia">Biologia</option>
+                  <option value="Sociales">Sociales</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <span>Por Titulacion</span>
+                <select id="slDeportes" class="form-control">
+                  <option value="Todos">Todos</option>
+                  <option value="Matematicas">Ingenieria</option>
+                  <option value="Biologia">Doctorado</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer th:replace="layout/base::footer()"></footer>
+</body>
+
+</html>
