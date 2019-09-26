@@ -1,5 +1,7 @@
 package edu.unimagdalena.springacademic.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,4 +22,8 @@ public class ProfesorService implements IProfesorService {
     return repo.save(profesor);
   }
   
+  @Override
+  public List<Profesor> getProfesores(String nombre, String nif) {
+    return repo.findByQuery(nombre, nif);
+  }
 }

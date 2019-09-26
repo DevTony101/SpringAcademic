@@ -22,7 +22,7 @@
               <label for="searchNif" style="margin-right: 60px;">Nif</label>
               <input id="searchNif" class="form-control form-control-sm mr-3 w-75" type="text"
                 placeholder="Nif del Profesor..." aria-label="Search" style="height: 40px; margin-top: 10px;">
-              <input type="submit" class="btn btn-success" style="margin-top: 10px;" value="Buscar">
+              <input type="submit" id="btnBuscar" class="btn btn-success" style="margin-top: 10px;" value="Buscar">
               <button class="btn btn-primary mx-4" style="margin-top: 10px;">Limpiar</button>
             </form>
           </div>
@@ -68,20 +68,18 @@
               <a class="nav-link btn btn-danger" style="margin-right: 10px;" role="button" href="#">Eliminar
                 Profesor</a>
             </nav>
-            <div id="resultados">
-              <table id="tbBusqueda" class="table table-striped">
-                <thead>
-                  <tr class="table-light">
-                    <th scope="col">#</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Nif</th>
-                    <th scope="col">Correo</th>
-                    <th scope="col">Telefono</th>
-                  </tr>
-                </thead>
-                <tbody></tbody>
-              </table>
-            </div>
+            <table id="tbBusqueda" class="table table-striped">
+              <thead>
+                <tr class="table-light">
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Nif</th>
+                  <th scope="col">Correo</th>
+                  <th scope="col">Telefono</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
           </div>
         </div>
       </div>
