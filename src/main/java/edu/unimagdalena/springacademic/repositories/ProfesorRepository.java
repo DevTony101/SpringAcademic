@@ -15,7 +15,7 @@ import edu.unimagdalena.springacademic.entities.Profesor;
 @Repository
 public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 
-  @Query("SELECT p FROM Profesor p WHERE p.nombre LIKE CONCAT('%',:nombre,'%') or p.nif LIKE CONCAT('%',:nif,'%')")
+  @Query("SELECT p FROM Profesor p WHERE p.nombre = :nombre or p.nif = :nif")
   List<Profesor> findByQuery(@Param("nombre") String nombre, @Param("nif") String nif);
 
 }

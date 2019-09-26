@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import edu.unimagdalena.springacademic.services.RoleService;
-import edu.unimagdalena.springacademic.services.UsuarioService;
 
 @SpringBootApplication
 public class DemoApplication {

@@ -35,7 +35,7 @@ public class ProfesorController {
   public String crearProfesor(@ModelAttribute @Valid Profesor profesor, Model model) {
     service.guardarProfesor(profesor);
     model.addAttribute("profesor", new Profesor());
-    return "busquedaProfesorado";
+    return "redirect:/profesorado?success=true";
   }
 
   @GetMapping("/getProfesores")
