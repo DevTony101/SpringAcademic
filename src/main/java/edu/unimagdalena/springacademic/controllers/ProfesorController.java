@@ -1,5 +1,6 @@
 package edu.unimagdalena.springacademic.controllers;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -42,7 +43,13 @@ public class ProfesorController {
   @ResponseBody
   public List<Profesor> getProfesores(@RequestParam(name = "nombre") String nombre,
       @RequestParam(name = "nif") String nif) {
-    return service.getProfesores(nombre, nif);
+    if (!nombre.isEmpty() && !nif.isEmpty()) {
+      return Arrays.asList(service.getProfesor(nombre, nif));
+    } else if (!nombre.isEmpty()) {
+      return service.getProfesorByNombre(nombre);
+    } 
+
+    return Arrays.asList(service.getProfesorByNif(nif));
   }
 
 }

@@ -10,6 +10,10 @@ import edu.unimagdalena.springacademic.entities.Profesor;
 public interface IProfesorService {
 
   Profesor guardarProfesor(Profesor profesor);
-  List<Profesor> getProfesores(String nombre, String nif);
 
+  Profesor getProfesor(String nombre, String nif);
+
+  List<Profesor> getProfesorByNombre(String nombre);
+
+  Profesor getProfesorByNif(String nif);
 }

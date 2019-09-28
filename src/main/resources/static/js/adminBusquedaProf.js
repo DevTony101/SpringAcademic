@@ -5,7 +5,15 @@ function setup() {
   $('#successModal').modal('toggle');
   const itNombre = select('#searchName');
   const itNif = select('#searchNif');
-  table = $('#tbBusqueda').DataTable();
+  table = $('#tbBusqueda').DataTable({
+    "columnDefs": [{
+      "data": null,
+      "defaultContent": "<a class='btn btn-primary' style='margin-right: 10px;' role='button' href='#'>Info</a>" +
+        "<a class='btn btn-primary' style='margin-right: 10px;' role='button' href='#'>Clases</a>" +
+        "<a class='btn btn-danger' role='button' href='#'>Eliminar</a>",
+      "targets": -1
+    }]
+  });
   $('#btnBuscar').on('click', (e) => {
     e.preventDefault();
     const nombre = itNombre.value();
@@ -17,6 +25,14 @@ function setup() {
       getData(res);
     }
   });
+
+  $('#tbBusqueda tbody').on('click', 'a', function (e) {
+    e.preventDefault();
+    const data = table.row($(this).parents('tr')).data();
+    const nif = data[1];
+    const action = $(this).text();
+    alert(nif + " " + action);
+  });
 }
 
 async function getData(apiUrl) {
@@ -26,7 +42,6 @@ async function getData(apiUrl) {
   table.clear().draw();
   data.forEach(profesor => {
     table.row.add([
-      profesor.id,
       profesor.nombre,
       profesor.nif,
       profesor.correo,

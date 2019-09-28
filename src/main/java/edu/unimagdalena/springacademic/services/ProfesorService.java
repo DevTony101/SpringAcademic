@@ -21,9 +21,19 @@ public class ProfesorService implements IProfesorService {
   public Profesor guardarProfesor(Profesor profesor) {
     return repo.save(profesor);
   }
-  
+
   @Override
-  public List<Profesor> getProfesores(String nombre, String nif) {
+  public Profesor getProfesor(String nombre, String nif) {
     return repo.findByQuery(nombre, nif);
+  }
+
+  @Override
+  public List<Profesor> getProfesorByNombre(String nombre) {
+    return repo.findByNombre(nombre);
+  }
+
+  @Override
+  public Profesor getProfesorByNif(String nif) {
+    return repo.findByNif(nif);
   }
 }

@@ -15,7 +15,10 @@ import edu.unimagdalena.springacademic.entities.Profesor;
 @Repository
 public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
 
-  @Query("SELECT p FROM Profesor p WHERE p.nombre = :nombre or p.nif = :nif")
-  List<Profesor> findByQuery(@Param("nombre") String nombre, @Param("nif") String nif);
+  @Query("SELECT p FROM Profesor p WHERE p.nombre = :nombre and p.nif = :nif")
+  Profesor findByQuery(@Param("nombre") String nombre, @Param("nif") String nif);
 
+  List<Profesor> findByNombre(String nombre);
+
+  Profesor findByNif(String nif);
 }
