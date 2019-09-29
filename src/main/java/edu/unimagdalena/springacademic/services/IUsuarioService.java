@@ -9,4 +9,5 @@ public interface IUsuarioService {
 
   Usuario crearProfesor(String usuario);
   Usuario guardarUsuario(Usuario usuario);
+  Usuario getCurrentUsuario();
 }

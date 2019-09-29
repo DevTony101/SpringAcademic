@@ -14,6 +14,7 @@ import edu.unimagdalena.springacademic.entities.Role;
 import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.repositories.RoleRepository;
 import edu.unimagdalena.springacademic.repositories.UsuarioRepository;
+import edu.unimagdalena.springacademic.security.SecurityServiceImpl;
 
 /**
  * UsuarioService
@@ -26,6 +27,9 @@ public class UsuarioService implements IUsuarioService {
 
   @Autowired
   private RoleRepository roleRepo;
+
+  @Autowired
+  private SecurityServiceImpl securityService;
 
   @Autowired
   @Lazy
@@ -47,6 +51,12 @@ public class UsuarioService implements IUsuarioService {
   @Override
   public Usuario guardarUsuario(Usuario usuario) {
     return repo.save(usuario);
+  }
+
+  @Override
+  public Usuario getCurrentUsuario() {
+    String usuario = securityService.getLoggedInUsername();
+    return repo.findByUsuario(usuario);
   }
 
 }

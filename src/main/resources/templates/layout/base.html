@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
     integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
 
-    <!-- data table css -->
+  <!-- data table css -->
   <link href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 
   <!-- Font Awesome JS -->
@@ -64,8 +64,8 @@
           </li>
         </ul>
       </div>
-      <form class="form-inline">
-        <button class="btn btn-outline-danger" type="button">Cerrar Sesion</button>
+      <form class="form-inline" th:action="@{/logout}" method="post">
+        <button class="btn btn-outline-danger" type="submit">Cerrar Sesion</button>
       </form>
     </nav>
   </header>
