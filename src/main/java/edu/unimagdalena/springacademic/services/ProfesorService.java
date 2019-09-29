@@ -44,4 +44,12 @@ public class ProfesorService implements IProfesorService {
   public Profesor getProfesorByNif(String nif) {
     return repo.findByNif(nif);
   }
+
+  @Override
+  public void eliminarProfesor(Profesor profesor) {
+    String nombre = profesor.getNombre().toLowerCase() + profesor.getApellido().substring(0, 2).toLowerCase();
+    Usuario usuario = uService.getUsuarioByNombre(nombre);
+    uService.eliminarUsuario(usuario);
+    repo.delete(profesor);
+  }
 }

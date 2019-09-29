@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Profesor
@@ -27,6 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class Profesor implements Serializable {
 
   @Id

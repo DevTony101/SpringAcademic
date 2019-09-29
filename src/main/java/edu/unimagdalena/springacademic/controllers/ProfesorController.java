@@ -5,11 +5,14 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +27,9 @@ import edu.unimagdalena.springacademic.services.ProfesorService;
 public class ProfesorController {
 
   @Autowired
-  private ProfesorService service;
+  private ProfesorService pService;
+
+  private static Logger LOG = Logger.getLogger(ProfesorController.class);
 
   @GetMapping("/profesorado")
   public String profesorado(Model model) {
@@ -34,7 +39,7 @@ public class ProfesorController {
 
   @PostMapping("/crearProfesor")
   public String crearProfesor(@ModelAttribute @Valid Profesor profesor, Model model) {
-    service.guardarProfesor(profesor);
+    pService.guardarProfesor(profesor);
     model.addAttribute("profesor", new Profesor());
     return "redirect:/profesorado?success=true";
   }
@@ -44,12 +49,20 @@ public class ProfesorController {
   public List<Profesor> getProfesores(@RequestParam(name = "nombre") String nombre,
       @RequestParam(name = "nif") String nif) {
     if (!nombre.isEmpty() && !nif.isEmpty()) {
-      return Arrays.asList(service.getProfesor(nombre, nif));
+      return Arrays.asList(pService.getProfesor(nombre, nif));
     } else if (!nombre.isEmpty()) {
-      return service.getProfesorByNombre(nombre);
+      return pService.getProfesorByNombre(nombre);
     } 
 
-    return Arrays.asList(service.getProfesorByNif(nif));
+    return Arrays.asList(pService.getProfesorByNif(nif));
+  }
+
+  @GetMapping("/eliminarProfesor/{nif}")
+  public String eliminarProfesor(@PathVariable("nif") String nif, Model model) {
+    Profesor profesor = pService.getProfesorByNif(nif);
+    pService.eliminarProfesor(profesor);
+    model.addAttribute("profesor", new Profesor());
+    return "busquedaProfesorado";
   }
 
 }

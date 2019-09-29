@@ -56,7 +56,17 @@ public class UsuarioService implements IUsuarioService {
   @Override
   public Usuario getCurrentUsuario() {
     String usuario = securityService.getLoggedInUsername();
+    return getUsuarioByNombre(usuario);
+  }
+
+  @Override
+  public Usuario getUsuarioByNombre(String usuario) {
     return repo.findByUsuario(usuario);
+  }
+
+  @Override
+  public void eliminarUsuario(Usuario usuario) {
+    repo.delete(usuario);
   }
 
 }
