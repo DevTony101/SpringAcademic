@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,8 +37,8 @@ public class Usuario implements Serializable {
   private String usuario;
   @Column(name = "clave", nullable = false)
   private String clave;
-  @Transient
-  private String confirmacionClave;
+  @Column(name = "respaldo", nullable = false)
+  private String respaldo;
   @Column(name = "enabled", nullable = false)
   private Boolean enabled;
 

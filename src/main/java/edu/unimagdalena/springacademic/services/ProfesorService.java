@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.unimagdalena.springacademic.entities.Profesor;
+import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.repositories.ProfesorRepository;
 
 /**
@@ -17,8 +18,15 @@ public class ProfesorService implements IProfesorService {
   @Autowired
   private ProfesorRepository repo;
 
+  @Autowired
+  private UsuarioService uService;
+
   @Override
   public Profesor guardarProfesor(Profesor profesor) {
+    String nombre = profesor.getNombre().toLowerCase() + profesor.getApellido().substring(0, 2).toLowerCase();
+    Usuario usuario = uService.crearProfesor(nombre);
+    usuario.setUsuarioProfesor(profesor);
+    uService.guardarUsuario(usuario);
     return repo.save(profesor);
   }
 
