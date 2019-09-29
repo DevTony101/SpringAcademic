@@ -2,10 +2,10 @@
 
 <html xmlns:th="https://www.thymeleaf.org">
 
-<head th:replace="layout/base::head('Busqueda de Profesores')"></head>
+<head th:replace="layout/adminBase::head('Busqueda de Profesores')"></head>
 
 <body>
-  <header th:replace="layout/base::header('Profesorado')"></header>
+  <header th:replace="layout/adminBase::header('Profesorado')"></header>
   <div class="container-fluid" style="margin-top: 20px;">
     <div class="row">
       <div class="col-6">
@@ -158,8 +158,8 @@
       </div>
     </div>
   </div>
-  <footer th:replace="layout/base::footer()"></footer>
-  <script src="js/adminBusquedaProf.js"></script>
+  <footer th:replace="layout/adminBase::footer()"></footer>
+  <script src="js/admin/busquedaProf.js"></script>
 </body>
 
 </html>

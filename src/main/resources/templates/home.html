@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<head th:replace="layout/base::head('Home')"></head>
+<head th:replace="layout/adminBase::head('Home')"></head>
 
 <body>
 
-  <header th:replace="layout/base::header('Spring Academic')"></header>
+  <header th:replace="layout/adminBase::header('Spring Academic')"></header>
 
-  <div class="container-fluid" style="margin-top: 20px;">
+  <div class="container-fluid my-4">
     <div class="row">
       <div class="col-6">
         <div class="card">
@@ -125,8 +125,8 @@
     </div>
   </div>
 
-  <footer th:replace="layout/base::footer()"></footer>
-  <script src="js/adminHome.js"></script>
+  <footer th:replace="layout/adminBase::footer()"></footer>
+  <script src="js/admin/home.js"></script>
 </body>
 
 </html>

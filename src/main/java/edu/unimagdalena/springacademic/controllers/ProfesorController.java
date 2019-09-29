@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,8 +27,6 @@ public class ProfesorController {
   @Autowired
   private ProfesorService pService;
 
-  private static Logger LOG = Logger.getLogger(ProfesorController.class);
-
   @GetMapping("/profesorado")
   public String profesorado(Model model) {
     model.addAttribute("profesor", new Profesor());
@@ -40,7 +37,7 @@ public class ProfesorController {
   public String crearProfesor(@ModelAttribute @Valid Profesor profesor, Model model) {
     pService.guardarProfesor(profesor);
     model.addAttribute("profesor", new Profesor());
-    return "redirect:/profesorado?success=true";
+    return "redirect:/profesorado?success";
   }
 
   @GetMapping("/getProfesores")

@@ -95,27 +95,24 @@
 
 <body style="background: url('images/classroom.jpg');">
 
-	<div class="login-form">
+	<div class="login-form" style="width: 500px;">
 		<form th:action="@{/login}" method="post">
 			<div th:if="${param.error}" class="card text-white bg-danger mb-3">
-				<div class="card-header">
-					Aviso
-				</div>
+				<div class="card-header">Error</div>
 				<div class="card-body">
-					<h5 class="card-title">Ha habido un error</h5>
+					<h5 class="card-title">Ha Habido un Error</h5>
 					<p class="card-text">Revisa tus Credenciales</p>
 				</div>
 			</div>
 
 			<div th:if="${param.logout}" class="card text-white bg-warning mb-3">
-				<div class="card-header">
-					Aviso
-				</div>
+				<div class="card-header">Aviso</div>
 				<div class="card-body">
-					<h5 class="card-title">Has salido de tu cuenta</h5>
-					<p class="card-text">Vuelve a iniciar sesion si deseas entrar</p>
+					<h5 class="card-title">Has Salido de tu Cuenta</h5>
+					<p class="card-text">Vuelve a Iniciar Sesión</p>
 				</div>
 			</div>
+			<h1 class="text-center">Spring Academic</h1>
 			<h2 class="text-center">Acceder</h2>
 			<div class="form-group">
 				<div class="input-group">
@@ -132,12 +129,10 @@
 			<div class="form-group">
 				<button type="submit" class="btn btn-primary login-btn btn-block">Entrar</button>
 			</div>
-			<div class="clearfix">
+			<div class="clearfix text-center">
 				<label class="pull-left checkbox-inline"><input type="checkbox"> Recuerdame</label>
 				<a href="#" class="pull-right" style="margin-left: 20px;">Olvidaste la Contraseña?</a>
 			</div>
-			<p class="text-center text-muted large" style="margin-top: 20px;">No Tienes Una Cuenta? <a href="/">Registrate
-					Aquí!</a></p>
 		</form>
 	</div>
 

@@ -2,6 +2,7 @@ package edu.unimagdalena.springacademic.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import edu.unimagdalena.springacademic.entities.Role;
@@ -18,12 +19,13 @@ public class HomeController {
   private UsuarioService uService;
 
   @GetMapping("/home")
-  public String home() {
+  public String home(Model model) {
     Usuario usuario = uService.getCurrentUsuario();
     for (Role role : usuario.getRoles()) {
       if (role.getRole().equals("ADMIN")) {
         return "home";
       } else if (role.getRole().equals("PROFESOR")) {
+        model.addAttribute("profesor", usuario.getUsuarioProfesor());
         return "profesores/home";
       }
     }
