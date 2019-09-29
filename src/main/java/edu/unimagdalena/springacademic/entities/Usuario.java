@@ -42,7 +42,7 @@ public class Usuario implements Serializable {
   @Column(name = "enabled", nullable = false)
   private Boolean enabled;
 
-  @ManyToMany(cascade = CascadeType.ALL)
+  @ManyToMany
   @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "role_id"))
   @NonNull
   private Set<Role> roles;
