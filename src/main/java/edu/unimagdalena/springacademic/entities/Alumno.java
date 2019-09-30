@@ -9,6 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,8 @@ import javax.persistence.Entity;
 @Setter
 public class Alumno implements Serializable {
 
+  private static final long serialVersionUID = 1L;
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -48,8 +52,10 @@ public class Alumno implements Serializable {
   @Column(name = "repetidor", nullable = false)
   private Boolean repetidor;
   @Column(name = "fecha_alta", nullable = false)
+  @Temporal(TemporalType.DATE)
   private Date fechaAlta;
   @Column(name = "fecha_baja", nullable = true)
+  @Temporal(TemporalType.DATE)
   private Date fechaBaja;
   @Column(name = "observaciones", length = 2000, nullable = true)
   private String observaciones;
