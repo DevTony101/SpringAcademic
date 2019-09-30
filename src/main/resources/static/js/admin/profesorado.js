@@ -41,7 +41,6 @@ function setup() {
         break;
     }
     setTimeout(getResultados, 500);
-    // alert(nif + " " + action);
   });
 }
 
@@ -60,7 +59,6 @@ async function getData(apiUrl) {
   const response = await fetch(apiUrl);
   const data = await response.json();
   console.log(data);
-  console.log("aaaaaaaaaaaaa");
   table.clear().draw();
   data.forEach(profesor => {
     table.row.add([

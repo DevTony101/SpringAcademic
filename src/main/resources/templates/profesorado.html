@@ -12,22 +12,26 @@
         <div class="card border-success">
           <div class="card-header">Búsqueda de Profesores</div>
           <div class="card-body">
-            <form id="searchForm" class="form-inline active-purple-4">
+            <form id="searchForm" class="form-inline">
               <i class="fas fa-user-edit" style="margin-right: 20px;"></i>
               <label for="searchName" style="margin-right: 20px;">Nombre</label>
               <input id="searchName" class="form-control form-control-sm mr-3 w-75" type="text"
                 placeholder="Nombre del Profesor..." aria-label="Search" style="height: 40px;">
-              <!-- ------------------ -->
+
               <i class="far fa-id-card" style="margin-right: 20px;"></i>
               <label for="searchNif" style="margin-right: 60px;">Nif</label>
-              <input id="searchNif" class="form-control form-control-sm mr-3 w-75" type="text"
-                placeholder="Nif del Profesor..." aria-label="Search" style="height: 40px; margin-top: 10px;">
-              <input type="submit" id="btnBuscar" class="btn btn-success" style="margin-top: 10px;" value="Buscar">
-              <button class="btn btn-primary mx-4" style="margin-top: 10px;">Limpiar</button>
+              <input id="searchNif" class="form-control form-control-sm mr-3 w-75 my-3" type="text"
+                placeholder="Nif del Profesor..." aria-label="Search" style="height: 40px;">
+
+              <div class="form-group">
+                <button type="button" id="btnBuscar" class="btn btn-success">Buscar</button>
+                <button type="reset" class="btn btn-primary mx-4">Limpiar</button>
+              </div>
             </form>
           </div>
         </div>
       </div>
+
       <div class="col-6">
         <div class="card border-success">
           <div class="card-header">Filtros</div>
@@ -55,6 +59,7 @@
         </div>
       </div>
     </div>
+    
     <div class="row my-4">
       <div class="col-12">
         <div class="card border-success">
@@ -112,7 +117,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Nuevo Profesor</h5>
+          <h5 class="modal-title">Nuevo Profesor</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -137,7 +142,8 @@
             </div>
             <div class="form-group">
               <label for="itTelefono">Telefono*</label>
-              <input type="text" id="itTelefono" th:field="*{telefono}" class="form-control" placeholder="Telefono" required>
+              <input type="text" id="itTelefono" th:field="*{telefono}" class="form-control" placeholder="Telefono"
+                required>
             </div>
             <div class="form-group">
               <label for="itCorreo">Correo*</label>
@@ -159,7 +165,7 @@
     </div>
   </div>
   <footer th:replace="layout/adminBase::footer()"></footer>
-  <script src="js/admin/busquedaProf.js"></script>
+  <script src="js/admin/profesorado.js"></script>
 </body>
 
 </html>

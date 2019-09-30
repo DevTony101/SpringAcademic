@@ -30,13 +30,12 @@ public class ProfesorController {
   @GetMapping("/profesorado")
   public String profesorado(Model model) {
     model.addAttribute("profesor", new Profesor());
-    return "busquedaProfesorado";
+    return "profesorado";
   }
 
   @PostMapping("/crearProfesor")
-  public String crearProfesor(@ModelAttribute @Valid Profesor profesor, Model model) {
+  public String crearProfesor(@ModelAttribute @Valid Profesor profesor) {
     pService.guardarProfesor(profesor);
-    model.addAttribute("profesor", new Profesor());
     return "redirect:/profesorado?success";
   }
 

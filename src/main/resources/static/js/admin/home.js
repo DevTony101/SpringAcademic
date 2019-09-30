@@ -7,7 +7,7 @@ function setup() {
     data: {
       labels: ['Matematicas', 'Sociales', 'Biologia', 'Historia', 'Geografia'],
       datasets: [{
-        label: '# of Votes',
+        label: 'Profesores por Curso',
         data: [12, 19, 3, 5, 2],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
