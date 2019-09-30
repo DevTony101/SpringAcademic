@@ -21,4 +21,6 @@ public interface ProfesorRepository extends JpaRepository<Profesor, Long> {
   List<Profesor> findByNombre(String nombre);
 
   Profesor findByNif(String nif);
+
+  List<Profesor> findAll();
 }

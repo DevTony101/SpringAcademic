@@ -47,12 +47,18 @@ function setup() {
 function getResultados() {
   const nombre = itNombre.value();
   const nif = itNif.value();
-  if (nombre.length > 0 || nif.length > 0) {
-    let query = '?nombre=' + nombre + '&nif=' + nif;
-    const url = '/getProfesores' + query;
-    const res = encodeURI(url);
-    getData(res);
+  const url = '/getProfesores';
+  let query = '';
+  let res;
+  if (nombre.length > 0 && nif.length > 0) {
+    query = '?nombre=' + nombre + '&nif=' + nif;
+  } else if (nombre.length > 0) {
+    query = '?nombre=' + nombre;
+  } else if (nif.length > 0) {
+    query = '?nif=' + nif;
   }
+  res = encodeURI(url + query);
+  getData(res);
 }
 
 async function getData(apiUrl) {

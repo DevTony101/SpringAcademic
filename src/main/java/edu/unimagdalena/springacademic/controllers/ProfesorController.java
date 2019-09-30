@@ -48,15 +48,22 @@ public class ProfesorController {
 
   @GetMapping("/getProfesores")
   @ResponseBody
-  public List<Profesor> getProfesores(@RequestParam(name = "nombre") String nombre,
-      @RequestParam(name = "nif") String nif) {
-    if (!nombre.isEmpty() && !nif.isEmpty()) {
-      return Arrays.asList(pService.getProfesor(nombre, nif));
-    } else if (!nombre.isEmpty()) {
-      return pService.getProfesorByNombre(nombre);
-    } 
+  public List<Profesor> getProfesores(@RequestParam(name = "nombre", required = false) String nombre,
+      @RequestParam(name = "nif", required = false) String nif) {
 
-    return Arrays.asList(pService.getProfesorByNif(nif));
+    if (nombre != null && nif != null) {
+      return Arrays.asList(pService.getProfesor(nombre, nif));
+    }
+
+    if (nombre != null) {
+      return pService.getProfesorByNombre(nombre);
+    }
+
+    if (nif != null) {
+      return Arrays.asList(pService.getProfesorByNif(nif));
+    }
+
+    return pService.getAll();
   }
 
   @GetMapping("/eliminarProfesor/{nif}")

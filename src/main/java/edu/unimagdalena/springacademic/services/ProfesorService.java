@@ -52,4 +52,9 @@ public class ProfesorService implements IProfesorService {
     uService.eliminarUsuario(usuario);
     repo.delete(profesor);
   }
+
+  @Override
+  public List<Profesor> getAll() {
+    return repo.findAll();
+  }
 }
