@@ -3,6 +3,9 @@ let itNombre, itNif;
 
 function setup() {
   noCanvas();
+  const inputNif = select('#itNif');
+  const smNif = select('#smNif');
+
   $('#successModal').modal('toggle');
   itNombre = select('#searchName');
   itNif = select('#searchNif');
@@ -15,6 +18,13 @@ function setup() {
       "targets": -1
     }]
   });
+
+  $('#formProfesor').on('submit', () => {
+    if (smNif.hasClass('show-error')) {
+      return false;
+    }
+    return true;
+  })
 
   $('#btnBuscar').on('click', (e) => {
     e.preventDefault();
@@ -41,6 +51,21 @@ function setup() {
         break;
     }
     setTimeout(getResultados, 500);
+  });
+
+
+  inputNif.input(() => {
+    const text = inputNif.value();
+    smNif.removeClass('show-error');
+    smNif.addClass('hidden');
+    fetch('/getProfesores').then(response => response.json()).then(json => {
+      json.forEach(profesor => {
+        if (text === profesor.nif) {
+          smNif.removeClass('hidden');
+          smNif.addClass('show-error');
+        }
+      })
+    })
   });
 }
 

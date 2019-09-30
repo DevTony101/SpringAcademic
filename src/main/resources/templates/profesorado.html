@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="row my-4">
       <div class="col-12">
         <div class="card border-success">
@@ -123,8 +123,8 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="#" th:action="@{/crearProfesor}" th:object="${profesor}" role="form" autocomplete="off"
-            method="post">
+          <form id="formProfesor" action="#" th:action="@{/crearProfesor}" th:object="${profesor}" role="form"
+            autocomplete="off" method="post">
             <div class="form-group">
               <label for="itNombre">Nombre*</label>
               <input type="text" id="itNombre" th:field="*{nombre}" class="form-control"
@@ -138,7 +138,7 @@
             <div class="form-group">
               <label for="itNif">Nif*</label>
               <input type="text" id="itNif" th:field="*{nif}" class="form-control" placeholder="Cédula" required>
-              <small class="form-text text-muted">No se compartirá esta información.</small>
+              <small class="form-text text-muted hidden" id="smNif">Ya Existe el Nif en la Base de Datos</small>
             </div>
             <div class="form-group">
               <label for="itTelefono">Telefono*</label>
@@ -148,7 +148,6 @@
             <div class="form-group">
               <label for="itCorreo">Correo*</label>
               <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo" required>
-              <small class="form-text text-muted">No se compartirá esta información.</small>
             </div>
             <div class="form-group">
               <label for="itTitulacion">Titulacion</label>
@@ -165,6 +164,7 @@
     </div>
   </div>
   <footer th:replace="layout/adminBase::footer()"></footer>
+  <link rel="stylesheet" href="css/profesoradoStyle.css">
   <script src="js/admin/profesorado.js"></script>
 </body>
 
