@@ -23,8 +23,10 @@ public class HomeController {
     Usuario usuario = uService.getCurrentUsuario();
     for (Role role : usuario.getRoles()) {
       if (role.getRole().equals("ADMIN")) {
+        model.addAttribute("usuario", usuario);
         return "home";
       } else if (role.getRole().equals("PROFESOR")) {
+        model.addAttribute("usuario", usuario);
         model.addAttribute("profesor", usuario.getUsuarioProfesor());
         return "profesores/home";
       }

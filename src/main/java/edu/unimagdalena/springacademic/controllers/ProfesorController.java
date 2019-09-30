@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.unimagdalena.springacademic.entities.Profesor;
+import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.services.ProfesorService;
+import edu.unimagdalena.springacademic.services.UsuarioService;
 
 /**
  * ProfesorController
@@ -27,9 +29,14 @@ public class ProfesorController {
   @Autowired
   private ProfesorService pService;
 
+  @Autowired
+  private UsuarioService uService;
+
   @GetMapping("/profesorado")
   public String profesorado(Model model) {
+    Usuario usuario = uService.getCurrentUsuario();
     model.addAttribute("profesor", new Profesor());
+    model.addAttribute("usuario", usuario);
     return "profesorado";
   }
 
