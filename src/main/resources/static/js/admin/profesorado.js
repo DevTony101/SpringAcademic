@@ -4,21 +4,13 @@ let itNombre, itNif;
 function setup() {
   noCanvas();
   initTimetable();
+  initTable();
   const inputNif = select('#itNif');
   const smNif = select('#smNif');
 
   $('#successModal').modal('toggle');
   itNombre = select('#searchName');
   itNif = select('#searchNif');
-  table = $('#tbBusqueda').DataTable({
-    "columnDefs": [{
-      "data": null,
-      "defaultContent": "<a class='btn btn-primary' style='margin-right: 10px;' role='button' href='#'>Info</a>" +
-        "<a class='btn btn-primary' style='margin-right: 10px;' role='button' href='#'>Clases</a>" +
-        "<a class='btn btn-danger' role='button' href='#'>Eliminar</a>",
-      "targets": -1
-    }]
-  });
 
   $('#formProfesor').on('submit', () => {
     if (smNif.hasClass('show-error')) {
@@ -30,6 +22,48 @@ function setup() {
   $('#btnBuscar').on('click', (e) => {
     e.preventDefault();
     getResultados();
+  });
+
+  inputNif.input(() => {
+    const text = inputNif.value();
+    smNif.removeClass('show-error');
+    smNif.addClass('hidden');
+    fetch('/getProfesores').then(response => response.json()).then(json => {
+      json.forEach(profesor => {
+        if (text === profesor.nif) {
+          smNif.removeClass('hidden');
+          smNif.addClass('show-error');
+        }
+      })
+    })
+  });
+}
+
+function initTable() {
+  // const btnTabla = "<div class='btn-group' style='margin: 0'>" +
+  //   "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Acción</button>" +
+  //   "<div class='dropdown-menu'>" +
+  //   "<a class='dropdown-item' href='#'>Info</a>" +
+  //   "<a class='dropdown-item' href='#'>Clases</a>" +
+  //   "<a class='dropdown-item' href='#'>Eliminar</a>" +
+  //   "</div>" +
+  //   "</div>"
+  const btnTabla = "<div class='btn-group' style='margin: 0'>" +
+    "<button class='btn bmd-btn-icon dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
+    "<i class='material-icons'>more_vert</i>" +
+    "</button>" +
+    "<div class='dropdown-menu dropdown-menu-left'>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Info</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
+    "<a class='dropdown-item btn btn-danger' role='button' href='#'>Eliminar</a>" +
+    "</div>" +
+    "</div>"
+  table = $('#tbBusqueda').DataTable({
+    "columnDefs": [{
+      "data": null,
+      "defaultContent": btnTabla,
+      "targets": -1
+    }]
   });
 
   $('#tbBusqueda tbody').on('click', 'a', function (e) {
@@ -53,21 +87,6 @@ function setup() {
         break;
     }
     setTimeout(getResultados, 500);
-  });
-
-
-  inputNif.input(() => {
-    const text = inputNif.value();
-    smNif.removeClass('show-error');
-    smNif.addClass('hidden');
-    fetch('/getProfesores').then(response => response.json()).then(json => {
-      json.forEach(profesor => {
-        if (text === profesor.nif) {
-          smNif.removeClass('hidden');
-          smNif.addClass('show-error');
-        }
-      })
-    })
   });
 }
 

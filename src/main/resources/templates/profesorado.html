@@ -11,7 +11,7 @@
       <div class="col-6">
         <div class="card border-success">
           <div class="card-header">Búsqueda de Profesores</div>
-          <div class="card-body">
+          <div class="card-body" style="padding-bottom: 0">
             <form id="searchForm" class="form-inline">
               <i class="fas fa-user-edit" style="margin-right: 20px;"></i>
               <label for="searchName" style="margin-right: 20px;">Nombre</label>
@@ -24,8 +24,8 @@
                 placeholder="Nif del Profesor..." aria-label="Search" style="height: 40px;">
 
               <div class="form-group">
-                <button type="button" id="btnBuscar" class="btn btn-success">Buscar</button>
-                <button type="reset" class="btn btn-primary mx-4">Limpiar</button>
+                <button type="button" id="btnBuscar" class="btn btn-raised btn-success">Buscar</button>
+                <button type="reset" class="btn btn-raised btn-primary mx-4">Limpiar</button>
               </div>
             </form>
           </div>
@@ -66,8 +66,8 @@
           <div class="card-header">Resultados de Búsqueda</div>
           <div class="card-body">
             <nav class="nav" style="margin-bottom: 20px;">
-              <a class="nav-link btn btn-success" style="margin-right: 10px;" role="button" href="#" data-toggle="modal"
-                data-target="#mdCrearProfesor">Nuevo Profesor</a>
+              <a class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button" href="#"
+                data-toggle="modal" data-target="#mdCrearProfesor">Nuevo Profesor</a>
             </nav>
             <table id="tbBusqueda" class="table table-striped">
               <thead>
@@ -126,8 +126,7 @@
           <div class="timetable"></div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
         </div>
       </div>
     </div>
