@@ -3,6 +3,7 @@ let itNombre, itNif;
 
 function setup() {
   noCanvas();
+  initTimetable();
   const inputNif = select('#itNif');
   const smNif = select('#smNif');
 
@@ -42,6 +43,7 @@ function setup() {
       case "Info":
         break;
       case "Clases":
+        $('#modalClases').modal('toggle');
         break;
       case "Eliminar":
         url = "/eliminarProfesor/" + nif;
@@ -67,6 +69,20 @@ function setup() {
       })
     })
   });
+}
+
+function initTimetable() {
+  var timetable = new Timetable();
+  timetable.setScope(9, 23); // optional, only whole hours between 0 and 23
+
+  timetable.addLocations(['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabados']);
+
+  timetable.addEvent('Matematicas', 'Martes', new Date(2019, 9, 30, 13, 45), new Date(2019, 9, 30, 14, 30));
+  timetable.addEvent('Sociales', 'Lunes', new Date(2019, 9, 30, 15, 30), new Date(2019, 9, 30, 18, 30));
+  timetable.addEvent('Biologia', 'Jueves', new Date(2019, 9, 30, 10, 15), new Date(2019, 9, 30, 13, 30));
+
+  var renderer = new Timetable.Renderer(timetable);
+  renderer.draw('.timetable'); // any css selector
 }
 
 function getResultados() {
