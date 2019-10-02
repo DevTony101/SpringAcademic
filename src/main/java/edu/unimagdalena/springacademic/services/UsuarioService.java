@@ -67,4 +67,16 @@ public class UsuarioService implements IUsuarioService {
     repo.delete(usuario);
   }
 
+  @Override
+  public Usuario crearAdmin(String usuario, String clave) {
+    Usuario u = new Usuario();
+    u.setUsuario(usuario);
+    u.setClave(encoder.encode(clave));
+    u.setRespaldo(clave);
+    u.setEnabled(true);
+    Role role = roleRepo.findByRole("ADMIN");
+    u.setRoles(new HashSet<>(Arrays.asList(role)));
+    return repo.save(u);
+  }
+
 }

@@ -9,6 +9,8 @@ public interface IUsuarioService {
 
   Usuario crearProfesor(String usuario);
 
+  Usuario crearAdmin(String usuario, String clave);
+
   Usuario guardarUsuario(Usuario usuario);
 
   void eliminarUsuario(Usuario usuario);
