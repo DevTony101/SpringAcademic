@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import edu.unimagdalena.springacademic.entities.Alumno;
+import edu.unimagdalena.springacademic.entities.ResponsableAlumno;
 import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.services.UsuarioService;
 
@@ -22,7 +23,9 @@ public class AlumnoController {
   @GetMapping("/alumnado")
   public String alumnado(Model model) {
     Usuario usuario = uService.getCurrentUsuario();
-    model.addAttribute("alumno", new Alumno());
+    Alumno alumno = new Alumno();
+    alumno.setResponsable(new ResponsableAlumno());
+    model.addAttribute("alumno", alumno);
     model.addAttribute("usuario", usuario);
     return "alumnado";
   }

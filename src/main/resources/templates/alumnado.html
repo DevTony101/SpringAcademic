@@ -110,7 +110,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="mdCrearAlumno" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Nuevo Alumno</h5>
@@ -121,128 +121,100 @@
         <div class="modal-body">
           <form action="#" th:action="@{/crearAlumno}" th:object="${alumno}" role="form" autocomplete="off"
             method="post">
-            <div class="row">
-              <div class="col">
-                <div><b><u>Alumno</u></b></div>
-                <div class="form-inline my-2">
-                  <label for="nombre">*Nombre:</label>
-                  <input type="text" id="nombre" th:field="*{nombre}" class="form-control mx-2" required>
+            <ul class="nav nav-tabs bg-light">
+              <li class="active nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#alumno">Alumno</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#responsable">Responsable</a>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div id="alumno" class="tab-pane fade my-3 show active">
+                <div class="form-group">
+                  <label for="itNombre">Nombre*</label>
+                  <input type="text" id="itNombre" th:field="*{nombre}" class="form-control"
+                    placeholder="Nombre del Alumno" required>
                 </div>
-              </div>
-              <div class="col">
-                <div><b><u>Responsable</u></b></div>
-                <div class="form-inline my-2">
-                  <label for="nombreResp">*Nombre:</label>
-                  <input type="text" id="nombreResp" class="form-control mx-2" required>
+                <div class="form-group">
+                  <label for="itApellido">Apellido*</label>
+                  <input type="text" id="itApellido" th:field="*{apellido}" class="form-control"
+                    placeholder="Apellido del Alumno" required>
                 </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="apellido">*Apellido:</label>
-                  <input type="text" id="apellido" th:field="*{apellido}" class="form-control mx-2" required>
+                <div class="form-group">
+                  <label for="itNif">Nif</label>
+                  <input type="text" id="itNif" th:field="*{nif}" class="form-control" placeholder="Cédula">
                 </div>
-              </div>
-              <div class="col">
-                <div class="form-inline">
-                  <label for="apellidoResp">*Apellido:</label>
-                  <input type="text" id="apellidoResp" class="form-control mx-2" required>
+                <div class="form-group">
+                  <label for="itTelefono">Telefono</label>
+                  <input type="text" id="itTelefono" th:field="*{telefono}" class="form-control" placeholder="Telefono">
                 </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="nif">Nif:</label>
-                  <input type="text" id="nif" th:field="*{nif}" class="form-control" style="margin-left: 54px;">
+                <div class="form-group">
+                  <label for="itCorreo">Correo</label>
+                  <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo">
                 </div>
-              </div>
-              <div class="col">
-                <div class="form-inline">
-                  <label for="nifResp">*Nif:</label>
-                  <input type="text" id="nifResp" class="form-control" style="margin-left: 48px;" required>
-                </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="telefono">Telefono:</label>
-                  <input type="text" id="telefono" th:field="*{telefono}" class="form-control"
-                    style="margin-left: 13px;">
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-inline">
-                  <label for="telefonoResp">*Telefono:</label>
-                  <input type="text" id="telefonoResp" class="form-control" style="margin-left: 11px;" required>
-                </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="correo">Correo:</label>
-                  <input type="text" id="correo" th:field="*{correo}" class="form-control mx-4">
-                </div>
-              </div>
-              <div class="col">
-                <div class="form-inline">
-                  <label for="correoResp">*Correo:</label>
-                  <input type="text" id="correoResp" class="form-control mx-4" required>
-                </div>
-                <small>Nota: Los Datos del Responsable solo se llenaran si es necesario.</small>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="slDeportes">*Curso:</label>
-                  <select id="slDeportes" class="form-control mx-4">
-                    <option value="Todos">Todos</option>
-                    <option value="Matematicas">Matematicas</option>
-                    <option value="Biologia">Biologia</option>
-                    <option value="Sociales">Sociales</option>
+                <div class="form-group">
+                  <label for="itCurso">Curso*</label>
+                  <select id="itCurso" class="custom-select">
+                    <option value="">Matematicas</option>
+                    <option value="">Biologia</option>
                   </select>
+                  <div class="custom-control custom-checkbox my-2">
+                    <input type="checkbox" th:field="*{repetidor}" class="custom-control-input" id="cbRepetidor">
+                    <label class="custom-control-label" for="cbRepetidor">Repetidor</label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="itfalta">Fecha Alta</label>
+                  <input type="date" id="itfalta" th:field="*{fechaAlta}" class="form-control" placeholder="Correo">
+                </div>
+                <div class="form-group">
+                  <label for="itfbaja">Fecha Baja</label>
+                  <input type="date" id="itfbaja" th:field="*{fechaBaja}" class="form-control" placeholder="Correo"
+                    readonly>
+                </div>
+                <div class="form-group">
+                  <label for="taObservaciones">Observaciones</label>
+                  <textarea class="form-control" id="taObservaciones" rows="3"
+                    style="overflow: auto; resize: none;"></textarea>
+                </div>
+                <div class="modal-footer" style="padding-bottom: 0">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-success">Crear</button>
                 </div>
               </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="cbRepetidor">*Repetidor:</label>
-                  <input type="checkbox" id="cbRepetidor" th:field="*{repetidor}" class="form-control mx-2">
+              <div id="responsable" class="tab-pane fade my-3">
+                <small>Nota: Solo rellene esta información de ser necesario.</small>
+                <div class="form-group">
+                  <label for="itRespNombre">Nombre*</label>
+                  <input type="text" id="itRespNombre" th:field="*{responsable.nombre}" class="form-control"
+                    placeholder="Nombre del Responsable" required>
+                </div>
+                <div class="form-group">
+                  <label for="itRespApellido">Apellido*</label>
+                  <input type="text" id="itRespApellido" th:field="*{responsable.apellido}" class="form-control"
+                    placeholder="Apellido del Alumno" required>
+                </div>
+                <div class="form-group">
+                  <label for="itRespNif">Nif*</label>
+                  <input type="text" id="itRespNif" th:field="*{responsable.nif}" class="form-control"
+                    placeholder="Cédula" required>
+                </div>
+                <div class="form-group">
+                  <label for="itRespTelefono">Telefono*</label>
+                  <input type="text" id="itRespTelefono" th:field="*{responsable.telefono}" class="form-control"
+                    placeholder="Telefono" required>
+                </div>
+                <div class="form-group">
+                  <label for="itRespCorreo">Correo*</label>
+                  <input type="text" id="itRespCorreo" th:field="*{responsable.correo}" class="form-control"
+                    placeholder="Correo" required>
+                </div>
+                <div class="modal-footer" style="padding-bottom: 0">
+                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-success">Crear</button>
                 </div>
               </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="fechaAlta">*Fecha Alta:</label>
-                  <input type="date" id="fechaAlta" th:field="*{fechaAlta}" class="form-control mx-2">
-                </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="fechaBaja">*Fecha Baja:</label>
-                  <input type="date" id="fechaBaja" th:field="*{fechaBaja}" class="form-control mx-2" disabled>
-                </div>
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <div class="form-inline">
-                  <label for="observaciones">Observaciones:</label>
-                  <textarea id="observaciones" th:field="*{observaciones}" class="form-control mx-2"></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-success">Crear</button>
             </div>
           </form>
         </div>
