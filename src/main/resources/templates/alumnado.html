@@ -110,7 +110,7 @@
 
   <!-- Modal -->
   <div class="modal fade" id="mdCrearAlumno" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Nuevo Alumno</h5>
@@ -131,55 +131,63 @@
             </ul>
             <div class="tab-content">
               <div id="alumno" class="tab-pane fade my-3 show active">
-                <div class="form-group">
-                  <label for="itNombre">Nombre*</label>
-                  <input type="text" id="itNombre" th:field="*{nombre}" class="form-control"
-                    placeholder="Nombre del Alumno" required>
-                </div>
-                <div class="form-group">
-                  <label for="itApellido">Apellido*</label>
-                  <input type="text" id="itApellido" th:field="*{apellido}" class="form-control"
-                    placeholder="Apellido del Alumno" required>
-                </div>
-                <div class="form-group">
-                  <label for="itNif">Nif</label>
-                  <input type="text" id="itNif" th:field="*{nif}" class="form-control" placeholder="Cédula">
-                </div>
-                <div class="form-group">
-                  <label for="itTelefono">Telefono</label>
-                  <input type="text" id="itTelefono" th:field="*{telefono}" class="form-control" placeholder="Telefono">
-                </div>
-                <div class="form-group">
-                  <label for="itCorreo">Correo</label>
-                  <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo">
-                </div>
-                <div class="form-group">
-                  <label for="itCurso">Curso*</label>
-                  <select id="itCurso" class="custom-select">
-                    <option value="">Matematicas</option>
-                    <option value="">Biologia</option>
-                  </select>
-                  <div class="custom-control custom-checkbox my-2">
-                    <input type="checkbox" th:field="*{repetidor}" class="custom-control-input" id="cbRepetidor">
-                    <label class="custom-control-label" for="cbRepetidor">Repetidor</label>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="itNombre">Nombre*</label>
+                      <input type="text" id="itNombre" th:field="*{nombre}" class="form-control"
+                        placeholder="Nombre del Alumno" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="itApellido">Apellido*</label>
+                      <input type="text" id="itApellido" th:field="*{apellido}" class="form-control"
+                        placeholder="Apellido del Alumno" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="itNif">Nif</label>
+                      <input type="text" id="itNif" th:field="*{nif}" class="form-control" placeholder="Cédula">
+                    </div>
+                    <div class="form-group">
+                      <label for="itTelefono">Telefono</label>
+                      <input type="text" id="itTelefono" th:field="*{telefono}" class="form-control"
+                        placeholder="Telefono">
+                    </div>
+                    <div class="form-group">
+                      <label for="itCorreo">Correo</label>
+                      <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo">
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="itfalta">Fecha Alta</label>
-                  <input type="date" id="itfalta" th:field="*{fechaAlta}" class="form-control" placeholder="Correo">
-                </div>
-                <div class="form-group">
-                  <label for="itfbaja">Fecha Baja</label>
-                  <input type="date" id="itfbaja" th:field="*{fechaBaja}" class="form-control" placeholder="Correo"
-                    readonly>
-                </div>
-                <div class="form-group">
-                  <label for="taObservaciones">Observaciones</label>
-                  <textarea class="form-control" id="taObservaciones" rows="3"
-                    style="overflow: auto; resize: none;"></textarea>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label for="itCurso">Curso*</label>
+                      <select id="itCurso" class="custom-select">
+                        <option value="">Matematicas</option>
+                        <option value="">Biologia</option>
+                      </select>
+                      <div class="custom-control custom-checkbox my-2">
+                        <input type="checkbox" th:field="*{repetidor}" class="custom-control-input" id="cbRepetidor">
+                        <label class="custom-control-label" for="cbRepetidor">Repetidor</label>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="itfalta">Fecha Alta</label>
+                      <input type="date" id="itfalta" th:field="*{fechaAlta}" class="form-control" placeholder="Correo">
+                    </div>
+                    <div class="form-group">
+                      <label for="itfbaja">Fecha Baja</label>
+                      <input type="date" id="itfbaja" th:field="*{fechaBaja}" class="form-control" placeholder="Correo"
+                        readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="taObservaciones">Observaciones</label>
+                      <textarea class="form-control" id="taObservaciones" rows="3"
+                        style="overflow: auto; resize: none;"></textarea>
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer" style="padding-bottom: 0">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  <button type="reset" class="btn btn-primary">Limpiar</button>
                   <button type="submit" class="btn btn-success">Crear</button>
                 </div>
               </div>
@@ -212,6 +220,7 @@
                 </div>
                 <div class="modal-footer" style="padding-bottom: 0">
                   <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                  <button type="reset" class="btn btn-primary">Limpiar</button>
                   <button type="submit" class="btn btn-success">Crear</button>
                 </div>
               </div>
