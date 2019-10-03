@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -53,9 +55,11 @@ public class Alumno implements Serializable {
   private Boolean repetidor;
   @Column(name = "fecha_alta", nullable = false)
   @Temporal(TemporalType.DATE)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date fechaAlta;
   @Column(name = "fecha_baja", nullable = true)
   @Temporal(TemporalType.DATE)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private Date fechaBaja;
   @Column(name = "observaciones", length = 2000, nullable = true)
   private String observaciones;

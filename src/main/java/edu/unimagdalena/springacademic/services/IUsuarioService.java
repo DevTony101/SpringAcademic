@@ -7,9 +7,9 @@ import edu.unimagdalena.springacademic.entities.Usuario;
  */
 public interface IUsuarioService {
 
-  Usuario crearProfesor(String usuario);
+  Usuario crearUsuario(String usuario, String rol, String clave);
 
-  Usuario crearAdmin(String usuario, String clave);
+  Usuario crearUsuario(String usuario, String rol);
 
   Usuario guardarUsuario(Usuario usuario);
 

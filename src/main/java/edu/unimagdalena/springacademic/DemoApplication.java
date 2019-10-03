@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.services.RoleService;
 import edu.unimagdalena.springacademic.services.UsuarioService;
 
@@ -25,6 +26,7 @@ public class DemoApplication {
 	@PostConstruct
 	public void inicializar() {
 		rService.crearRoles("ADMIN", "ALUMNO", "PROFESOR");
-		uService.crearAdmin("devtony101", "123");
+		Usuario usuario = uService.crearUsuario("devtony101", "ADMIN", "123");
+		uService.guardarUsuario(usuario);
 	}
 }

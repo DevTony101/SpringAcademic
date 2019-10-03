@@ -31,24 +31,32 @@ public class UsuarioService implements IUsuarioService {
 
   @Autowired
   @Lazy
-	private BCryptPasswordEncoder encoder;
+  private BCryptPasswordEncoder encoder;
 
   @Override
-  public Usuario crearProfesor(String usuario) {
+  public Usuario crearUsuario(String usuario, String rol, String clave) {
     Usuario u = new Usuario();
     u.setUsuario(usuario);
-    String clave = String.valueOf(new java.util.Random().nextInt(899) + 100);
     u.setClave(encoder.encode(clave));
     u.setRespaldo(clave);
-    Role userRole = roleRepo.findByRole("PROFESOR");
-    u.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
     u.setEnabled(true);
+    Role role = roleRepo.findByRole(rol);
+    u.setRoles(new HashSet<>(Arrays.asList(role)));
     return u;
   }
 
   @Override
+  public Usuario crearUsuario(String usuario, String rol) {
+    String clave = String.valueOf(new java.util.Random().nextInt(899) + 100);
+    return crearUsuario(usuario, rol, clave);
+  }
+
+  @Override
   public Usuario guardarUsuario(Usuario usuario) {
-    return repo.save(usuario);
+    if (repo.findByUsuario(usuario.getUsuario()) == null) {
+      return repo.save(usuario);
+    }
+    return null;
   }
 
   @Override
@@ -65,18 +73,6 @@ public class UsuarioService implements IUsuarioService {
   @Override
   public void eliminarUsuario(Usuario usuario) {
     repo.delete(usuario);
-  }
-
-  @Override
-  public Usuario crearAdmin(String usuario, String clave) {
-    Usuario u = new Usuario();
-    u.setUsuario(usuario);
-    u.setClave(encoder.encode(clave));
-    u.setRespaldo(clave);
-    u.setEnabled(true);
-    Role role = roleRepo.findByRole("ADMIN");
-    u.setRoles(new HashSet<>(Arrays.asList(role)));
-    return repo.save(u);
   }
 
 }

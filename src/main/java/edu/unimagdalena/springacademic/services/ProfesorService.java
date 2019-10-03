@@ -24,7 +24,7 @@ public class ProfesorService implements IProfesorService {
   @Override
   public Profesor guardarProfesor(Profesor profesor) {
     String nombre = profesor.getNombre().toLowerCase() + profesor.getApellido().substring(0, 2).toLowerCase();
-    Usuario usuario = uService.crearProfesor(nombre);
+    Usuario usuario = uService.crearUsuario(nombre, "PROFESOR");
     usuario.setUsuarioProfesor(profesor);
     uService.guardarUsuario(usuario);
     return repo.save(profesor);

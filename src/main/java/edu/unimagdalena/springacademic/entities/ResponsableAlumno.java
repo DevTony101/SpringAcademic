@@ -2,6 +2,7 @@ package edu.unimagdalena.springacademic.entities;
 
 import java.io.Serializable;
 import java.util.Set;
+import java.util.HashSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 
@@ -21,7 +21,6 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "RESPONSABLE_ALUMNO")
-@NoArgsConstructor
 @Getter
 @Setter
 public class ResponsableAlumno implements Serializable {
@@ -45,5 +44,9 @@ public class ResponsableAlumno implements Serializable {
   @OneToMany(mappedBy = "responsable")
   @NonNull
   private Set<Alumno> alumnos;
+
+  public ResponsableAlumno() {
+    this.alumnos = new HashSet<>();
+  }
   
 }

@@ -44,7 +44,7 @@
             <div class="row">
               <div class="col-6">
                 <span>Por Curso</span>
-                <select id="slDeportes" class="form-control">
+                <select id="slCursos" class="custom-select">
                   <option value="Todos">Todos</option>
                   <option value="Matematicas">Matematicas</option>
                   <option value="Biologia">Biologia</option>
@@ -175,20 +175,14 @@
                     </div>
                     <div class="form-group">
                       <label for="itfbaja">Fecha Baja</label>
-                      <input type="date" id="itfbaja" th:field="*{fechaBaja}" class="form-control" placeholder="Correo"
-                        readonly>
+                      <input type="date" id="itfbaja" class="form-control" placeholder="Correo" readonly>
                     </div>
                     <div class="form-group">
                       <label for="taObservaciones">Observaciones</label>
-                      <textarea class="form-control" id="taObservaciones" rows="3"
+                      <textarea class="form-control" id="taObservaciones" th:field="*{observaciones}" rows="3"
                         style="overflow: auto; resize: none;"></textarea>
                     </div>
                   </div>
-                </div>
-                <div class="modal-footer" style="padding-bottom: 0">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                  <button type="reset" class="btn btn-primary">Limpiar</button>
-                  <button type="submit" class="btn btn-success">Crear</button>
                 </div>
               </div>
               <div id="responsable" class="tab-pane fade my-3">
@@ -196,34 +190,34 @@
                 <div class="form-group">
                   <label for="itRespNombre">Nombre*</label>
                   <input type="text" id="itRespNombre" th:field="*{responsable.nombre}" class="form-control"
-                    placeholder="Nombre del Responsable" required>
+                    placeholder="Nombre del Responsable">
                 </div>
                 <div class="form-group">
                   <label for="itRespApellido">Apellido*</label>
                   <input type="text" id="itRespApellido" th:field="*{responsable.apellido}" class="form-control"
-                    placeholder="Apellido del Alumno" required>
+                    placeholder="Apellido del Alumno">
                 </div>
                 <div class="form-group">
                   <label for="itRespNif">Nif*</label>
                   <input type="text" id="itRespNif" th:field="*{responsable.nif}" class="form-control"
-                    placeholder="Cédula" required>
+                    placeholder="Cédula">
                 </div>
                 <div class="form-group">
                   <label for="itRespTelefono">Telefono*</label>
                   <input type="text" id="itRespTelefono" th:field="*{responsable.telefono}" class="form-control"
-                    placeholder="Telefono" required>
+                    placeholder="Telefono">
                 </div>
                 <div class="form-group">
                   <label for="itRespCorreo">Correo*</label>
                   <input type="text" id="itRespCorreo" th:field="*{responsable.correo}" class="form-control"
-                    placeholder="Correo" required>
-                </div>
-                <div class="modal-footer" style="padding-bottom: 0">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                  <button type="reset" class="btn btn-primary">Limpiar</button>
-                  <button type="submit" class="btn btn-success">Crear</button>
+                    placeholder="Correo">
                 </div>
               </div>
+            </div>
+            <div class="modal-footer" style="padding-bottom: 0">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button type="reset" class="btn btn-primary">Limpiar</button>
+              <button type="submit" class="btn btn-success">Crear</button>
             </div>
           </form>
         </div>
