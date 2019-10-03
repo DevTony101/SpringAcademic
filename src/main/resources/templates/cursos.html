@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="layout/adminBase::head('Cursos')"></head>
+
+<body>
+  <header th:replace="layout/adminBase::header('Mantenimiento de Cursos')"></header>
+  <div class="container-fluid" style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border-success">
+          <div class="card-header">Cursos Actuales</div>
+          <div class="card-body">
+            <nav class="nav" style="margin-bottom: 20px;">
+              <a class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button" href="#"
+                data-toggle="modal" data-target="#mdCrearCurso">Nuevo Curso</a>
+            </nav>
+            <table id="tbCursos" class="table table-striped">
+              <thead>
+                <tr class="table-success">
+                  <th scope="col">Id</th>
+                  <th scope="col">Nivel</th>
+                  <th scope="col">Etapa</th>
+                  <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer th:replace="layout/adminBase::footer()"></footer>
+  <script src="js/admin/cursos.js"></script>
+</body>
+
+</html>
