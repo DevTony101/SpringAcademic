@@ -1,5 +1,7 @@
 package edu.unimagdalena.springacademic.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,11 @@ public class AlumnoService implements IAlumnoService {
     usuario.setUsuarioAlumno(alumno);
     uService.guardarUsuario(usuario);
     return repo.save(alumno);
+  }
+
+  @Override
+  public List<Alumno> getAll() {
+    return repo.findAll();
   }
 
 }

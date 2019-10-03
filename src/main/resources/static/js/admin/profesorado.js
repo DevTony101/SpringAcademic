@@ -40,14 +40,6 @@ function setup() {
 }
 
 function initTable() {
-  // const btnTabla = "<div class='btn-group' style='margin: 0'>" +
-  //   "<button type='button' class='btn btn-primary dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Acción</button>" +
-  //   "<div class='dropdown-menu'>" +
-  //   "<a class='dropdown-item' href='#'>Info</a>" +
-  //   "<a class='dropdown-item' href='#'>Clases</a>" +
-  //   "<a class='dropdown-item' href='#'>Eliminar</a>" +
-  //   "</div>" +
-  //   "</div>"
   const btnTabla = "<div class='btn-group' style='margin: 0'>" +
     "<button class='btn bmd-btn-icon dropdown-toggle' type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>" +
     "<i class='material-icons'>more_vert</i>" +

@@ -1,5 +1,7 @@
 package edu.unimagdalena.springacademic.services;
 
+import java.util.List;
+
 import edu.unimagdalena.springacademic.entities.Alumno;
 
 /**
@@ -8,4 +10,6 @@ import edu.unimagdalena.springacademic.entities.Alumno;
 public interface IAlumnoService {
 
   Alumno guardarAlumno(Alumno alumno);
+
+  List<Alumno> getAll();
 }

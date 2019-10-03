@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -70,6 +72,7 @@ public class Alumno implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "responsable")
+  @JsonIgnoreProperties("alumnos")
   private ResponsableAlumno responsable;
   
   @ManyToMany
@@ -78,5 +81,6 @@ public class Alumno implements Serializable {
   private Set<Clase> clases;
 
   @OneToOne(mappedBy = "usuarioAlumno")
+  @JsonIgnoreProperties("usuarioAlumno")
   private Usuario usuario;
 }

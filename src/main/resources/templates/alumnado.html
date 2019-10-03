@@ -28,7 +28,7 @@
               </div>
 
               <div class="form-group my-3">
-                <button type="button" class="btn btn-raised btn-success">Buscar</button>
+                <button type="button" id="btnBuscar" class="btn btn-raised btn-success">Buscar</button>
                 <button type="reset" class="btn btn-raised btn-primary mx-4">Limpiar</button>
               </div>
 
@@ -70,9 +70,10 @@
               <thead>
                 <tr class="table-light">
                   <th scope="col">Nombre</th>
-                  <th scope="col">Nif</th>
-                  <th scope="col">Correo</th>
-                  <th scope="col">Telefono</th>
+                  <th scope="col">Curso</th>
+                  <th scope="col">Responsable</th>
+                  <th scope="col">Fecha Alta</th>
+                  <th scope="col">Fecha Baja</th>
                   <th scope="col">Acción</th>
                 </tr>
               </thead>
@@ -171,7 +172,8 @@
                     </div>
                     <div class="form-group">
                       <label for="itfalta">Fecha Alta</label>
-                      <input type="date" id="itfalta" th:field="*{fechaAlta}" class="form-control" placeholder="Correo">
+                      <input type="date" id="itfalta" th:field="*{fechaAlta}" class="form-control" placeholder="Correo"
+                        readonly>
                     </div>
                     <div class="form-group">
                       <label for="itfbaja">Fecha Baja</label>
