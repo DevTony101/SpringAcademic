@@ -76,7 +76,7 @@ public class Alumno implements Serializable {
   private ResponsableAlumno responsable;
   
   @ManyToMany
-  @JoinTable(name="ALUMNO_CLASE", joinColumns= @JoinColumn( name="id_alumno", referencedColumnName="id"), inverseJoinColumns=@JoinColumn( name="id", referencedColumnName="id"))
+  @JoinTable(name="ALUMNO_CLASE", joinColumns= @JoinColumn( name="id_alumno", referencedColumnName="id"), inverseJoinColumns=@JoinColumn( name="id_clase", referencedColumnName="id"))
   @NonNull
   private Set<Clase> clases;
 

@@ -20,14 +20,46 @@ function initTable() {
     "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
     "<a class='dropdown-item btn btn-danger' role='button' href='#'>Dar de alta/baja</a>" +
     "</div>" +
-    "</div>"
+    "</div>";
+
   table = $('#tbBusqueda').DataTable({
     "columnDefs": [{
       "data": null,
       "defaultContent": btnTabla,
       "targets": -1
-    }]
+    }],
+    "rowCallback": function (row, data) {
+      if (data[5]) { // Vector - Posicion de fecha baja
+        $('td', row).addClass("table-danger");
+      }
+    }
   });
+
+  $('#tbBusqueda tbody').on('click', 'a', function (e) {
+    e.preventDefault();
+    const data = table.row($(this).parents('tr')).data();
+    const id = data[0];
+    const action = $(this).text();
+    const Http = new XMLHttpRequest();
+    let url, res;
+    switch (action) {
+      case "Info":
+        break;
+      case "Clases":
+        break;
+      case "Dar de alta/baja":
+        url = "/bajarAlumno/" + id;
+        res = encodeURI(url);
+        Http.open("GET", res);
+        Http.send();
+        break;
+    }
+    setTimeout(getResultados, 500);
+  });
+}
+
+function getResultados() {
+  getData('/getAlumnos');
 }
 
 async function getData(apiUrl) {
@@ -37,9 +69,10 @@ async function getData(apiUrl) {
   table.clear().draw();
   data.forEach(alumno => {
     table.row.add([
+      alumno.id,
       alumno.nombre,
       alumno.curso,
-      alumno.responsable.nombre,
+      (alumno.responsable ? alumno.responsable.nombre : 'No Figura'),
       alumno.fechaAlta,
       alumno.fechaBaja
     ]).draw(false);

@@ -42,8 +42,18 @@ public class AlumnoService implements IAlumnoService {
   }
 
   @Override
+  public Alumno actualizarAlumno(Alumno alumno) {
+    return repo.save(alumno);
+  }
+
+  @Override
   public List<Alumno> getAll() {
     return repo.findAll();
+  }
+
+  @Override
+  public Alumno getById(Long id) {
+    return repo.getOne(id);
   }
 
 }

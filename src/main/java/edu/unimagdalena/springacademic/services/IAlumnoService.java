@@ -9,7 +9,11 @@ import edu.unimagdalena.springacademic.entities.Alumno;
  */
 public interface IAlumnoService {
 
+  Alumno getById(Long id);
+
   Alumno guardarAlumno(Alumno alumno);
+
+  Alumno actualizarAlumno(Alumno alumno);
 
   List<Alumno> getAll();
 }
