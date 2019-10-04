@@ -27,5 +27,14 @@ public class CursoService implements ICursoService {
     return repo.findAll();
   }
 
-  
+  @Override
+  public Curso getById(Long id) {
+    return repo.getOne(id);
+  }
+
+  @Override
+  public void eliminarCurso(Curso curso) {
+    repo.delete(curso);
+  }
+
 }

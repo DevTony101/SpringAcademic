@@ -24,6 +24,30 @@ function initTable() {
       "targets": -1
     }]
   });
+
+  $('#tbCursos tbody').on('click', 'a', function (e) {
+    e.preventDefault();
+    const data = table.row($(this).parents('tr')).data();
+    const id = data[0];
+    const action = $(this).text();
+    const Http = new XMLHttpRequest();
+    let url, res;
+    switch (action) {
+      case "Editar":
+        break;
+      case "Eliminar":
+        url = "/eliminarCurso/" + id;
+        res = encodeURI(url);
+        Http.open("GET", res);
+        Http.send();
+        break;
+    }
+    setTimeout(getResultados, 500);
+  });
+}
+
+function getResultados() {
+  getData('/getCursos');
 }
 
 async function getData(apiUrl) {

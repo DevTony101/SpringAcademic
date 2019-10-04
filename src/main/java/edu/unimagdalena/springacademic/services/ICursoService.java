@@ -11,5 +11,9 @@ public interface ICursoService {
 
   Curso guardarCurso(Curso curso);
 
+  Curso getById(Long id);
+
+  void eliminarCurso(Curso curso);
+
   List<Curso> getAll();
 }
