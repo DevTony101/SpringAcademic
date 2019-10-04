@@ -26,7 +26,7 @@ public class DemoApplication {
 	@PostConstruct
 	public void inicializar() {
 		rService.crearRoles("ADMIN", "ALUMNO", "PROFESOR");
-		Usuario usuario = uService.crearUsuario("devtony101", "ADMIN", "123");
+		Usuario usuario = uService.crearUsuario("admin", "ADMIN", "123");
 		uService.guardarUsuario(usuario);
 	}
 }
