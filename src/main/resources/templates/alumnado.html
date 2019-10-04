@@ -162,10 +162,7 @@
                   <div class="col-6">
                     <div class="form-group">
                       <label for="itCurso">Curso*</label>
-                      <select id="itCurso" class="custom-select">
-                        <option value="">Matematicas</option>
-                        <option value="">Biologia</option>
-                      </select>
+                      <select id="itCurso" class="custom-select"></select>
                       <div class="custom-control custom-checkbox my-2">
                         <input type="checkbox" th:field="*{repetidor}" class="custom-control-input" id="cbRepetidor">
                         <label class="custom-control-label" for="cbRepetidor">Repetidor</label>
@@ -219,7 +216,6 @@
             </div>
             <div class="modal-footer" style="padding-bottom: 0">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="reset" class="btn btn-primary">Limpiar</button>
               <button type="submit" class="btn btn-success">Crear</button>
             </div>
           </form>

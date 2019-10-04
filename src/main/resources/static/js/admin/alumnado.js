@@ -3,10 +3,25 @@ let table;
 function setup() {
   noCanvas();
   initTable();
+  initForm();
   $('#successModal').modal('toggle');
-  $('#itfalta').val(new Date().toISOString().substring(0, 10));
   $('#btnBuscar').on('click', () => {
-    getData('/getAlumnos')
+    getResultados();
+  });
+}
+
+function initForm() {
+  $('#itfalta').val(new Date().toISOString().substring(0, 10));
+  getCursos();
+}
+
+function getCursos() {
+  const slCurso = select('#itCurso');
+  const data = getData('/getCursos');
+  data.then(json => {
+    json.forEach(curso => {
+      slCurso.option(curso.nivel + ' - ' + curso.etapa);
+    });
   });
 }
 
@@ -59,22 +74,25 @@ function initTable() {
 }
 
 function getResultados() {
-  getData('/getAlumnos');
+  const data = getData('/getAlumnos');
+  console.log(data);
+  data.then(json => {
+    table.clear().draw();
+    json.forEach(alumno => {
+      table.row.add([
+        alumno.id,
+        alumno.nombre,
+        alumno.curso,
+        (alumno.responsable ? alumno.responsable.nombre : 'No Figura'),
+        alumno.fechaAlta,
+        alumno.fechaBaja
+      ]).draw(false);
+    });
+  });
 }
 
 async function getData(apiUrl) {
   const response = await fetch(apiUrl);
   const data = await response.json();
-  console.log(data);
-  table.clear().draw();
-  data.forEach(alumno => {
-    table.row.add([
-      alumno.id,
-      alumno.nombre,
-      alumno.curso,
-      (alumno.responsable ? alumno.responsable.nombre : 'No Figura'),
-      alumno.fechaAlta,
-      alumno.fechaBaja
-    ]).draw(false);
-  });
+  return data;
 }
