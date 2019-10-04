@@ -31,6 +31,51 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal Nuevo Curso -->
+  <div class="modal fade" id="mdCrearCurso" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nuevo Curso</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="formProfesor" action="#" th:action="@{/crearCurso}" th:object="${curso}" role="form"
+            autocomplete="off" method="post">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="spNivel">*Nivel</label>
+                  <input type="number" class="form-control" id="spNivel" th:field="*{nivel}" value="1" min="1" max="10"
+                    step="1" />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="slEtapa">*Etapa</label>
+                  <select id="slEtapa" th:field="*{etapa}" class="custom-select">
+                    <option th:value="PRIMARIA">PRIMARIA</option>
+                    <option th:value="SECUNDARIA">SECUNDARIA</option>
+                    <option th:value="BACHILLERATO">BACHILLERATO</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button type="reset" class="btn btn-primary">Limpiar</button>
+              <button type="submit" class="btn btn-success">Crear</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer th:replace="layout/adminBase::footer()"></footer>
   <script src="js/admin/cursos.js"></script>
 </body>

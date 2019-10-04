@@ -3,6 +3,7 @@ let table;
 function setup() {
   noCanvas();
   initTable();
+  getData('/getCursos');
 }
 
 function initTable() {
@@ -11,8 +12,7 @@ function initTable() {
     "<i class='material-icons'>more_vert</i>" +
     "</button>" +
     "<div class='dropdown-menu dropdown-menu-left'>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Info</a>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Editar</a>" +
     "<a class='dropdown-item btn btn-danger' role='button' href='#'>Eliminar</a>" +
     "</div>" +
     "</div>";
@@ -23,5 +23,19 @@ function initTable() {
       "defaultContent": btnTabla,
       "targets": -1
     }]
+  });
+}
+
+async function getData(apiUrl) {
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+  console.log(data);
+  table.clear().draw();
+  data.forEach(curso => {
+    table.row.add([
+      curso.id,
+      curso.nivel,
+      curso.etapa
+    ]).draw(false);
   });
 }
