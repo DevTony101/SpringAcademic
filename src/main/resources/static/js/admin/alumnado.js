@@ -44,7 +44,8 @@ function initTable() {
       "targets": -1
     }],
     "rowCallback": function (row, data) {
-      if (data[5]) { // Vector - Posicion de fecha baja
+      if (data[5] !== 'No Figura') {
+        // Vector - Posicion de fecha baja
         $('td', row).addClass("table-danger");
       }
     }
@@ -82,10 +83,10 @@ function getResultados() {
       table.row.add([
         alumno.id,
         alumno.nombre,
-        alumno.curso,
+        alumno.curso.nivel + ' - ' + alumno.curso.etapa,
         (alumno.responsable ? alumno.responsable.nombre : 'No Figura'),
         alumno.fechaAlta,
-        alumno.fechaBaja
+        (alumno.fechaBaja ? alumno.fechaBaja : 'No Figura')
       ]).draw(false);
     });
   });
