@@ -37,4 +37,9 @@ public class CursoService implements ICursoService {
     repo.delete(curso);
   }
 
+  @Override
+  public Curso getByNivelEtapa(Integer nivel, String etapa) {
+    return repo.findByQuery(nivel, etapa);
+  }
+
 }

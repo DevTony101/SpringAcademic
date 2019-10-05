@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import edu.unimagdalena.springacademic.entities.Alumno;
+import edu.unimagdalena.springacademic.entities.Curso;
 import edu.unimagdalena.springacademic.entities.ResponsableAlumno;
 import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.repositories.AlumnoRepository;
@@ -25,6 +26,9 @@ public class AlumnoService implements IAlumnoService {
   @Autowired
   private ResponsableService rService;
 
+  @Autowired
+  private CursoService cService;
+
   @Override
   public Alumno guardarAlumno(Alumno alumno) {
     String nombre = alumno.getNombre().toLowerCase() + alumno.getApellido().substring(0, 2).toLowerCase();
@@ -36,8 +40,17 @@ public class AlumnoService implements IAlumnoService {
       responsable.getAlumnos().add(alumno);
       rService.guardarResponsable(responsable);
     }
+
+    String nCurso = alumno.getNCurso();
+    int nivel = Integer.parseInt(nCurso.substring(0, 1));
+    String etapa = nCurso.substring(4, alumno.getNCurso().length());
+    Curso curso = cService.getByNivelEtapa(nivel, etapa);
+    curso.getAlumnos().add(alumno);
+    alumno.setCurso(curso);
+
     usuario.setUsuarioAlumno(alumno);
     uService.guardarUsuario(usuario);
+    cService.guardarCurso(curso);
     return repo.save(alumno);
   }
 

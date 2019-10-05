@@ -11,6 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -65,6 +66,8 @@ public class Alumno implements Serializable {
   private Date fechaBaja;
   @Column(name = "observaciones", length = 2000, nullable = true)
   private String observaciones;
+  @Transient
+  private String nCurso;
 
   @ManyToOne
   @JoinColumn(name = "curso")
