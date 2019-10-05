@@ -87,44 +87,47 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-4">
-              <div class="form-group">
-                <i class="fas fa-book" style="margin-right: 10px;"></i>
-                <label for="slCursoB">Curso</label>
-                <select id="slCursoB" class="custom-select sl-cursos"></select>
+          <form action="#" th:action="@{/crearClase}" th:object="${clase}" role="form" autocomplete="off" method="post">
+            <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                  <i class="fas fa-book" style="margin-right: 10px;"></i>
+                  <label for="slCursoB">Curso</label>
+                  <select id="slCursoB" class="custom-select sl-cursos"></select>
+                </div>
               </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <i class="fas fa-book-open" style="margin-right: 10px;"></i>
-                <label for="slAsignatura">Asignatura</label>
-                <select id="slAsignatura" class="custom-select"></select>
+              <div class="col-4">
+                <div class="form-group">
+                  <i class="fas fa-book-open" style="margin-right: 10px;"></i>
+                  <label for="slAsignatura">Asignatura</label>
+                  <select id="slAsignatura" class="custom-select"></select>
+                </div>
               </div>
-            </div>
-            <div class="col-4">
-              <div class="form-group">
-                <i class="fas fa-chalkboard-teacher" style="margin-right: 10px;"></i>
-                <label for="slProfesor">Profesor</label>
-                <select id="slProfesor" class="custom-select sl-profesores"></select>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">Horario</div>
-                <div class="card-body">
-                  <div id="calendar"></div>
+              <div class="col-4">
+                <div class="form-group">
+                  <i class="fas fa-chalkboard-teacher" style="margin-right: 10px;"></i>
+                  <label for="slProfesor">Profesor</label>
+                  <select id="slProfesor" class="custom-select sl-profesores"></select>
                 </div>
               </div>
             </div>
-          </div>
+            <div class="row">
+              <div class="col-6">
+                <label for="clFecha">Fecha</label>
+                <input type="date" id="clFecha" th:field="*{fecha}" class="form-control">
+              </div>
+              <div class="col-6">
+                <label for="clHora">Hora</label>
+                <input type="time" id="clHora" th:field="*{hora}" class="form-control">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-success">Crear</button>
+            </div>
+          </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-success">Crear</button>
-        </div>
+
       </div>
     </div>
   </div>

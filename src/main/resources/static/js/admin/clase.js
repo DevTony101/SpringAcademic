@@ -1,15 +1,15 @@
 let table;
+let slCursos, slProfesores;
 
 function setup() {
   noCanvas();
+  slCursos = selectAll('.sl-cursos');
+  slProfesores = selectAll('.sl-profesores');
   initTable();
-  initCalendar();
   initSelects();
 }
 
 function initSelects() {
-  const slCursos = selectAll('.sl-cursos');
-  const slProfesores = selectAll('.sl-profesores');
   let data = getData('/getCursos');
   data.then(json => {
     json.forEach(curso => {
@@ -50,22 +50,41 @@ function initTable() {
   });
 }
 
-function initCalendar() {
-  const calendarEl = document.getElementById('calendar');
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    plugins: ['interaction', 'dayGrid', 'timeGrid'],
-    selectable: true,
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    dateClick: function (info) {
-      alert('clicked ' + info.dateStr);
-    }
-  });
+// function initCalendar() {
+//   const calendarEl = document.getElementById('calendar');
+//   const calendar = new FullCalendar.Calendar(calendarEl, {
+//     plugins: ['interaction', 'dayGrid', 'timeGrid'],
+//     selectable: true,
+//     defaultView: 'timeGridWeek',
+//     header: {
+//       left: 'prev,next today',
+//       center: 'title',
+//       right: 'timeGridWeek,timeGridDay'
+//     },
+//     dateClick: function (info) {
+//       const date = info.date;
+//       const campos = getCampos();
+//       calendar.addEvent({
+//         title: campos.curso + ' ' + campos.profesor,
+//         start: date,
+//         end: date
+//       });
+//       const dateStr = date.toLocaleString('en-GB');
+//       console.log(dateStr);
+//       $('#clHora').val(dateStr.substring(12, 20));
+//       $('#clFecha').val(date.toISOString().substring(0, 10));
+//       alert('clicked ' + date.getHours());
+//     }
+//   });
 
-  calendar.render();
+//   calendar.render();
+// }
+
+function getCampos() {
+  return {
+    curso: slCursos[1].value(),
+    profesor: slProfesores[1].value()
+  };
 }
 
 async function getData(apiUrl) {
