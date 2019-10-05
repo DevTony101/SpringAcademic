@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="layout/adminBase::head('Asignaturas')"></head>
+
+<body>
+  <header th:replace="layout/adminBase::header('Mantenimiento de Asignaturas')"></header>
+
+  <div class="container-fluid" style="margin-top: 20px;">
+    <div class="row">
+      <div class="col-12">
+        <div class="card border-success">
+          <div class="card-header">Asignaturas Actuales</div>
+          <div class="card-body">
+            <nav class="nav" style="margin-bottom: 20px;">
+              <a class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button" href="#"
+                data-toggle="modal" data-target="#mdCrearAsignatura">Nueva Asignatura</a>
+            </nav>
+            <table id="tbAsignaturas" class="table table-striped">
+              <thead>
+                <tr class="table-success">
+                  <th scope="col">Id</th>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Curso</th>
+                  <th scope="col">Acción</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Nuevo Curso -->
+  <div class="modal fade" id="mdCrearAsignatura" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Nueva Asignatura</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="formProfesor" action="#" th:action="@{/crearAsignatura}" th:object="${asignatura}" role="form"
+            autocomplete="off" method="post">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="itNombre">*Nombre</label>
+                  <input type="text" class="form-control" id="itNombre" th:field="*{nombre}" />
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="slCurso">*Curso</label>
+                  <select id="slCurso" th:field="*{nCurso}" class="custom-select"></select>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+              <button type="reset" class="btn btn-primary">Limpiar</button>
+              <button type="submit" class="btn btn-success">Crear</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer th:replace="layout/adminBase::footer()"></footer>
+  <script src="js/admin/asignatura.js"></script>
+</body>
+
+</html>

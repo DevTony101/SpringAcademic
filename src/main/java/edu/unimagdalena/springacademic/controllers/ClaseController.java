@@ -5,7 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import edu.unimagdalena.springacademic.entities.Asignatura;
 import edu.unimagdalena.springacademic.entities.Clase;
+import edu.unimagdalena.springacademic.entities.Profesor;
 import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.services.UsuarioService;
 
@@ -21,7 +23,10 @@ public class ClaseController {
   @GetMapping("/clases")
   public String clases(Model model) {
     Usuario usuario = uService.getCurrentUsuario();
-    model.addAttribute("clase", new Clase());
+    Clase clase = new Clase();
+    clase.setProfesor(new Profesor());
+    clase.setAsignatura(new Asignatura());
+    model.addAttribute("clase", clase);
     model.addAttribute("usuario", usuario);
     return "clases";
   }

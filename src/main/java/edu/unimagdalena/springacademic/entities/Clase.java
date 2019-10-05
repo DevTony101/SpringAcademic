@@ -2,6 +2,7 @@ package edu.unimagdalena.springacademic.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -45,9 +46,9 @@ public class Clase implements Serializable {
   private Date fecha;
 
   @Column
-	@Temporal(TemporalType.TIME)
-	@DateTimeFormat(iso = ISO.TIME)
-	private Date hora;
+  @Temporal(TemporalType.TIME)
+  @DateTimeFormat(iso = ISO.TIME)
+  private Date hora;
 
   @ManyToOne
   @JoinColumn(name = "profesor")
@@ -57,11 +58,15 @@ public class Clase implements Serializable {
   @JoinColumn(name = "asignatura")
   private Asignatura asignatura;
 
-  @ManyToMany(mappedBy="clases")
+  @ManyToMany(mappedBy = "clases")
   private Set<Alumno> alumnos;
 
   @ManyToMany
   @OrderBy("diaIndice, horaIndice")
-  @JoinTable(name="CLASE_HORASEMANAL", joinColumns= @JoinColumn(name="id_clase", referencedColumnName="id"), inverseJoinColumns= @JoinColumn(name="id_horasemanal", referencedColumnName="id"))
+  @JoinTable(name = "CLASE_HORASEMANAL", joinColumns = @JoinColumn(name = "id_clase", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_horasemanal", referencedColumnName = "id"))
   private Set<HoraSemanal> horasSemanales;
+
+  public Clase() {
+    this.alumnos = new HashSet<>();
+  }
 }

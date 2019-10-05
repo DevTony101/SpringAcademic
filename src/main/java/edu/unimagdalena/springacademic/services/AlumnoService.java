@@ -43,7 +43,7 @@ public class AlumnoService implements IAlumnoService {
 
     String nCurso = alumno.getNCurso();
     int nivel = Integer.parseInt(nCurso.substring(0, 1));
-    String etapa = nCurso.substring(4, alumno.getNCurso().length());
+    String etapa = nCurso.substring(4, nCurso.length());
     Curso curso = cService.getByNivelEtapa(nivel, etapa);
     curso.getAlumnos().add(alumno);
     alumno.setCurso(curso);

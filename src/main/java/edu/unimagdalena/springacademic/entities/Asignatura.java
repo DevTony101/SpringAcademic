@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +41,11 @@ public class Asignatura implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "curso")
+  @JsonIgnoreProperties("asignaturas")
   private Curso curso;
+
+  @Transient
+  private String nCurso;
 
   @OneToMany(mappedBy = "asignatura")
   @NonNull
