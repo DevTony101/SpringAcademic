@@ -4,6 +4,29 @@ function setup() {
   noCanvas();
   initTable();
   initCalendar();
+  initSelects();
+}
+
+function initSelects() {
+  const slCursos = selectAll('.sl-cursos');
+  const slProfesores = selectAll('.sl-profesores');
+  let data = getData('/getCursos');
+  data.then(json => {
+    json.forEach(curso => {
+      for (let sl of slCursos) {
+        sl.option(curso.nivel + ' - ' + curso.etapa);
+      }
+    });
+  });
+
+  data = getData('/getProfesores');
+  data.then(json => {
+    json.forEach(profesor => {
+      for (let sl of slProfesores) {
+        sl.option(profesor.nombre + " " + profesor.apellido);
+      }
+    });
+  });
 }
 
 function initTable() {
@@ -43,4 +66,10 @@ function initCalendar() {
   });
 
   calendar.render();
+}
+
+async function getData(apiUrl) {
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+  return data;
 }

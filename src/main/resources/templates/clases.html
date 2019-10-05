@@ -18,7 +18,7 @@
                   <div class="form-group">
                     <i class="fas fa-book" style="margin-right: 10px;"></i>
                     <label for="slCurso">Curso</label>
-                    <select id="slCurso" class="custom-select"></select>
+                    <select id="slCurso" class="custom-select sl-cursos"></select>
                   </div>
                 </div>
                 <div class="col-6">
@@ -34,7 +34,7 @@
                   <div class="form-group">
                     <i class="fas fa-chalkboard-teacher" style="margin-right: 10px;"></i>
                     <label for="slProfesor">Profesor</label>
-                    <select id="slProfesor" class="custom-select"></select>
+                    <select id="slProfesor" class="custom-select sl-profesores"></select>
                   </div>
                 </div>
               </div>
@@ -87,7 +87,39 @@
           </button>
         </div>
         <div class="modal-body">
-          <div id="calendar"></div>
+          <div class="row">
+            <div class="col-4">
+              <div class="form-group">
+                <i class="fas fa-book" style="margin-right: 10px;"></i>
+                <label for="slCursoB">Curso</label>
+                <select id="slCursoB" class="custom-select sl-cursos"></select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <i class="fas fa-book-open" style="margin-right: 10px;"></i>
+                <label for="slAsignatura">Asignatura</label>
+                <select id="slAsignatura" class="custom-select"></select>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <i class="fas fa-chalkboard-teacher" style="margin-right: 10px;"></i>
+                <label for="slProfesor">Profesor</label>
+                <select id="slProfesor" class="custom-select sl-profesores"></select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">Horario</div>
+                <div class="card-body">
+                  <div id="calendar"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
