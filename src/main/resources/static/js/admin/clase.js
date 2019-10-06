@@ -1,10 +1,16 @@
 let table;
-let slCursos, slProfesores;
+let cursoBusqueda, cursoCrear;
+let profesorBusqueda, profesorCrear;
+let asignaturaBusqueda, asignaturaCrear;
 
 function setup() {
   noCanvas();
-  slCursos = selectAll('.sl-cursos');
-  slProfesores = selectAll('.sl-profesores');
+  cursoBusqueda = select('#cursoBusqueda');
+  cursoCrear = select('#cursoCrear');
+  profesorBusqueda = select('#profesorBusqueda');
+  profesorCrear = select('#profesorCrear');
+  asignaturaBusqueda = select('#asignaturaBusqueda');
+  asignaturaCrear = select('#asignaturaCrear');
   initTable();
   initSelects();
 }
@@ -13,18 +19,24 @@ function initSelects() {
   let data = getData('/getCursos');
   data.then(json => {
     json.forEach(curso => {
-      for (let sl of slCursos) {
-        sl.option(curso.nivel + ' - ' + curso.etapa);
-      }
+      cursoBusqueda.option(curso.nivel + ' - ' + curso.etapa);
+      cursoCrear.option(curso.nivel + ' - ' + curso.etapa);
     });
   });
 
   data = getData('/getProfesores');
   data.then(json => {
     json.forEach(profesor => {
-      for (let sl of slProfesores) {
-        sl.option(profesor.nombre + " " + profesor.apellido);
-      }
+      profesorBusqueda.option(profesor.nombre + " " + profesor.apellido);
+      profesorCrear.option(profesor.nombre + " " + profesor.apellido);
+    });
+  });
+
+  data = getData('/getAsignaturas');
+  data.then(json => {
+    json.forEach(asignatura => {
+      asignaturaBusqueda.option(asignatura.nombre);
+      asignaturaCrear.option(asignatura.nombre);
     });
   });
 }
@@ -48,43 +60,6 @@ function initTable() {
       "targets": -1
     }]
   });
-}
-
-// function initCalendar() {
-//   const calendarEl = document.getElementById('calendar');
-//   const calendar = new FullCalendar.Calendar(calendarEl, {
-//     plugins: ['interaction', 'dayGrid', 'timeGrid'],
-//     selectable: true,
-//     defaultView: 'timeGridWeek',
-//     header: {
-//       left: 'prev,next today',
-//       center: 'title',
-//       right: 'timeGridWeek,timeGridDay'
-//     },
-//     dateClick: function (info) {
-//       const date = info.date;
-//       const campos = getCampos();
-//       calendar.addEvent({
-//         title: campos.curso + ' ' + campos.profesor,
-//         start: date,
-//         end: date
-//       });
-//       const dateStr = date.toLocaleString('en-GB');
-//       console.log(dateStr);
-//       $('#clHora').val(dateStr.substring(12, 20));
-//       $('#clFecha').val(date.toISOString().substring(0, 10));
-//       alert('clicked ' + date.getHours());
-//     }
-//   });
-
-//   calendar.render();
-// }
-
-function getCampos() {
-  return {
-    curso: slCursos[1].value(),
-    profesor: slProfesores[1].value()
-  };
 }
 
 async function getData(apiUrl) {

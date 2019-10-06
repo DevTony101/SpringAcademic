@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Curso implements Serializable {
   @Column(name = "etapa", length = 50, nullable = false)
   private String etapa;
 
-  @OneToMany(mappedBy = "curso")
+  @OneToMany(mappedBy = "curso", cascade = CascadeType.REMOVE)
   @NonNull
   private Set<Asignatura> asignaturas;
 
