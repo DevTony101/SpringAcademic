@@ -3,6 +3,7 @@ let table;
 function setup() {
   noCanvas();
   initTable();
+  $('#successModal').modal('toggle');
   getData('/getCursos');
 }
 

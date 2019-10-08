@@ -1,5 +1,6 @@
 function setup() {
   noCanvas();
+  $('#successModal').modal('toggle');
   initTable();
   getAsignaturas();
   getCursos();

@@ -51,6 +51,7 @@ public class AlumnoService implements IAlumnoService {
     usuario.setUsuarioAlumno(alumno);
     uService.guardarUsuario(usuario);
     cService.guardarCurso(curso);
+    alumno.setUsuario(usuario);
     return repo.save(alumno);
   }
 

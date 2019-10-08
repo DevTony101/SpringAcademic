@@ -43,7 +43,7 @@ public class AsignaturaController {
   @PostMapping("/crearAsignatura")
   public String crearAsignatura(@ModelAttribute @Valid Asignatura asignatura) {
     aService.guardarAsignatura(asignatura);
-    return "redirect:/mantenimientoCursos?success";
+    return "redirect:/mantenimientoAsignaturas?success";
   }
 
   @GetMapping("/getAsignaturas")

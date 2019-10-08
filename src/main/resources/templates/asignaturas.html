@@ -52,7 +52,7 @@
               <div class="col">
                 <div class="form-group">
                   <label for="itNombre">*Nombre</label>
-                  <input type="text" class="form-control" id="itNombre" th:field="*{nombre}" />
+                  <input type="text" class="form-control" id="itNombre" th:field="*{nombre}" required/>
                 </div>
               </div>
               <div class="col">
@@ -68,6 +68,28 @@
               <button type="submit" class="btn btn-success">Crear</button>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal success -->
+  <div th:if="${param.success}" class="modal fade" id="successModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content  alert alert-success">
+        <div class="modal-header">
+          <h5 class="modal-title">Información<i class="fas fa-info-circle mx-3"></i></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="padding-bottom: 0">
+            La Asignatura se ha Registrado de Manera Exitosa!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
         </div>
       </div>
     </div>

@@ -67,11 +67,10 @@ public class ProfesorController {
   }
 
   @GetMapping("/eliminarProfesor/{nif}")
-  public String eliminarProfesor(@PathVariable("nif") String nif, Model model) {
+  public String eliminarProfesor(@PathVariable("nif") String nif) {
     Profesor profesor = pService.getProfesorByNif(nif);
     pService.eliminarProfesor(profesor);
-    model.addAttribute("profesor", new Profesor());
-    return "busquedaProfesorado";
+    return "redirect:/profesorado";
   }
 
 }

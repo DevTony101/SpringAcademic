@@ -27,6 +27,7 @@ public class ProfesorService implements IProfesorService {
     Usuario usuario = uService.crearUsuario(nombre, "PROFESOR");
     usuario.setUsuarioProfesor(profesor);
     uService.guardarUsuario(usuario);
+    profesor.setUsuario(usuario);
     return repo.save(profesor);
   }
 
