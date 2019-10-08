@@ -4,22 +4,36 @@ function setup() {
   noCanvas();
   initTable();
   initForm();
+  loadAsignaturas();
   $('#successModal').modal('toggle');
   $('#btnBuscar').on('click', () => {
     getResultados();
   });
 }
 
-function initForm() {
-  $('#itfalta').val(new Date().toISOString().substring(0, 10));
-  getCursos();
+function loadAsignaturas() {
+  const slAsignaturas = select('#slAsignaturas');
+  const data = getData('/getAsignaturas');
+  slAsignaturas.option('Todos');
+  data.then(json => {
+    json.forEach(asignatura => {
+      slAsignaturas.option(asignatura.nombre);
+    });
+  });
 }
 
-function getCursos() {
-  const slCurso = select('#itCurso');
+function initForm() {
+  $('#itfalta').val(new Date().toISOString().substring(0, 10));
+  loadCursos();
+}
+
+function loadCursos() {
+  const itCurso = select('#itCurso');
+  const slCurso = select('#slCursos');
   const data = getData('/getCursos');
   data.then(json => {
     json.forEach(curso => {
+      itCurso.option(curso.nivel + ' - ' + curso.etapa);
       slCurso.option(curso.nivel + ' - ' + curso.etapa);
     });
   });

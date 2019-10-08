@@ -23,8 +23,7 @@
               <div class="form-group">
                 <i class="fas fa-address-book" style="margin-right: 25px;"></i>
                 <label for="searchCurso">Curso</label>
-                <input id="searchCurso" class="form-control form-control-sm mr-3 w-75" type="text"
-                  placeholder="Nombre del Curso..." aria-label="Search" style="height: 40px; margin-top: 10px;">
+                <select id="slCursos" class="custom-select" style="margin-top: 10px;"></select>
               </div>
 
               <div class="form-group my-3">
@@ -43,13 +42,8 @@
           <div class="card-body">
             <div class="row">
               <div class="col-6">
-                <span>Por Curso</span>
-                <select id="slCursos" class="custom-select">
-                  <option value="Todos">Todos</option>
-                  <option value="Matematicas">Matematicas</option>
-                  <option value="Biologia">Biologia</option>
-                  <option value="Sociales">Sociales</option>
-                </select>
+                <span>Por Asignatura</span>
+                <select id="slAsignaturas" class="custom-select" style="margin-top: 10px;"></select>
               </div>
             </div>
           </div>
