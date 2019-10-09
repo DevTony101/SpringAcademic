@@ -5,6 +5,8 @@ function setup() {
   noCanvas();
   initTimetable();
   initTable();
+  loadAsignaturas();
+  loadTitulaciones();
   const inputNif = select('#itNif');
   const smNif = select('#smNif');
 
@@ -28,14 +30,37 @@ function setup() {
     const text = inputNif.value();
     smNif.removeClass('show-error');
     smNif.addClass('hidden');
-    fetch('/getProfesores').then(response => response.json()).then(json => {
+    const data = getData('/getProfesores');
+    data.then(json => {
       json.forEach(profesor => {
         if (text === profesor.nif) {
           smNif.removeClass('hidden');
           smNif.addClass('show-error');
         }
-      })
-    })
+      });
+    });
+  });
+}
+
+function loadAsignaturas() {
+  const slAsignaturas = select('#slAsignatura');
+  const data = getData('/getAsignaturas');
+  slAsignaturas.option('Todos');
+  data.then(json => {
+    json.forEach(asignatura => {
+      slAsignaturas.option(asignatura.nombre);
+    });
+  });
+}
+
+function loadTitulaciones() {
+  const slAsignaturas = select('#slTitulaciones');
+  const data = getData('/getProfesores');
+  slAsignaturas.option('Todos');
+  data.then(json => {
+    json.forEach(profesor => {
+      slAsignaturas.option(profesor.titulacion);
+    });
   });
 }
 
@@ -110,20 +135,23 @@ function getResultados() {
     query = '?nif=' + nif;
   }
   res = encodeURI(url + query);
-  getData(res);
+  const data = getData(res);
+  table.clear().draw();
+  data.then(json => {
+    json.forEach(profesor => {
+      table.row.add([
+        profesor.nombre,
+        profesor.nif,
+        profesor.correo,
+        profesor.telefono
+      ]).draw(false);
+    });
+  });
 }
 
 async function getData(apiUrl) {
   const response = await fetch(apiUrl);
   const data = await response.json();
   console.log(data);
-  table.clear().draw();
-  data.forEach(profesor => {
-    table.row.add([
-      profesor.nombre,
-      profesor.nif,
-      profesor.correo,
-      profesor.telefono
-    ]).draw(false);
-  });
+  return data;
 }
