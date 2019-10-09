@@ -13,6 +13,7 @@ function setup() {
   asignaturaCrear = select('#asignaturaCrear');
   initTable();
   initSelects();
+  initFullCalendar();
 }
 
 function initSelects() {
@@ -66,4 +67,22 @@ async function getData(apiUrl) {
   const response = await fetch(apiUrl);
   const data = await response.json();
   return data;
+}
+
+function initFullCalendar() {
+  const calendarEl = document.getElementById('calendar');
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    plugins: ['interaction', 'dayGrid', 'timeGrid'],
+    selectable: true,
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+    dateClick: function (info) {
+      alert('clicked ' + info.dateStr);
+    }
+  });
+
+  calendar.render();
 }

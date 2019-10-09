@@ -112,22 +112,19 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-6">
-                <label for="clFecha">Fecha</label>
-                <input type="date" id="clFecha" th:field="*{fecha}" class="form-control">
-              </div>
-              <div class="col-6">
-                <label for="clHora">Hora</label>
-                <input type="time" id="clHora" th:field="*{hora}" class="form-control">
+              <div class="card border border-success">
+                <div class="card-header">Horario</div>
+                <div class="card-body">
+                  <div id='calendar'></div>
+                </div>
               </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="padding-bottom: 0">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="button" class="btn btn-success">Crear</button>
+              <button type="submit" class="btn btn-success">Crear</button>
             </div>
           </form>
         </div>
-
       </div>
     </div>
   </div>
