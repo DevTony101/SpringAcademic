@@ -13,7 +13,36 @@ function setup() {
   asignaturaCrear = select('#asignaturaCrear');
   initTable();
   initSelects();
-  initFullCalendar();
+  initHorario();
+}
+
+function initHorario() {
+  for (let i = 10; i <= 20; i++) {
+    const row = `"<tr id=${i}>"` +
+      "<td>" + i + ":00 - " + (i + 1) + ":00</td>" +
+      "<td class='dia lunes'></td>" +
+      "<td class='dia martes'></td>" +
+      "<td class='dia miercoles'></td>" +
+      "<td class='dia jueves'></td>" +
+      "<td class='dia viernes'></td>" +
+      "</tr>";
+    $('#tbHorario').append(row);
+  }
+
+  $('#tbHorario').on('click', '.dia', (e) => {
+    const td = $(e.currentTarget);
+    const tr = td.closest('tr');
+    let hora = tr.attr('id');
+    let dia = td.attr('class');
+    dia = dia.substring(4, dia.length);
+    $('#itHora').val(hora + ':00:00');
+    $('#itDia').val(dia);
+    if (td.hasClass('selected')) {
+      td.removeClass('selected');
+    } else {
+      td.addClass('selected');
+    };
+  });
 }
 
 function initSelects() {
@@ -67,22 +96,4 @@ async function getData(apiUrl) {
   const response = await fetch(apiUrl);
   const data = await response.json();
   return data;
-}
-
-function initFullCalendar() {
-  const calendarEl = document.getElementById('calendar');
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    plugins: ['interaction', 'dayGrid', 'timeGrid'],
-    selectable: true,
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
-    dateClick: function (info) {
-      alert('clicked ' + info.dateStr);
-    }
-  });
-
-  calendar.render();
 }

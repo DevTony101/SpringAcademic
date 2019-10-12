@@ -38,7 +38,7 @@ public class HoraSemanal implements Serializable {
   @Column(name = "dia_indice", nullable = false) 
   private Integer diaIndice;
   @Column(name = "hora_indice", nullable = false) 
-  private Integer horaIndice;
+  private Integer horaIndice; 
 
   @ManyToMany(mappedBy = "horasSemanales")
   @NonNull
