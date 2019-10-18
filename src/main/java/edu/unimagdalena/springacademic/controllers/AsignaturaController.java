@@ -46,11 +46,4 @@ public class AsignaturaController {
     return "redirect:/mantenimientoAsignaturas?success";
   }
 
-  @GetMapping("/getAsignaturas")
-  @ResponseBody
-  public List<Asignatura> getAsignaturas() {
-    // TODO: Agregar demas parametros
-    return aService.getAll();
-  }
-
 }

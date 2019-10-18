@@ -4,7 +4,7 @@ function setup() {
   noCanvas();
   initTable();
   $('#successModal').modal('toggle');
-  getData('/getCursos');
+  getData('/cursos');
 }
 
 function initTable() {
@@ -37,9 +37,9 @@ function initTable() {
       case "Editar":
         break;
       case "Eliminar":
-        url = "/eliminarCurso/" + id;
+        url = "/cursos/" + id;
         res = encodeURI(url);
-        Http.open("GET", res);
+        Http.open("DELETE", res);
         Http.send();
         break;
     }

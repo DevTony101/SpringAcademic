@@ -20,7 +20,7 @@ public class ClaseController {
   @Autowired
   private UsuarioService uService;
 
-  @GetMapping("/clases")
+  @GetMapping("/springClases")
   public String clases(Model model) {
     Usuario usuario = uService.getCurrentUsuario();
     Clase clase = new Clase();

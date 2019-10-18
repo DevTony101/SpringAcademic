@@ -43,7 +43,6 @@ public class Curso implements Serializable {
   private Set<Asignatura> asignaturas;
 
   @OneToMany(mappedBy = "curso")
-  @NonNull
   @JsonIgnoreProperties("curso")
   private Set<Alumno> alumnos;
 

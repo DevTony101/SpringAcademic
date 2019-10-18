@@ -8,7 +8,7 @@ function setup() {
 
 function getAsignaturas() {
   table.clear().draw();
-  const data = getData('/getAsignaturas');
+  const data = getData('/asignaturas');
   data.then(json => {
     json.forEach(asignatura => {
       table.row.add([
@@ -22,7 +22,7 @@ function getAsignaturas() {
 
 function getCursos() {
   const slCurso = select('#slCurso');
-  const data = getData('/getCursos');
+  const data = getData('/cursos');
   data.then(json => {
     json.forEach(curso => {
       slCurso.option(curso.nivel + ' - ' + curso.etapa);

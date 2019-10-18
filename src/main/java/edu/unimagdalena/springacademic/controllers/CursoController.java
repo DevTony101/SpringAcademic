@@ -43,18 +43,4 @@ public class CursoController {
     cService.guardarCurso(curso);
     return "redirect:/mantenimientoCursos?success";
   }
-
-  @GetMapping("/getCursos")
-  @ResponseBody
-  public List<Curso> getCursos() {
-    // TODO: Agregar los demas parametros
-    return cService.getAll();
-  }
-
-  @GetMapping("/eliminarCurso/{id}")
-  public String eliminarCurso(@PathVariable("id") Long id) {
-    Curso curso = cService.getById(id);
-    cService.eliminarCurso(curso);
-    return "redirect:/mantenimientoCursos";
-  }
 }

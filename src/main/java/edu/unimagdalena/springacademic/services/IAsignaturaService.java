@@ -10,6 +10,7 @@ import edu.unimagdalena.springacademic.entities.Asignatura;
 public interface IAsignaturaService {
 
   Asignatura guardarAsignatura(Asignatura asignatura);
+  Asignatura getByNombre(String nombre);
 
   List<Asignatura> getAll();
 }

@@ -1,21 +1,21 @@
 let table;
-let cursoBusqueda, cursoCrear;
-let profesorBusqueda, profesorCrear;
-let asignaturaBusqueda, asignaturaCrear;
+let slCurso;
+let slProfesorBusqueda, slProfesorCrear;
+let slAsignaturaBusqueda, slAsignaturaCrear;
 let horario;
 
 function setup() {
   noCanvas();
   horario = [];
-  cursoBusqueda = select('#cursoBusqueda');
-  cursoCrear = select('#cursoCrear');
-  profesorBusqueda = select('#profesorBusqueda');
-  profesorCrear = select('#profesorCrear');
-  asignaturaBusqueda = select('#asignaturaBusqueda');
-  asignaturaCrear = select('#asignaturaCrear');
+  slCurso = select('#cursoBusqueda');
+  slProfesorBusqueda = select('#profesorBusqueda');
+  slProfesorCrear = select('#profesorCrear');
+  slAsignaturaBusqueda = select('#asignaturaBusqueda');
+  slAsignaturaCrear = select('#asignaturaCrear');
   initTable();
   initSelects();
   initHorario();
+  sendForm();
 }
 
 function initHorario() {
@@ -28,7 +28,7 @@ function initHorario() {
     row += "<td>" + (i + 10) + ":00 - " + (i + 11) + ":00</td>";
     for (let j = 0; j < dias.length; j++) {
       const dia = dias[j];
-      row += `"<td class='dia' data-dia=${dia} data-indicehora=${i} data-indicedia=${i + j}></td>"`
+      row += `"<td class='dia' data-dia=${dia} data-indicehora=${i} data-indicedia=${j}></td>"`
     }
     $('#tbHorario').append(row);
   }
@@ -61,28 +61,58 @@ function initHorario() {
   });
 }
 
+function sendForm() {
+  $('#formClase').on('submit', () => {
+    let url, p1, p2; // Promises
+    const nombre = slProfesorCrear.value().split(" ")[0];
+    url = './getProfesores?nombre=' + nombre;
+    p1 = getData(encodeURI(url));
+    url = './asignaturas?nombre=' + slAsignaturaCrear.value();
+    p2 = getData(encodeURI(url));
+
+    Promise.all([p1, p2]).then(values => {
+      values[1][0].curso.alumnos = null;
+      const clase = {
+        profesor: values[0][0],
+        asignatura: values[1][0],
+        horasSemanales: horario
+      }
+      console.log(clase);
+      $.ajax("/clases", {
+        contentType: "application/json",
+        dataType: 'json',
+        type: "POST",
+        data: JSON.stringify(clase),
+        success: function (data) {
+          console.log("ajax send successfully");
+        }
+      });
+    });
+    return false;
+  });
+}
+
 function initSelects() {
-  let data = getData('/getCursos');
+  let data = getData('/cursos');
   data.then(json => {
     json.forEach(curso => {
-      cursoBusqueda.option(curso.nivel + ' - ' + curso.etapa);
-      cursoCrear.option(curso.nivel + ' - ' + curso.etapa);
+      slCurso.option(curso.nivel + ' - ' + curso.etapa);
     });
   });
 
   data = getData('/getProfesores');
   data.then(json => {
     json.forEach(profesor => {
-      profesorBusqueda.option(profesor.nombre + " " + profesor.apellido);
-      profesorCrear.option(profesor.nombre + " " + profesor.apellido);
+      slProfesorBusqueda.option(profesor.nombre + " " + profesor.apellido);
+      slProfesorCrear.option(profesor.nombre + " " + profesor.apellido);
     });
   });
 
-  data = getData('/getAsignaturas');
+  data = getData('/asignaturas');
   data.then(json => {
     json.forEach(asignatura => {
-      asignaturaBusqueda.option(asignatura.nombre);
-      asignaturaCrear.option(asignatura.nombre);
+      slAsignaturaBusqueda.option(asignatura.nombre);
+      slAsignaturaCrear.option(asignatura.nombre);
     });
   });
 }

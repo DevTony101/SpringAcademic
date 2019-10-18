@@ -87,23 +87,16 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="#" th:action="@{/crearClase}" th:object="${clase}" role="form" autocomplete="off" method="post">
+          <form action="#" id="formClase" role="form" autocomplete="off" method="post">
             <div class="row">
-              <div class="col-4">
-                <div class="form-group">
-                  <i class="fas fa-book" style="margin-right: 10px;"></i>
-                  <label for="cursoCrear">Curso</label>
-                  <select id="cursoCrear" class="custom-select sl-cursos"></select>
-                </div>
-              </div>
-              <div class="col-4">
+              <div class="col-6">
                 <div class="form-group">
                   <i class="fas fa-book-open" style="margin-right: 10px;"></i>
                   <label for="asignaturaCrear">Asignatura</label>
                   <select id="asignaturaCrear" class="custom-select"></select>
                 </div>
               </div>
-              <div class="col-4">
+              <div class="col-6">
                 <div class="form-group">
                   <i class="fas fa-chalkboard-teacher" style="margin-right: 10px;"></i>
                   <label for="profesorCrear">Profesor</label>

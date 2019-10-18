@@ -15,8 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Alumno
@@ -25,6 +28,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@ToString
 public class Clase implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -42,6 +46,7 @@ public class Clase implements Serializable {
   private Asignatura asignatura;
 
   @ManyToMany(mappedBy = "clases")
+  @JsonIgnoreProperties("clases")
   private Set<Alumno> alumnos;
 
   @ManyToMany

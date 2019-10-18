@@ -14,5 +14,6 @@ import edu.unimagdalena.springacademic.entities.Asignatura;
 public interface AsignaturaRepository extends JpaRepository<Asignatura, Long> {
 
   List<Asignatura> findAll();
+  Asignatura findByNombre(String nombre);
 
 }

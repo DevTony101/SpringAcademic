@@ -13,7 +13,7 @@ function setup() {
 
 function loadAsignaturas() {
   const slAsignaturas = select('#slAsignaturas');
-  const data = getData('/getAsignaturas');
+  const data = getData('/asignaturas');
   slAsignaturas.option('Todos');
   data.then(json => {
     json.forEach(asignatura => {
@@ -30,7 +30,7 @@ function initForm() {
 function loadCursos() {
   const itCurso = select('#itCurso');
   const slCurso = select('#slCursos');
-  const data = getData('/getCursos');
+  const data = getData('/cursos');
   data.then(json => {
     json.forEach(curso => {
       itCurso.option(curso.nivel + ' - ' + curso.etapa);

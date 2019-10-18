@@ -38,4 +38,9 @@ public class AsignaturaService implements IAsignaturaService {
     return repo.findAll();
   }
 
+  @Override
+  public Asignatura getByNombre(String nombre) {
+    return repo.findByNombre(nombre);
+  }
+
 }
