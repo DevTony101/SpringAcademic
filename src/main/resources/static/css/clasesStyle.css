@@ -1,0 +1,7 @@
+.selected {
+  background-color: rgb(148, 203, 84);
+}
+
+#tbHorario tbody td:hover {
+  background-color: rgb(251, 191, 57);
+}
