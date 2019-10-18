@@ -2,9 +2,11 @@ let table;
 let cursoBusqueda, cursoCrear;
 let profesorBusqueda, profesorCrear;
 let asignaturaBusqueda, asignaturaCrear;
+let horario;
 
 function setup() {
   noCanvas();
+  horario = [];
   cursoBusqueda = select('#cursoBusqueda');
   cursoCrear = select('#cursoCrear');
   profesorBusqueda = select('#profesorBusqueda');
@@ -17,31 +19,45 @@ function setup() {
 }
 
 function initHorario() {
-  for (let i = 10; i <= 20; i++) {
-    const row = `"<tr id=${i}>"` +
-      "<td>" + i + ":00 - " + (i + 1) + ":00</td>" +
-      "<td class='dia lunes'></td>" +
-      "<td class='dia martes'></td>" +
-      "<td class='dia miercoles'></td>" +
-      "<td class='dia jueves'></td>" +
-      "<td class='dia viernes'></td>" +
-      "</tr>";
+  let row;
+  const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+  for (let i = 0; i <= 10; i++) {
+    //i controla los indices de la matriz del horario
+    //se le suma 10 y 11 para mostrar la hora de comienzo y fin respectivamente
+    row = `"<tr data-hora=${(i + 10) + ':00:00'}>"`;
+    row += "<td>" + (i + 10) + ":00 - " + (i + 11) + ":00</td>";
+    for (let j = 0; j < dias.length; j++) {
+      const dia = dias[j];
+      row += `"<td class='dia' data-dia=${dia} data-indicehora=${i} data-indicedia=${i + j}></td>"`
+    }
     $('#tbHorario').append(row);
   }
 
   $('#tbHorario').on('click', '.dia', (e) => {
     const td = $(e.currentTarget);
     const tr = td.closest('tr');
-    let hora = tr.attr('id');
-    let dia = td.attr('class');
-    dia = dia.substring(4, dia.length);
-    $('#itHora').val(hora + ':00:00');
-    $('#itDia').val(dia);
+    const hSem = { // Objeto hora semanal
+      dia: td.data('dia'),
+      hora: tr.data('hora'),
+      diaIndice: td.data('indicedia'),
+      horaIndice: td.data('indicehora')
+    };
+
     if (td.hasClass('selected')) {
       td.removeClass('selected');
+      // Ya que js no compara atributos de objetos
+      // Es mejor usar filter para crear un nuevo array sin
+      // el objeto (hora) que se acaba de pulsar
+      horario = horario.filter(obj => {
+        const con1 = obj.diaIndice != hSem.diaIndice;
+        const con2 = obj.horaIndice != hSem.horaIndice;
+        return (con1 || con2);
+      });
     } else {
       td.addClass('selected');
+      horario.push(hSem);
     };
+    console.log(horario);
   });
 }
 

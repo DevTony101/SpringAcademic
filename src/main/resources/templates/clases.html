@@ -108,8 +108,6 @@
                   <i class="fas fa-chalkboard-teacher" style="margin-right: 10px;"></i>
                   <label for="profesorCrear">Profesor</label>
                   <select id="profesorCrear" class="custom-select sl-profesores"></select>
-                  <input type="text" id="itDia">
-                  <input type="time" id="itHora">
                 </div>
               </div>
             </div>
@@ -146,16 +144,8 @@
   </div>
 
   <footer th:replace="layout/adminBase::footer()"></footer>
+  <link rel="stylesheet" href="css/clasesStyle.css">
   <script src="js/admin/clase.js"></script>
-  <style>
-    .selected {
-      background-color: rgb(148, 203, 84);
-    }
-
-    #tbHorario tbody td:hover {
-      background-color: rgb(251, 191, 57);
-    }
-  </style>
 </body>
 
 </html>
