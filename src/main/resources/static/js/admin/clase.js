@@ -71,13 +71,13 @@ function sendForm() {
     p2 = getData(encodeURI(url));
 
     Promise.all([p1, p2]).then(values => {
-      values[1][0].curso.alumnos = null;
+      values[1][0].curso = null
       const clase = {
         profesor: values[0][0],
         asignatura: values[1][0],
         horasSemanales: horario
       }
-      console.log(clase);
+
       $.ajax("/clases", {
         contentType: "application/json",
         dataType: 'json',
