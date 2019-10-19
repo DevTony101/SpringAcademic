@@ -39,10 +39,12 @@ public class Clase implements Serializable {
 
   @ManyToOne
   @JoinColumn(name = "profesor")
+  @JsonIgnoreProperties("clases")
   private Profesor profesor;
 
   @ManyToOne
   @JoinColumn(name = "asignatura")
+  @JsonIgnoreProperties("clases")
   private Asignatura asignatura;
 
   @ManyToMany(mappedBy = "clases")

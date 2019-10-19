@@ -1,6 +1,7 @@
 package edu.unimagdalena.springacademic.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,19 +12,21 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * Hora_Semanal
  */
 @Entity
 @Table(name = "HORAS_SEMANALES")
-@NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class HoraSemanal implements Serializable {
 
   private static final long serialVersionUID = 1L;
@@ -42,6 +45,10 @@ public class HoraSemanal implements Serializable {
 
   @ManyToMany(mappedBy = "horasSemanales")
   @NonNull
+  @JsonIgnoreProperties("horasSemanales")
   private Set<Clase> clases;
 
+  public HoraSemanal() {
+    this.clases = new HashSet<>();
+  }
 }

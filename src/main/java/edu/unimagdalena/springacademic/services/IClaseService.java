@@ -9,6 +9,7 @@ import edu.unimagdalena.springacademic.entities.Clase;
  */
 public interface IClaseService {
 
+  Clase guardarClase(Clase clase);
   List<Clase> getAll();
   
 }

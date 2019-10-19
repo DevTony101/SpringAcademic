@@ -31,7 +31,7 @@ public class RClaseController {
   @PostMapping("/clases")
   public Clase guardarClase(@RequestBody Clase clase) {
     LOG.info(clase);
-    return null;
+    return cService.guardarClase(clase);
   }
   
 }
