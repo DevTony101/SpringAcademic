@@ -1,5 +1,4 @@
 let table;
-let slCurso;
 let slProfesorBusqueda, slProfesorCrear;
 let slAsignaturaBusqueda, slAsignaturaCrear;
 let horario;
@@ -16,6 +15,7 @@ function setup() {
   initSelects();
   initHorario();
   sendForm();
+  search();
 }
 
 function initHorario() {
@@ -93,14 +93,8 @@ function sendForm() {
 }
 
 function initSelects() {
-  let data = getData('/cursos');
-  data.then(json => {
-    json.forEach(curso => {
-      slCurso.option(curso.nivel + ' - ' + curso.etapa);
-    });
-  });
-
-  data = getData('/getProfesores');
+  let data = getData('/getProfesores');
+  slProfesorBusqueda.option('Todos');
   data.then(json => {
     json.forEach(profesor => {
       slProfesorBusqueda.option(profesor.nombre + " " + profesor.apellido);
@@ -109,6 +103,7 @@ function initSelects() {
   });
 
   data = getData('/asignaturas');
+  slAsignaturaBusqueda.option('Todos');
   data.then(json => {
     json.forEach(asignatura => {
       slAsignaturaBusqueda.option(asignatura.nombre);
@@ -123,8 +118,8 @@ function initTable() {
     "<i class='material-icons'>more_vert</i>" +
     "</button>" +
     "<div class='dropdown-menu dropdown-menu-left'>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Info</a>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Editar</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Alumnos</a>" +
     "<a class='dropdown-item btn btn-danger' role='button' href='#'>Eliminar</a>" +
     "</div>" +
     "</div>";
@@ -135,6 +130,28 @@ function initTable() {
       "defaultContent": btnTabla,
       "targets": -1
     }]
+  });
+}
+
+function search() {
+  $('#btnBuscar').on('click', () => {
+    const asignatura = slAsignaturaBusqueda.value();
+    let profesor = slProfesorBusqueda.value();
+    profesor = profesor.split(" ")[0];
+    const url = '/clases?asignatura=' + asignatura + '&profesor=' + profesor;
+    const data = getData(encodeURI(url));
+    data.then(json => {
+      table.clear().draw();
+      json.forEach(clase => {
+        console.log(clase);
+        table.row.add([
+          clase.id,
+          (clase.asignatura.curso.nivel + ' - ' + clase.asignatura.curso.etapa),
+          clase.asignatura.nombre,
+          (clase.profesor.nombre + ' ' + clase.profesor.apellido),
+        ]).draw(false);
+      });
+    });
   });
 }
 

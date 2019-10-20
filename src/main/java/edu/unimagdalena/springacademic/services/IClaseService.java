@@ -10,6 +10,9 @@ import edu.unimagdalena.springacademic.entities.Clase;
 public interface IClaseService {
 
   Clase guardarClase(Clase clase);
+
+  List<Clase> getByAsignaturaProfesor(String asignatura, String profesor);
+
   List<Clase> getAll();
-  
+
 }

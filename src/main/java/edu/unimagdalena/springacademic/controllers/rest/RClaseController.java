@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.unimagdalena.springacademic.entities.Clase;
@@ -24,8 +25,13 @@ public class RClaseController {
   private static Logger LOG = Logger.getLogger(RClaseController.class);
 
   @GetMapping("/clases")
-  public List<Clase> getClases() {
-    return cService.getAll();
+  public List<Clase> getClases(@RequestParam("asignatura") String asignatura,
+      @RequestParam("profesor") String profesor) {
+    if (asignatura.equals("Todos") && profesor.equals("Todos")) {
+      return cService.getAll();
+    } else {
+      return cService.getByAsignaturaProfesor(asignatura, profesor);
+    }
   }
 
   @PostMapping("/clases")
@@ -33,5 +39,5 @@ public class RClaseController {
     LOG.info(clase);
     return cService.guardarClase(clase);
   }
-  
+
 }

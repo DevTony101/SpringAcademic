@@ -66,4 +66,9 @@ public class ClaseService implements IClaseService {
     return cRepo.save(clase);
   }
 
+  @Override
+  public List<Clase> getByAsignaturaProfesor(String asignatura, String profesor) {
+    return cRepo.findByAsignaturaProfesor(asignatura, profesor);
+  }
+
 }
