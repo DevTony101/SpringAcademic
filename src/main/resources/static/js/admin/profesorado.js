@@ -97,7 +97,7 @@ function initTable() {
         $('#modalClases').modal('toggle');
         const timetable = new Timetable();
         timetable.setScope(9, 21); // optional, only whole hours between 0 and 23
-        timetable.addLocations(['lunes', 'martes', 'miercoles', 'jueves', 'viernes']);
+        timetable.addLocations(['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']);
         url = '/clases?profesor=' + nombre;
         getData(encodeURI(url)).then(json => {
           json.forEach(clase => {

@@ -23,7 +23,7 @@ function setup() {
 
 function initHorario() {
   let row;
-  const dias = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes'];
+  const dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
   for (let i = 0; i <= 10; i++) {
     //i controla los indices de la matriz del horario
     //se le suma 10 y 11 para mostrar la hora de comienzo y fin respectivamente
