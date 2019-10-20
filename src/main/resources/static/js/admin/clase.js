@@ -87,7 +87,10 @@ function sendForm() {
         type: "POST",
         data: JSON.stringify(clase),
         success: function (data) {
-          console.log("ajax send successfully");
+          horario.splice(0);
+          $('#tbHorario').find('td').removeClass('selected');
+          $('#mdCrearClase').modal('toggle');
+          $('#successModal').modal('toggle');
         }
       });
     });
