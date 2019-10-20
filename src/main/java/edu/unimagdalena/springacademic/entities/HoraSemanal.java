@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -45,7 +43,6 @@ public class HoraSemanal implements Serializable {
 
   @ManyToMany(mappedBy = "horasSemanales")
   @NonNull
-  @JsonIgnoreProperties("horasSemanales")
   private Set<Clase> clases;
 
   public HoraSemanal() {

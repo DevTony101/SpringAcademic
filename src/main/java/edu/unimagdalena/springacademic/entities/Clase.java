@@ -54,6 +54,7 @@ public class Clase implements Serializable {
   @ManyToMany
   @OrderBy("diaIndice, horaIndice")
   @JoinTable(name = "CLASE_HORASEMANAL", joinColumns = @JoinColumn(name = "id_clase", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "id_horasemanal", referencedColumnName = "id"))
+  @JsonIgnoreProperties("clases")
   private Set<HoraSemanal> horasSemanales;
 
   public Clase() {
