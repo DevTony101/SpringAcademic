@@ -27,9 +27,13 @@ public class RClaseController {
   private static Logger LOG = Logger.getLogger(RClaseController.class);
 
   @GetMapping("/clases")
-  public List<Clase> getClases(@RequestParam("asignatura") String asignatura,
-      @RequestParam("profesor") String profesor) {
-    if (asignatura.equals("Todos") && profesor.equals("Todos")) {
+  public List<Clase> getClases(@RequestParam(name = "asignatura", required = false) String asignatura,
+      @RequestParam(name = "profesor", required = false) String profesor) {
+    if (asignatura == null && !profesor.equals("TODOS")) {
+      return cService.getByProfesor(profesor);
+    } else if (profesor == null && asignatura.equals("TODOS")) {
+      return cService.getByAsignatura(asignatura);
+    } else if (asignatura.equals("Todos") && profesor.equals("Todos")) {
       return cService.getAll();
     } else {
       return cService.getByAsignaturaProfesor(asignatura, profesor);
