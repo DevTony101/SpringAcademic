@@ -15,7 +15,10 @@ function setup() {
   initSelects();
   initHorario();
   sendForm();
-  search();
+
+  $('#btnBuscar').on('click', () => {
+    getResultados();
+  });
 }
 
 function initHorario() {
@@ -131,26 +134,46 @@ function initTable() {
       "targets": -1
     }]
   });
+
+  $('#tbBusqueda tbody').on('click', 'a', function (e) {
+    e.preventDefault();
+    const data = table.row($(this).parents('tr')).data();
+    const id = data[0];
+    const action = $(this).text();
+    const Http = new XMLHttpRequest();
+    let url, res;
+    switch (action) {
+      case "Editar":
+        break;
+      case "Alumnos":
+        break;
+      case "Eliminar":
+        url = "/clases/" + id;
+        res = encodeURI(url);
+        Http.open("DELETE", res);
+        Http.send();
+        break;
+    }
+    setTimeout(getResultados, 500);
+  });
 }
 
-function search() {
-  $('#btnBuscar').on('click', () => {
-    const asignatura = slAsignaturaBusqueda.value();
-    let profesor = slProfesorBusqueda.value();
-    profesor = profesor.split(" ")[0];
-    const url = '/clases?asignatura=' + asignatura + '&profesor=' + profesor;
-    const data = getData(encodeURI(url));
-    data.then(json => {
-      table.clear().draw();
-      json.forEach(clase => {
-        console.log(clase);
-        table.row.add([
-          clase.id,
-          (clase.asignatura.curso.nivel + ' - ' + clase.asignatura.curso.etapa),
-          clase.asignatura.nombre,
-          (clase.profesor.nombre + ' ' + clase.profesor.apellido),
-        ]).draw(false);
-      });
+function getResultados() {
+  const asignatura = slAsignaturaBusqueda.value();
+  let profesor = slProfesorBusqueda.value();
+  profesor = profesor.split(" ")[0];
+  const url = '/clases?asignatura=' + asignatura + '&profesor=' + profesor;
+  const data = getData(encodeURI(url));
+  data.then(json => {
+    table.clear().draw();
+    json.forEach(clase => {
+      console.log(clase);
+      table.row.add([
+        clase.id,
+        (clase.asignatura.curso.nivel + ' - ' + clase.asignatura.curso.etapa),
+        clase.asignatura.nombre,
+        (clase.profesor.nombre + ' ' + clase.profesor.apellido),
+      ]).draw(false);
     });
   });
 }

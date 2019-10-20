@@ -71,4 +71,9 @@ public class ClaseService implements IClaseService {
     return cRepo.findByAsignaturaProfesor(asignatura, profesor);
   }
 
+  @Override
+  public void eliminarClase(Long id) {
+    cRepo.deleteById(id);
+  }
+
 }
