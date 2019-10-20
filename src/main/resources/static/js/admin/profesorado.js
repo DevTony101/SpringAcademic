@@ -3,7 +3,6 @@ let itNombre, itNif;
 
 function setup() {
   noCanvas();
-  initTimetable();
   initTable();
   loadAsignaturas();
   loadTitulaciones();
@@ -86,6 +85,7 @@ function initTable() {
   $('#tbBusqueda tbody').on('click', 'a', function (e) {
     e.preventDefault();
     const data = table.row($(this).parents('tr')).data();
+    const nombre = data[0];
     const nif = data[1];
     const action = $(this).text();
     const Http = new XMLHttpRequest();
@@ -95,30 +95,35 @@ function initTable() {
         break;
       case "Clases":
         $('#modalClases').modal('toggle');
+        const timetable = new Timetable();
+        timetable.setScope(9, 21); // optional, only whole hours between 0 and 23
+        timetable.addLocations(['lunes', 'martes', 'miercoles', 'jueves', 'viernes']);
+        url = '/clases?profesor=' + nombre;
+        getData(encodeURI(url)).then(json => {
+          json.forEach(clase => {
+            const asignatura = clase.asignatura.nombre;
+            const horasSemanales = clase.horasSemanales;
+            horasSemanales.forEach(horario => {
+              const dia = horario.dia;
+              let hora = horario.hora.split(":")[0];
+              hora = Number(hora);
+              console.log(dia);
+              timetable.addEvent(asignatura, dia, new Date(2019, 10, 20, hora, 0), new Date(2019, 10, 20, (hora + 1), 0));
+            });
+          });
+          const renderer = new Timetable.Renderer(timetable);
+          renderer.draw('.timetable'); // any css selector
+        });
         break;
       case "Eliminar":
         url = "/eliminarProfesor/" + nif;
         res = encodeURI(url);
         Http.open("GET", res);
         Http.send();
+        setTimeout(getResultados, 500);
         break;
     }
-    setTimeout(getResultados, 500);
   });
-}
-
-function initTimetable() {
-  var timetable = new Timetable();
-  timetable.setScope(9, 23); // optional, only whole hours between 0 and 23
-
-  timetable.addLocations(['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabados']);
-
-  timetable.addEvent('Matematicas', 'Martes', new Date(2019, 9, 30, 13, 45), new Date(2019, 9, 30, 14, 30));
-  timetable.addEvent('Sociales', 'Lunes', new Date(2019, 9, 30, 15, 30), new Date(2019, 9, 30, 18, 30));
-  timetable.addEvent('Biologia', 'Jueves', new Date(2019, 9, 30, 10, 15), new Date(2019, 9, 30, 13, 30));
-
-  var renderer = new Timetable.Renderer(timetable);
-  renderer.draw('.timetable'); // any css selector
 }
 
 function getResultados() {
