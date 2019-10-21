@@ -70,4 +70,9 @@ public class AlumnoService implements IAlumnoService {
     return repo.getOne(id);
   }
 
+  @Override
+  public List<Alumno> getAlumnosByCurso(Curso curso) {
+    return repo.getAlumnosByCurso(curso.getNivel(), curso.getEtapa());
+  }
+
 }

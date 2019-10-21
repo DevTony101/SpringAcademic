@@ -4,11 +4,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.unimagdalena.springacademic.entities.Alumno;
 import edu.unimagdalena.springacademic.entities.Asignatura;
 import edu.unimagdalena.springacademic.entities.Clase;
+import edu.unimagdalena.springacademic.entities.Curso;
 import edu.unimagdalena.springacademic.entities.HoraSemanal;
 import edu.unimagdalena.springacademic.entities.Profesor;
 import edu.unimagdalena.springacademic.repositories.ClaseRepository;
@@ -23,6 +26,9 @@ public class ClaseService implements IClaseService {
   private AsignaturaService aService;
 
   @Autowired
+  private AlumnoService alService;
+
+  @Autowired
   private ProfesorService pService;
 
   @Autowired
@@ -30,6 +36,8 @@ public class ClaseService implements IClaseService {
 
   @Autowired
   private ClaseRepository cRepo;
+
+  private Logger LOG = Logger.getLogger(ClaseService.class);
 
   @Override
   public List<Clase> getAll() {
@@ -65,6 +73,10 @@ public class ClaseService implements IClaseService {
         clase.getHorasSemanales().add(hSem);
       }
     });
+
+    Curso curso = asignatura.getCurso();
+    List<Alumno> alumnos = alService.getAlumnosByCurso(curso);
+    LOG.info(alumnos.toString());
 
     return cRepo.save(clase);
   }
