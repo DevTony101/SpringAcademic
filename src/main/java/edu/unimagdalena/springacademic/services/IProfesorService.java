@@ -11,6 +11,8 @@ public interface IProfesorService {
 
   Profesor guardarProfesor(Profesor profesor);
 
+  Profesor actualizarProfesor(Profesor profesor);
+
   void eliminarProfesor(Profesor profesor);
 
   Profesor getProfesor(String nombre, String nif);

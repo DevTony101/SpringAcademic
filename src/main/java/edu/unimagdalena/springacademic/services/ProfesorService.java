@@ -32,6 +32,11 @@ public class ProfesorService implements IProfesorService {
   }
 
   @Override
+  public Profesor actualizarProfesor(Profesor profesor) {
+    return repo.save(profesor);
+  }
+
+  @Override
   public Profesor getProfesor(String nombre, String nif) {
     return repo.findByQuery(nombre, nif);
   }

@@ -42,10 +42,13 @@ public class ClaseService implements IClaseService {
     asignatura = aService.getByNombre(asignatura.getNombre());
     asignatura.getClases().add(clase);
     clase.setAsignatura(asignatura);
+    aService.actualizarAsignatura(asignatura);
+
     Profesor profesor = clase.getProfesor();
     profesor = pService.getProfesorByNif(profesor.getNif());
     profesor.getClases().add(clase);
     clase.setProfesor(profesor);
+    pService.actualizarProfesor(profesor);
 
     // Creacion y guardado de las horas semanales
     Set<HoraSemanal> horario = new HashSet<>(clase.getHorasSemanales());

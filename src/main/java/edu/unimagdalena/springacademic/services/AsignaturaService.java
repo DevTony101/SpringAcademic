@@ -34,6 +34,11 @@ public class AsignaturaService implements IAsignaturaService {
   }
 
   @Override
+  public Asignatura actualizarAsignatura(Asignatura asignatura) {
+    return repo.save(asignatura);
+  }
+
+  @Override
   public List<Asignatura> getAll() {
     return repo.findAll();
   }
