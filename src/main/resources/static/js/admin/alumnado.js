@@ -76,20 +76,43 @@ function initTable() {
       case "Info":
         break;
       case "Clases":
+        $('#modalClases').modal('toggle');
+        const timetable = new Timetable();
+        timetable.setScope(9, 21); // optional, only whole hours between 0 and 23
+        timetable.addLocations(['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes']);
+        url = '/alumnos?id=' + id;
+        getData(encodeURI(url)).then(json => {
+          console.log(json);
+          const clases = json[0].clases;
+          console.log(json.clases);
+          clases.forEach(clase => {
+            const asignatura = clase.asignatura.nombre;
+            const horasSemanales = clase.horasSemanales;
+            horasSemanales.forEach(horario => {
+              const dia = horario.dia;
+              let hora = horario.hora.split(":")[0];
+              hora = Number(hora);
+              console.log(dia);
+              timetable.addEvent(asignatura, dia, new Date(2019, 10, 20, hora, 0), new Date(2019, 10, 20, (hora + 1), 0));
+            });
+          });
+          const renderer = new Timetable.Renderer(timetable);
+          renderer.draw('.timetable'); // any css selector
+        });
         break;
       case "Dar de alta/baja":
-        url = "/bajarAlumno/" + id;
+        url = "/alumnos/" + id;
         res = encodeURI(url);
-        Http.open("GET", res);
+        Http.open("DELETE", res);
         Http.send();
+        setTimeout(getResultados, 500);
         break;
     }
-    setTimeout(getResultados, 500);
   });
 }
 
 function getResultados() {
-  const data = getData('/getAlumnos');
+  const data = getData('/alumnos');
   console.log(data);
   data.then(json => {
     table.clear().draw();

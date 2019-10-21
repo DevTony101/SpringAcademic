@@ -28,7 +28,6 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-@ToString
 public class Clase implements Serializable {
 
   private static final long serialVersionUID = 1L;

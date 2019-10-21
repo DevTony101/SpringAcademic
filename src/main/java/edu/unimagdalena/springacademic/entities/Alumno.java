@@ -82,6 +82,7 @@ public class Alumno implements Serializable {
   @ManyToMany
   @JoinTable(name="ALUMNO_CLASE", joinColumns= @JoinColumn( name="id_alumno", referencedColumnName="id"), inverseJoinColumns=@JoinColumn( name="id_clase", referencedColumnName="id"))
   @NonNull
+  @JsonIgnoreProperties("alumnos")
   private Set<Clase> clases;
 
   @OneToOne(mappedBy = "usuarioAlumno")
