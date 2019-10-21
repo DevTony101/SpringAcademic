@@ -3,6 +3,7 @@ package edu.unimagdalena.springacademic.services;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,12 @@ public class ClaseService implements IClaseService {
     Curso curso = asignatura.getCurso();
     List<Alumno> alumnos = alService.getAlumnosByCurso(curso);
     LOG.info(alumnos.toString());
+
+    alumnos.forEach(alumno -> {
+      alumno.setNCurso(UUID.randomUUID().toString());
+      alumno.getClases().add(clase);
+      clase.getAlumnos().add(alumno);
+    });
 
     return cRepo.save(clase);
   }

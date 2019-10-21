@@ -40,10 +40,11 @@ public class Curso implements Serializable {
 
   @OneToMany(mappedBy = "curso", cascade = CascadeType.REMOVE)
   @NonNull
+  @JsonIgnoreProperties("clases")
   private Set<Asignatura> asignaturas;
 
   @OneToMany(mappedBy = "curso")
-  @JsonIgnoreProperties("curso")
+  @JsonIgnoreProperties({"curso", "clases"})
   private Set<Alumno> alumnos;
 
   public Curso() {
