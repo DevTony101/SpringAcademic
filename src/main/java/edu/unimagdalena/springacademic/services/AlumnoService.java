@@ -1,6 +1,7 @@
 package edu.unimagdalena.springacademic.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,7 +68,11 @@ public class AlumnoService implements IAlumnoService {
 
   @Override
   public Alumno getById(Long id) {
-    return repo.getOne(id);
+    Optional <Alumno> alumno = repo.findById(id);
+    if(alumno.isPresent()) {
+      return alumno.get();
+    }
+    return null;
   }
 
   @Override
