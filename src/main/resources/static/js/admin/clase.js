@@ -25,6 +25,10 @@ function setup() {
     loadSchedule();
     $('#mdCrearClase').modal('toggle');
   });
+
+  slProfesorCrear.changed(() => {
+    loadSchedule();
+  });
 }
 
 function initHorario() {
@@ -193,21 +197,26 @@ function loadSchedule() {
   horario.splice(0);
   $('#tbHorario').find('td').removeClass('selected');
   $('#tbHorario').find('td').removeClass('occuped');
+  $('#tbHorario').find('td').each((i, elem) => {
+    if ($(elem).hasClass('dia')) $(elem).text(' ');
+  });
   let profesor = slProfesorCrear.value();
   profesor = profesor.split(" ")[0];
   const data = getData(encodeURI('/profesores?nombre=' + profesor));
   data.then(json => {
     const clases = json[0].clases;
     clases.forEach(clase => {
+      const asignatura = clase.asignatura.nombre;
       const horasSemanales = clase.horasSemanales;
       horasSemanales.forEach(hora => {
         const diaIndice = Number(hora.diaIndice);
         const horaIndice = Number(hora.horaIndice);
-        $('#tbHorario').find('td').each(function (i, elem) {
+        $('#tbHorario').find('td').each((i, elem) => {
           const diaTd = Number($(elem).data('indicedia'));
           const horaTd = Number($(elem).data('indicehora'));
           if (diaIndice == diaTd && horaIndice == horaTd) {
             $(elem).addClass('occuped');
+            $(elem).text(asignatura);
           }
         });
       });

@@ -4,6 +4,7 @@
 
 .occuped {
   background-color: rgb(204, 56, 26);
+  color: white;
 }
 
 #tbHorario tbody td:hover {
