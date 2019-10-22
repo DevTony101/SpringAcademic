@@ -29,7 +29,7 @@ function setup() {
     const text = inputNif.value();
     smNif.removeClass('show-error');
     smNif.addClass('hidden');
-    const data = getData('/getProfesores');
+    const data = getData('/profesores');
     data.then(json => {
       json.forEach(profesor => {
         if (text === profesor.nif) {
@@ -43,7 +43,7 @@ function setup() {
 
 function loadAsignaturas() {
   const slAsignaturas = select('#slAsignatura');
-  const data = getData('/getAsignaturas');
+  const data = getData('/asignaturas');
   slAsignaturas.option('Todos');
   data.then(json => {
     json.forEach(asignatura => {
@@ -54,7 +54,7 @@ function loadAsignaturas() {
 
 function loadTitulaciones() {
   const slAsignaturas = select('#slTitulaciones');
-  const data = getData('/getProfesores');
+  const data = getData('/profesores');
   slAsignaturas.option('Todos');
   data.then(json => {
     json.forEach(profesor => {
@@ -116,9 +116,9 @@ function initTable() {
         });
         break;
       case "Eliminar":
-        url = "/eliminarProfesor/" + nif;
+        url = "/profesor/" + nif;
         res = encodeURI(url);
-        Http.open("GET", res);
+        Http.open("DELETE", res);
         Http.send();
         setTimeout(getResultados, 500);
         break;
@@ -129,7 +129,7 @@ function initTable() {
 function getResultados() {
   const nombre = itNombre.value();
   const nif = itNif.value();
-  const url = '/getProfesores';
+  const url = '/profesores';
   let query = '';
   let res;
   if (nombre.length > 0 && nif.length > 0) {

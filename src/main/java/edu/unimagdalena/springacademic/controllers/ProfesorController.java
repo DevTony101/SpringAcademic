@@ -1,8 +1,5 @@
 package edu.unimagdalena.springacademic.controllers;
 
-import java.util.Arrays;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.unimagdalena.springacademic.entities.Profesor;
 import edu.unimagdalena.springacademic.entities.Usuario;
@@ -44,33 +38,6 @@ public class ProfesorController {
   public String crearProfesor(@ModelAttribute @Valid Profesor profesor) {
     pService.guardarProfesor(profesor);
     return "redirect:/profesorado?success";
-  }
-
-  @GetMapping("/getProfesores")
-  @ResponseBody
-  public List<Profesor> getProfesores(@RequestParam(name = "nombre", required = false) String nombre,
-      @RequestParam(name = "nif", required = false) String nif) {
-
-    if (nombre != null && nif != null) {
-      return Arrays.asList(pService.getProfesor(nombre, nif));
-    }
-
-    if (nombre != null) {
-      return pService.getProfesorByNombre(nombre);
-    }
-
-    if (nif != null) {
-      return Arrays.asList(pService.getProfesorByNif(nif));
-    }
-
-    return pService.getAll();
-  }
-
-  @GetMapping("/eliminarProfesor/{nif}")
-  public String eliminarProfesor(@PathVariable("nif") String nif) {
-    Profesor profesor = pService.getProfesorByNif(nif);
-    pService.eliminarProfesor(profesor);
-    return "redirect:/profesorado";
   }
 
 }
