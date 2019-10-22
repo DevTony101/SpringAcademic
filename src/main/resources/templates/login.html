@@ -6,7 +6,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Login SportsMeet</title>
+	<title>Login SpringAcademic</title>
 
 	<!-- Bootstrap CSS CDN -->
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
@@ -18,73 +18,78 @@
 		integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
 	</script>
 	<script src="https://kit.fontawesome.com/f03089975e.js"></script>
-
-	<style type="text/css">
-		body {
-			
-			background-position: center;
-			background-size: cover;
-		}
-
-		.login-form {
-			width: 385px;
-			margin: 100px auto;
-		}
-
-		.login-form form {
-			margin-bottom: 15px;
-			background: #f7f7f7;
-			box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-			padding: 30px;
-		}
-	</style>
 </head>
 
-<body style="background-image: url('images/bg.jpg');">
+<body>
 
-	<div class="login-form" style="width: 500px;">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-12" style="padding: 0">
+				<div id="waves"></div>
+				<div class="card" style="margin-top: 50px; width: 500px; margin-left: auto; margin-right: auto;">
+					<div class="card-body">
+						<div class="card-body">
+							<h5 class="card-title">
+								<i class="fab fa-earlybirds fa-2x" style="margin-right: 10px;"></i>
+								<b>Inicia Sesión</b>
+							</h5>
+							<form th:action="@{/login}" method="post">
+								<div th:if="${param.logout}" class="alert alert-warning" role="alert">
+									<strong>Has Salido de tu Cuenta!</strong> Vuelve a Iniciar Sesión
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
 
-		<form th:action="@{/login}" method="post">
-			<div th:if="${param.logout}" class="alert alert-warning" role="alert">
-				<strong>Has Salido de tu Cuenta!</strong> Vuelve a Iniciar Sesión
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-
-			<h1 class="text-center">Spring Academic</h1>
-			<h2 class="text-center">Acceder</h2>
-
-			<div th:if="${param.error}" class="alert alert-danger" role="alert">
-				<strong>Oh No!</strong> Revisa tus Credenciales!
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<hr>
-			<div class="form-group my-4">
-				<div class="input-group">
-					<i class="fa fa-user" style="margin-right: 20px; margin-top: 10px;"></i></span>
-					<input type="text" id="username" class="form-control" name="username" placeholder="Nombre de Usuario"
-						required>
+								<div th:if="${param.error}" class="alert alert-danger" role="alert">
+									<strong>Oh No!</strong> Revisa tus Credenciales!
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<hr>
+								<div class="form-group my-4">
+									<div class="input-group">
+										<i class="fa fa-user fa-lg" style="margin-right: 20px; margin-top: 10px;"></i></span>
+										<input type="text" id="username" class="form-control" name="username"
+											placeholder="Nombre de Usuario" required autocomplete="username">
+									</div>
+								</div>
+								<div class="form-group">
+									<div class="input-group">
+										<i class="fa fa-lock fa-lg" style="margin-right: 20px; margin-top: 10px;"></i></span>
+										<input type="password" id="password" class="form-control" name="password" placeholder="Contraseña"
+											required autocomplete="current-password">
+									</div>
+								</div>
+								<div class="form-group" style="margin-top: 40px;">
+									<button type="submit" class="btn btn-raised btn-primary login-btn btn-block">Entrar</button>
+								</div>
+								<div class="clearfix text-center">
+									<a href="#" class="pull-right">¿Olvidaste la Contraseña?</a>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="form-group">
-				<div class="input-group">
-					<i class="fa fa-lock" style="margin-right: 20px; margin-top: 10px;"></i></span>
-					<input type="password" id="password" class="form-control" name="password" placeholder="Contraseña" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<button type="submit" class="btn btn-raised btn-primary login-btn btn-block">Entrar</button>
-			</div>
-			<div class="clearfix text-center">
-				<a href="#" class="pull-right">¿Olvidaste la Contraseña?</a>
-			</div>
-		</form>
+		</div>
 	</div>
 
 	<footer>
+		<script src="js/vanta/three.r92.min.js"></script>
+		<script src="js/vanta/vanta.waves.min.js"></script>
+		<script>
+			VANTA.WAVES({
+				el: "#waves",
+				color: 0x8838,
+				shininess: 43.00,
+				waveHeight: 14.00,
+				waveSpeed: 0.7,
+				zoom: 0.75
+			});
+		</script>
+
 		<!-- JQuery JS -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
