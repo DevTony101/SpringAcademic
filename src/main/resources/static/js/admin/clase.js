@@ -19,6 +19,12 @@ function setup() {
   $('#btnBuscar').on('click', () => {
     getResultados();
   });
+
+  $('#aCrearClase').on('click', (e) => {
+    e.preventDefault();
+    loadSchedule();
+    $('#mdCrearClase').modal('toggle');
+  });
 }
 
 function initHorario() {
@@ -46,21 +52,23 @@ function initHorario() {
       horaIndice: td.data('indicehora')
     };
 
-    if (td.hasClass('selected')) {
-      td.removeClass('selected');
-      // Ya que js no compara atributos de objetos
-      // Es mejor usar filter para crear un nuevo array sin
-      // el objeto (hora) que se acaba de pulsar
-      horario = horario.filter(obj => {
-        const con1 = obj.diaIndice != hSem.diaIndice;
-        const con2 = obj.horaIndice != hSem.horaIndice;
-        return (con1 || con2);
-      });
-    } else {
-      td.addClass('selected');
-      horario.push(hSem);
-    };
-    console.log(horario);
+    if (!td.hasClass('occuped')) {
+      if (td.hasClass('selected')) {
+        td.removeClass('selected');
+        // Ya que js no compara atributos de objetos
+        // Es mejor usar filter para crear un nuevo array sin
+        // el objeto (hora) que se acaba de pulsar
+        horario = horario.filter(obj => {
+          const con1 = obj.diaIndice != hSem.diaIndice;
+          const con2 = obj.horaIndice != hSem.horaIndice;
+          return (con1 || con2);
+        });
+      } else {
+        td.addClass('selected');
+        horario.push(hSem);
+      };
+      console.log(horario);
+    }
   });
 }
 
@@ -68,7 +76,7 @@ function sendForm() {
   $('#formClase').on('submit', () => {
     let url, p1, p2; // Promises
     const nombre = slProfesorCrear.value().split(" ")[0];
-    url = './getProfesores?nombre=' + nombre;
+    url = './profesores?nombre=' + nombre;
     p1 = getData(encodeURI(url));
     url = './asignaturas?nombre=' + slAsignaturaCrear.value();
     p2 = getData(encodeURI(url));
@@ -99,7 +107,7 @@ function sendForm() {
 }
 
 function initSelects() {
-  let data = getData('/getProfesores');
+  let data = getData('/profesores');
   slProfesorBusqueda.option('Todos');
   data.then(json => {
     json.forEach(profesor => {
@@ -177,6 +185,32 @@ function getResultados() {
         clase.asignatura.nombre,
         (clase.profesor.nombre + ' ' + clase.profesor.apellido),
       ]).draw(false);
+    });
+  });
+}
+
+function loadSchedule() {
+  horario.splice(0);
+  $('#tbHorario').find('td').removeClass('selected');
+  $('#tbHorario').find('td').removeClass('occuped');
+  let profesor = slProfesorCrear.value();
+  profesor = profesor.split(" ")[0];
+  const data = getData(encodeURI('/profesores?nombre=' + profesor));
+  data.then(json => {
+    const clases = json[0].clases;
+    clases.forEach(clase => {
+      const horasSemanales = clase.horasSemanales;
+      horasSemanales.forEach(hora => {
+        const diaIndice = Number(hora.diaIndice);
+        const horaIndice = Number(hora.horaIndice);
+        $('#tbHorario').find('td').each(function (i, elem) {
+          const diaTd = Number($(elem).data('indicedia'));
+          const horaTd = Number($(elem).data('indicehora'));
+          if (diaIndice == diaTd && horaIndice == horaTd) {
+            $(elem).addClass('occuped');
+          }
+        });
+      });
     });
   });
 }

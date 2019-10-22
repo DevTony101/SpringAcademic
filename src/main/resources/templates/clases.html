@@ -44,8 +44,8 @@
           <div class="card-header">Resultados de Búsqueda</div>
           <div class="card-body">
             <nav class="nav" style="margin-bottom: 20px;">
-              <a class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button" href="#"
-                data-toggle="modal" data-target="#mdCrearClase">Nuevo Curso</a>
+              <a id="aCrearClase" class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button"
+                href="#" data-toggle="modal">Nuevo Clase</a>
             </nav>
             <table id="tbBusqueda" class="table table-striped">
               <thead>
@@ -117,6 +117,7 @@
               </div>
             </div>
             <div class="modal-footer my-2" style="padding-bottom: 0">
+              <small>Las Horas en Rojo Ya Se Encuentran Ocupadas!</small>
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
               <button type="submit" class="btn btn-success">Crear</button>
             </div>

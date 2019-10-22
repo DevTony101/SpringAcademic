@@ -2,6 +2,10 @@
   background-color: rgb(148, 203, 84);
 }
 
+.occuped {
+  background-color: rgb(204, 56, 26);
+}
+
 #tbHorario tbody td:hover {
   background-color: rgb(251, 191, 57);
 }
