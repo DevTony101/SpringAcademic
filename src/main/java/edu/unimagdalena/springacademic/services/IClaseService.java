@@ -11,6 +11,8 @@ public interface IClaseService {
 
   Clase guardarClase(Clase clase);
 
+  Clase actualizarClase(Clase clase);
+
   void eliminarClase(Long id);
 
   List<Clase> getByAsignaturaProfesor(String asignatura, String profesor);

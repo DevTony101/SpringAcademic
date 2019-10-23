@@ -2,6 +2,7 @@ package edu.unimagdalena.springacademic.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
@@ -34,7 +34,6 @@ import lombok.ToString;
  */
 @Entity
 @Table(name = "ALUMNOS")
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -88,4 +87,8 @@ public class Alumno implements Serializable {
   @OneToOne(mappedBy = "usuarioAlumno")
   @JsonIgnoreProperties("usuarioAlumno")
   private Usuario usuario;
+
+  public Alumno() {
+    this.clases = new HashSet<>();
+  }
 }
