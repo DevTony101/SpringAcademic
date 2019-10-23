@@ -58,7 +58,7 @@
           <div class="card-body">
             <nav class="nav" style="margin-bottom: 20px;">
               <a class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button" href="#"
-                data-toggle="modal" data-target="#mdCrearProfesor">Nuevo Profesor</a>
+                id="btnNuevoProfesor">Nuevo Profesor</a>
             </nav>
             <table id="tbBusqueda" class="table table-striped">
               <thead>
@@ -128,7 +128,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Nuevo Profesor</h5>
+          <h5 class="modal-title" id="mdcrear-title">Nuevo Profesor</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -140,6 +140,7 @@
               <label for="itNombre">Nombre*</label>
               <input type="text" id="itNombre" th:field="*{nombre}" class="form-control"
                 placeholder="Nombre del Profesor" required>
+              <input type="text" id="auxId" hidden>
             </div>
             <div class="form-group">
               <label for="itApellido">Apellido*</label>

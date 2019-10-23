@@ -1,24 +1,51 @@
 let table;
-let itNombre, itNif;
+let editMode = false;
 
 function setup() {
   noCanvas();
   initTable();
   loadAsignaturas();
   loadTitulaciones();
+  $('#successModal').modal('toggle');
   const inputNif = select('#itNif');
   const smNif = select('#smNif');
-
-  $('#successModal').modal('toggle');
-  itNombre = select('#searchName');
-  itNif = select('#searchNif');
 
   $('#formProfesor').on('submit', () => {
     if (smNif.hasClass('show-error')) {
       return false;
     }
+
+    if (editMode) {
+      const profesor = {
+        id: select('#auxId').value(),
+        nombre: select('#itNombre').value(),
+        apellido: select('#itApellido').value(),
+        nif: select('#itNif').value(),
+        telefono: select('#itTelefono').value(),
+        correo: select('#itCorreo').value(),
+        titulacion: select('#itTitulacion').value()
+      };
+
+      console.log(profesor);
+
+      $.ajax("/profesores", {
+        contentType: "application/json",
+        dataType: 'json',
+        type: 'PUT',
+        data: JSON.stringify(profesor),
+        success: function (data) {
+          $('#mdCrearProfesor').modal('toggle');
+          getResultados();
+        }
+      });
+
+      select('#auxId').value('');
+      editMode = false;
+      return false;
+    }
+
     return true;
-  })
+  });
 
   $('#btnBuscar').on('click', (e) => {
     e.preventDefault();
@@ -38,6 +65,24 @@ function setup() {
         }
       });
     });
+  });
+
+  $('#btnNuevoProfesor').on('click', (e) => {
+    e.preventDefault();
+    select('#itNombre').value('');
+    select('#itApellido').value('');
+    select('#itNif').value('');
+    $('#itNif').attr('readonly', false);
+    select('#itTelefono').value('');
+    select('#itCorreo').value('');
+    select('#itTitulacion').value('');
+
+    select('#mdcrear-title').html('Nuevo Profesor');
+    $('#mdCrearProfesor').modal('toggle');
+  });
+
+  $('#mdCrearProfesor').on('hidden.bs.modal', () => {
+    editMode = false;
   });
 }
 
@@ -69,11 +114,12 @@ function initTable() {
     "<i class='material-icons'>more_vert</i>" +
     "</button>" +
     "<div class='dropdown-menu dropdown-menu-left'>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Info</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Editar</a>" +
     "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
     "<a class='dropdown-item btn btn-danger' role='button' href='#'>Eliminar</a>" +
     "</div>" +
-    "</div>"
+    "</div>";
+
   table = $('#tbBusqueda').DataTable({
     "columnDefs": [{
       "data": null,
@@ -91,7 +137,8 @@ function initTable() {
     const Http = new XMLHttpRequest();
     let url, res;
     switch (action) {
-      case "Info":
+      case "Editar":
+        editInfo(nif);
         break;
       case "Clases":
         $('#modalClases').modal('toggle');
@@ -127,8 +174,8 @@ function initTable() {
 }
 
 function getResultados() {
-  const nombre = itNombre.value();
-  const nif = itNif.value();
+  const nombre = select('#searchName').value();
+  const nif = select('#searchNif').value();
   const url = '/profesores';
   let query = '';
   let res;
@@ -151,6 +198,27 @@ function getResultados() {
         profesor.telefono
       ]).draw(false);
     });
+  });
+}
+
+function editInfo(nif) {
+  const data = getData(encodeURI('/profesores?nif=' + nif));
+  data.then(json => {
+    const profesor = json[0];
+    select('#auxId').value(profesor.id);
+    select('#itNombre').value(profesor.nombre);
+    select('#itApellido').value(profesor.apellido);
+    select('#itNif').value(profesor.nif);
+    $('#itNif').attr('readonly', true);
+    select('#itTelefono').value(profesor.telefono);
+    select('#itCorreo').value(profesor.correo);
+    if (profesor.titulacion) {
+      select('#itTitulacion').value(profesor.titulacion);
+    }
+
+    select('#mdcrear-title').html('Editar Profesor');
+    $('#mdCrearProfesor').modal('toggle');
+    editMode = true;
   });
 }
 
