@@ -4,6 +4,7 @@ function setup() {
   noCanvas();
   initTable();
   initForm();
+  initRespForm();
   loadAsignaturas();
   $('#successModal').modal('toggle');
   $('#btnBuscar').on('click', () => {
@@ -45,7 +46,7 @@ function initTable() {
     "<i class='material-icons'>more_vert</i>" +
     "</button>" +
     "<div class='dropdown-menu dropdown-menu-left'>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Info</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Editar</a>" +
     "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
     "<a class='dropdown-item btn btn-danger' role='button' href='#'>Dar de alta/baja</a>" +
     "</div>" +
@@ -73,7 +74,7 @@ function initTable() {
     const Http = new XMLHttpRequest();
     let url, res;
     switch (action) {
-      case "Info":
+      case "Editar":
         break;
       case "Clases":
         $('#modalClases').modal('toggle');
@@ -126,6 +127,25 @@ function getResultados() {
         (alumno.fechaBaja ? alumno.fechaBaja : 'No Figura')
       ]).draw(false);
     });
+  });
+}
+
+function initRespForm() {
+  select('#itRespNombre').changed(() => {
+    const text = select('#itRespNombre').value();
+    if (text.length > 0) {
+      setRequired(true);
+    } else {
+      setRequired(false);
+    }
+  });
+
+  const setRequired = ((value) => {
+    $('#itRespNombre').attr('required', value);
+    $('#itRespApellido').attr('required', value);
+    $('#itRespNif').attr('required', value);
+    $('#itRespTelefono').attr('required', value);
+    $('#itRespCorreo').attr('required', value);
   });
 }
 
