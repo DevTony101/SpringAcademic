@@ -1,6 +1,7 @@
 package edu.unimagdalena.springacademic.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,11 @@ public class CursoService implements ICursoService {
 
   @Override
   public Curso getById(Long id) {
-    return repo.getOne(id);
+    Optional<Curso> curso = repo.findById(id);
+    if (curso.isPresent()) {
+      return curso.get();
+    }
+    return null;
   }
 
   @Override

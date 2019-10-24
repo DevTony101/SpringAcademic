@@ -13,7 +13,7 @@
           <div class="card-body">
             <nav class="nav" style="margin-bottom: 20px;">
               <a class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button" href="#"
-                data-toggle="modal" data-target="#mdCrearCurso">Nuevo Curso</a>
+                id="btnNuevoCurso">Nuevo Curso</a>
             </nav>
             <table id="tbCursos" class="table table-striped">
               <thead>
@@ -38,20 +38,21 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Nuevo Curso</h5>
+          <h5 class="modal-title" id="mdcrear-title">Nuevo Curso</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form id="formProfesor" action="#" th:action="@{/crearCurso}" th:object="${curso}" role="form"
-            autocomplete="off" method="post">
+          <form id="formCurso" action="#" th:action="@{/crearCurso}" th:object="${curso}" role="form" autocomplete="off"
+            method="post">
             <div class="row">
               <div class="col">
                 <div class="form-group">
                   <label for="spNivel">*Nivel</label>
                   <input type="number" class="form-control" id="spNivel" th:field="*{nivel}" value="1" min="1" max="10"
                     step="1" required />
+                  <input type="text" id="auxId" hidden>
                 </div>
               </div>
               <div class="col">

@@ -79,6 +79,7 @@ function setup() {
 
     select('#mdcrear-title').html('Nuevo Profesor');
     $('#mdCrearProfesor').modal('toggle');
+    editMode = false;
   });
 
   $('#mdCrearProfesor').on('hidden.bs.modal', () => {
