@@ -12,25 +12,30 @@
         <div class="card border-success">
           <div class="card-header">Búsqueda de Alumnos</div>
           <div class="card-body" style="padding-bottom: 0">
-            <form id="searchForm" class="form-inline">
-              <div class="form-group">
-                <i class="fas fa-user-edit" style="margin-right: 20px;"></i>
-                <label for="searchName">Nombre</label>
-                <input id="searchName" class="form-control form-control-sm mr-3 w-75" type="text"
-                  placeholder="Nombre del Alumno..." aria-label="Search" style="height: 40px; margin-top: 10px;">
+            <form id="searchForm" class="form">
+              <div class="row">
+                <div class="col-6" style="padding-right: 0">
+                  <div class="form-group">
+                    <i class="fas fa-user-edit fa-lg" style="margin-right: 20px;"></i>
+                    <label for="searchName">Nombre</label>
+                    <input id="searchName" class="form-control form-control-sm mr-3 w-75" type="text"
+                      placeholder="Nombre del Alumno..." aria-label="Search" style="height: 40px; margin-top: 10px;">
+                  </div>
+                </div>
+                <div class="col-6" style="padding-left: 0">
+                  <div class="form-group">
+                    <i class="fas fa-address-book fa-lg" style="margin-right: 25px;"></i>
+                    <label for="searchCurso">Curso</label>
+                    <select id="slCursos" class="custom-select" style="margin-top: 10px;"></select>
+                  </div>
+                </div>
               </div>
-
-              <div class="form-group">
-                <i class="fas fa-address-book" style="margin-right: 25px;"></i>
-                <label for="searchCurso">Curso</label>
-                <select id="slCursos" class="custom-select" style="margin-top: 10px;"></select>
+              <div class="row">
+                <div class="form-group my-3" style="margin-bottom: 0!important; margin-left: 15px;">
+                  <button type="button" id="btnBuscar" class="btn btn-raised btn-success">Buscar</button>
+                  <button type="reset" class="btn btn-raised btn-primary mx-4">Limpiar</button>
+                </div>
               </div>
-
-              <div class="form-group my-3">
-                <button type="button" id="btnBuscar" class="btn btn-raised btn-success">Buscar</button>
-                <button type="reset" class="btn btn-raised btn-primary mx-4">Limpiar</button>
-              </div>
-
             </form>
           </div>
         </div>
