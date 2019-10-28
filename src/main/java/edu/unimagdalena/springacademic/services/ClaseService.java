@@ -48,7 +48,6 @@ public class ClaseService implements IClaseService {
   @Override
   public Clase guardarClase(Clase clase) {
     Asignatura asignatura = clase.getAsignatura();
-    asignatura = aService.getByNombre(asignatura.getNombre());
     asignatura.getClases().add(clase);
     clase.setAsignatura(asignatura);
     aService.actualizarAsignatura(asignatura);

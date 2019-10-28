@@ -31,10 +31,15 @@ public class RCursoController {
   }
 
   @GetMapping("/cursos")
-  public List<Curso> getCursos(@RequestParam(name = "id", required = false) Long id) {
+  public List<Curso> getCursos(@RequestParam(name = "id", required = false) Long id, @RequestParam(name = "nivel", required = false) Integer nivel, @RequestParam(name = "etapa", required = false) String etapa) {
     if (id != null) {
       return Arrays.asList(cService.getById(id));
     }
+
+    if(nivel != null && etapa != null) {
+      return Arrays.asList(cService.getByNivelEtapa(nivel, etapa));
+    }
+
     return cService.getAll();
   }
 

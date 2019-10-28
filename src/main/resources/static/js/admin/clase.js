@@ -1,4 +1,5 @@
 let table;
+let slCurso;
 let slProfesorBusqueda, slProfesorCrear;
 let slAsignaturaBusqueda, slAsignaturaCrear;
 let horario;
@@ -6,7 +7,7 @@ let horario;
 function setup() {
   noCanvas();
   horario = [];
-  slCurso = select('#cursoBusqueda');
+  slCurso = select('#cursoCrear');
   slProfesorBusqueda = select('#profesorBusqueda');
   slProfesorCrear = select('#profesorCrear');
   slAsignaturaBusqueda = select('#asignaturaBusqueda');
@@ -82,11 +83,16 @@ function sendForm() {
     const nombre = slProfesorCrear.value().split(" ")[0];
     url = './profesores?nombre=' + nombre;
     p1 = getData(encodeURI(url));
-    url = './asignaturas?nombre=' + slAsignaturaCrear.value();
+
+    const curso = slCurso.value().split(" ");
+    const nivel = curso[0];
+    const etapa = curso[2];
+    url = './curso/asignaturas?nivel=' + nivel + '&etapa=' + etapa + '&nombre=' + slAsignaturaCrear.value();
     p2 = getData(encodeURI(url));
 
     Promise.all([p1, p2]).then(values => {
-      values[1][0].curso = null
+      console.log(values);
+      values[1][0].curso.alumnos = null;
       const clase = {
         profesor: values[0][0],
         asignatura: values[1][0],
@@ -106,6 +112,7 @@ function sendForm() {
         }
       });
     });
+    
     return false;
   });
 }
@@ -120,13 +127,35 @@ function initSelects() {
     });
   });
 
+  data = getData('/cursos');
+  data.then(json => {
+    json.forEach(curso => {
+      slCurso.option(curso.nivel + ' - ' + curso.etapa);
+    });
+  });
+
   data = getData('/asignaturas');
   slAsignaturaBusqueda.option('Todos');
   data.then(json => {
     json.forEach(asignatura => {
       slAsignaturaBusqueda.option(asignatura.nombre);
-      slAsignaturaCrear.option(asignatura.nombre);
     });
+  });
+
+  slCurso.changed(() => {
+    $('#asignaturaCrear option').remove();
+    const curso = slCurso.value().split(" ");
+    const nivel = curso[0];
+    const etapa = curso[2];
+    const url = '/curso/asignaturas?nivel=' + nivel + '&etapa=' + etapa;
+    data = getData(encodeURI(url));
+    data.then(json => {
+      json.forEach(asignatura => {
+        slAsignaturaCrear.option(asignatura.nombre);
+      });
+    });
+
+    $('#asignaturaCrear').attr('disabled', false);
   });
 }
 
