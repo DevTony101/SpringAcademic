@@ -112,7 +112,7 @@ function sendForm() {
         }
       });
     });
-    
+
     return false;
   });
 }
@@ -235,7 +235,8 @@ function loadSchedule() {
   data.then(json => {
     const clases = json[0].clases;
     clases.forEach(clase => {
-      const asignatura = clase.asignatura.nombre;
+      let asignatura = clase.asignatura.nombre;
+      asignatura += ' - ' + clase.asignatura.curso.nivel + clase.asignatura.curso.etapa.substring(0, 1);
       const horasSemanales = clase.horasSemanales;
       horasSemanales.forEach(hora => {
         const diaIndice = Number(hora.diaIndice);

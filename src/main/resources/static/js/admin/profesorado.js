@@ -149,7 +149,8 @@ function initTable() {
         url = '/clases?profesor=' + nombre;
         getData(encodeURI(url)).then(json => {
           json.forEach(clase => {
-            const asignatura = clase.asignatura.nombre;
+            let asignatura = clase.asignatura.nombre;
+            asignatura += ' - ' + clase.asignatura.curso.nivel + clase.asignatura.curso.etapa.substring(0, 1);
             const horasSemanales = clase.horasSemanales;
             horasSemanales.forEach(horario => {
               const dia = horario.dia;
