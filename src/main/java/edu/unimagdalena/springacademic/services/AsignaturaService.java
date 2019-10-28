@@ -48,4 +48,9 @@ public class AsignaturaService implements IAsignaturaService {
     return repo.findByNombre(nombre);
   }
 
+  @Override
+  public List<Asignatura> getByCurso(Curso curso) {
+    return repo.findByCurso(curso);
+  }
+
 }
