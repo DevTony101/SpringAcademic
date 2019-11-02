@@ -74,7 +74,18 @@ public class AlumnoService implements IAlumnoService {
   }
 
   @Override
-  public Alumno actualizarAlumno(Alumno alumno) {
+  public Alumno actualizarAlumno(Alumno alumno, boolean act) {
+    if (act) {
+      ResponsableAlumno responsable = alumno.getResponsable();
+      if (responsable.getNombre().isEmpty()) {
+        alumno.setResponsable(null);
+      } else {
+        rService.guardarResponsable(responsable);
+      }
+
+      Alumno aux = getById(alumno.getId());
+      alumno.setCurso(aux.getCurso());
+    }
     return repo.save(alumno);
   }
 
@@ -85,8 +96,8 @@ public class AlumnoService implements IAlumnoService {
 
   @Override
   public Alumno getById(Long id) {
-    Optional <Alumno> alumno = repo.findById(id);
-    if(alumno.isPresent()) {
+    Optional<Alumno> alumno = repo.findById(id);
+    if (alumno.isPresent()) {
       return alumno.get();
     }
     return null;

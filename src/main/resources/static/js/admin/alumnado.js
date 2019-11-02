@@ -11,6 +11,75 @@ function setup() {
   $('#btnBuscar').on('click', () => {
     getResultados();
   });
+
+  $('#formAlumno').on('submit', () => {
+    if (editMode) {
+      const responsable = {
+        id: select('#auxIdResp').value(),
+        nombre: select('#itRespNombre').value(),
+        apellido: select('#itRespApellido').value(),
+        nif: select('#itRespNif').value(),
+        telefono: select('#itRespTelefono').value(),
+        correo: select('#itRespCorreo').value()
+      };
+
+      const alumno = {
+        id: select('#auxId').value(),
+        nombre: select('#itNombre').value(),
+        apellido: select('#itApellido').value(),
+        nif: select('#itNif').value(),
+        telefono: select('#itTelefono').value(),
+        correo: select('#itCorreo').value(),
+        repetidor: select('#cbRepetidor').value(),
+        fechaAlta: select('#itfalta').value(),
+        observaciones: select('#taObservaciones').value(),
+        responsable: responsable
+      };
+
+      console.log(alumno.nCurso);
+
+      $.ajax("/alumnos", {
+        contentType: "application/json",
+        dataType: 'json',
+        type: 'PUT',
+        data: JSON.stringify(alumno),
+        success: function (data) {
+          $('#mdCrearAlumno').modal('toggle');
+          getResultados();
+        }
+      });
+
+      select('#auxId').value('');
+      select('#auxIdResp').value('');
+      editMode = false;
+      return false;
+    }
+
+    return true;
+  });
+
+  $('#btnNuevoAlumno').on('click', (e) => {
+    e.preventDefault();
+    select('#itNombre').value('');
+    select('#itApellido').value('');
+    select('#itNif').value('');
+    $('#itNif').attr('readonly', false);
+    select('#itTelefono').value('');
+    select('#itCorreo').value('');
+    $('#cbRepetidor').attr('checked', false);
+    select('#taObservaciones').value('');
+    cleanRespForm();
+    initForm();
+
+    select('#mdcrear-title').html('Nuevo Alumno');
+    $('#btnCrear').html('Crear');
+    $('#mdCrearAlumno').modal('toggle');
+    editMode = false;
+  });
+
+  $('#mdCrearAlumno').on('hidden.bs.modal', () => {
+    editMode = false;
+  });
 }
 
 function loadAsignaturas() {
@@ -30,11 +99,15 @@ function initForm() {
 }
 
 function loadCursos() {
+  $('#itCurso option').remove();
+  $('#slCursos option').remove();
   const itCurso = select('#itCurso');
   const slCurso = select('#slCursos');
+  $('#itCurso').attr('disabled', false);
   const data = getData('/cursos');
   data.then(json => {
     json.forEach(curso => {
+      console.log(curso);
       itCurso.option(curso.nivel + ' - ' + curso.etapa);
       slCurso.option(curso.nivel + ' - ' + curso.etapa);
     });
@@ -76,6 +149,7 @@ function initTable() {
     let url, res;
     switch (action) {
       case "Datos Personales":
+        editInfo(id);
         break;
       case "Clases":
         $('#modalClases').modal('toggle');
@@ -161,6 +235,49 @@ function initRespForm() {
     $('#itRespTelefono').attr('required', value);
     $('#itRespCorreo').attr('required', value);
   });
+}
+
+function editInfo(id) {
+  const data = getData(encodeURI('/alumnos?id=' + id));
+  $('#btnCrear').html('Modificar');
+  data.then(json => {
+    const alumno = json[0];
+    const responsable = alumno.responsable;
+    select('#auxId').value(alumno.id);
+    select('#itNombre').value(alumno.nombre);
+    select('#itApellido').value(alumno.apellido);
+    select('#itNif').value(alumno.nif);
+    $('#itNif').attr('readonly', true);
+    select('#itTelefono').value(alumno.telefono);
+    select('#itCorreo').value(alumno.correo);
+    select('#itCurso').value(alumno.curso.nivel + ' - ' + alumno.curso.etapa);
+    $('#itCurso').attr('disabled', true);
+    $('#cbRepetidor').attr('checked', alumno.repetidor);
+    $('#itfalta').val(alumno.fechaAlta);
+    select('#taObservaciones').value(alumno.observaciones);
+    cleanRespForm();
+
+    if (responsable) {
+      select('#auxIdResp').value(responsable.id);
+      select('#itRespNombre').value(responsable.nombre);
+      select('#itRespApellido').value(responsable.apellido);
+      select('#itRespNif').value(responsable.nif);
+      select('#itRespTelefono').value(responsable.telefono);
+      select('#itRespCorreo').value(responsable.correo);
+    }
+
+    select('#mdcrear-title').html('Editar Alumno');
+    $('#mdCrearAlumno').modal('toggle');
+    editMode = true;
+  });
+}
+
+function cleanRespForm() {
+  select('#itRespNombre').value('');
+  select('#itRespApellido').value('');
+  select('#itRespNif').value('');
+  select('#itRespTelefono').value('');
+  select('#itRespCorreo').value('');
 }
 
 async function getData(apiUrl) {

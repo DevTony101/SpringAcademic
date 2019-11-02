@@ -14,7 +14,7 @@ public interface IAlumnoService {
 
   Alumno guardarAlumno(Alumno alumno);
 
-  Alumno actualizarAlumno(Alumno alumno);
+  Alumno actualizarAlumno(Alumno alumno, boolean act);
 
   List<Alumno> getAll();
 

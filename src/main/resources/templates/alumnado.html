@@ -62,8 +62,8 @@
           <div class="card-header">Resultados de Búsqueda</div>
           <div class="card-body">
             <nav class="nav" style="margin-bottom: 20px;">
-              <a class="nav-link btn btn-raised btn-success" style="margin-right: 10px;" role="button" href="#"
-                data-toggle="modal" data-target="#mdCrearAlumno">Nuevo Alumno</a>
+              <a id="btnNuevoAlumno" class="nav-link btn btn-raised btn-success" style="margin-right: 10px;"
+                role="button" href="#">Nuevo Alumno</a>
             </nav>
             <table id="tbBusqueda" class="table table-striped">
               <thead>
@@ -134,14 +134,14 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Nuevo Alumno</h5>
+          <h5 id="mdcrear-title" class="modal-title">Nuevo Alumno</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <form action="#" th:action="@{/crearAlumno}" th:object="${alumno}" role="form" autocomplete="off"
-            method="post">
+          <form id="formAlumno" action="#" th:action="@{/crearAlumno}" th:object="${alumno}" role="form"
+            autocomplete="off" method="post">
             <ul class="nav nav-tabs bg-light">
               <li class="active nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#alumno">Alumno</a>
@@ -158,6 +158,7 @@
                       <label for="itNombre">Nombre*</label>
                       <input type="text" id="itNombre" th:field="*{nombre}" class="form-control"
                         placeholder="Nombre del Alumno" required>
+                      <input type="text" id="auxId" hidden>
                     </div>
                     <div class="form-group">
                       <label for="itApellido">Apellido*</label>
@@ -210,6 +211,7 @@
                   <label for="itRespNombre">Nombre*</label>
                   <input type="text" id="itRespNombre" th:field="*{responsable.nombre}" class="form-control"
                     placeholder="Nombre del Responsable">
+                  <input type="text" id="auxIdResp" hidden>
                 </div>
                 <div class="form-group">
                   <label for="itRespApellido">Apellido*</label>
@@ -235,7 +237,7 @@
             </div>
             <div class="modal-footer" style="padding-bottom: 0">
               <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              <button type="submit" class="btn btn-success">Crear</button>
+              <button id="btnCrear" type="submit" class="btn btn-success">Crear</button>
             </div>
           </form>
         </div>
