@@ -15,8 +15,8 @@ import edu.unimagdalena.springacademic.entities.Clase;
 @Repository
 public interface ClaseRepository extends JpaRepository<Clase, Long> {
 
-  @Query("SELECT c FROM Clase c WHERE c.asignatura.nombre = :asignatura AND c.profesor.nombre = :profesor")
-  List<Clase> findByAsignaturaProfesor(@Param("asignatura") String asignatura, @Param("profesor") String profesor);
+  @Query("SELECT c FROM Clase c WHERE c.asignatura.curso.nivel = :nivel AND c.asignatura.curso.etapa = :etapa")
+  List<Clase> findByCurso(@Param("nivel") Integer nivel, @Param("etapa") String etapa);
 
   @Query("SELECT c FROM Clase c WHERE c.asignatura.nombre = :asignatura")
   List<Clase> findByAsignatura(@Param("asignatura") String asignatura);

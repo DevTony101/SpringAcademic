@@ -93,13 +93,13 @@ public class ClaseService implements IClaseService {
   }
 
   @Override
-  public List<Clase> getByAsignaturaProfesor(String asignatura, String profesor) {
-    return cRepo.findByAsignaturaProfesor(asignatura, profesor);
+  public void eliminarClase(Long id) {
+    cRepo.deleteById(id);
   }
 
   @Override
-  public void eliminarClase(Long id) {
-    cRepo.deleteById(id);
+  public List<Clase> getByCurso(Integer nivel, String etapa) {
+    return cRepo.findByCurso(nivel, etapa);
   }
 
   @Override

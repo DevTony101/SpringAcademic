@@ -15,9 +15,9 @@ public interface IClaseService {
 
   void eliminarClase(Long id);
 
-  List<Clase> getByAsignaturaProfesor(String asignatura, String profesor);
+  List<Clase> getByCurso(Integer nivel, String etapa);
 
-  List<Clase> getByAsignatura(String asignatura); // Nombre de la Asignatura
+  List<Clase> getByAsignatura(String asignatura);
 
   List<Clase> getByProfesor(String profesor); // Nombre del Profesor
 
