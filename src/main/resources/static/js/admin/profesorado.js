@@ -78,6 +78,8 @@ function setup() {
     select('#itTitulacion').value('');
 
     select('#mdcrear-title').html('Nuevo Profesor');
+    $('#btnCrear').html('Crear');
+    $('#btnLimpiar').css('display', 'block');
     $('#mdCrearProfesor').modal('toggle');
     editMode = false;
   });
@@ -115,7 +117,7 @@ function initTable() {
     "<i class='material-icons'>more_vert</i>" +
     "</button>" +
     "<div class='dropdown-menu dropdown-menu-left'>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Editar</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Datos Personales</a>" +
     "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
     "<a class='dropdown-item btn btn-danger' role='button' href='#'>Eliminar</a>" +
     "</div>" +
@@ -138,7 +140,7 @@ function initTable() {
     const Http = new XMLHttpRequest();
     let url, res;
     switch (action) {
-      case "Editar":
+      case "Datos Personales":
         editInfo(nif);
         break;
       case "Clases":
@@ -205,6 +207,8 @@ function getResultados() {
 
 function editInfo(nif) {
   const data = getData(encodeURI('/profesores?nif=' + nif));
+  $('#btnCrear').html('Modificar');
+  $('#btnLimpiar').css('display', 'none');
   data.then(json => {
     const profesor = json[0];
     select('#auxId').value(profesor.id);
