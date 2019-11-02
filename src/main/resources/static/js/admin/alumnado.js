@@ -1,4 +1,5 @@
 let table;
+let editMode = false;
 
 function setup() {
   noCanvas();
@@ -46,7 +47,7 @@ function initTable() {
     "<i class='material-icons'>more_vert</i>" +
     "</button>" +
     "<div class='dropdown-menu dropdown-menu-left'>" +
-    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Editar</a>" +
+    "<a class='dropdown-item btn btn-primary' role='button' href='#'>Datos Personales</a>" +
     "<a class='dropdown-item btn btn-primary' role='button' href='#'>Clases</a>" +
     "<a class='dropdown-item btn btn-danger' role='button' href='#'>Dar de alta/baja</a>" +
     "</div>" +
@@ -74,7 +75,7 @@ function initTable() {
     const Http = new XMLHttpRequest();
     let url, res;
     switch (action) {
-      case "Editar":
+      case "Datos Personales":
         break;
       case "Clases":
         $('#modalClases').modal('toggle');
@@ -131,12 +132,25 @@ function getResultados() {
 }
 
 function initRespForm() {
-  select('#itRespNombre').changed(() => {
-    const text = select('#itRespNombre').value();
-    if (text.length > 0) {
-      setRequired(true);
-    } else {
-      setRequired(false);
+  select('#itRespNombre').changed(() => callback());
+  select('#itRespApellido').changed(() => callback());
+  select('#itRespNif').changed(() => callback());
+  select('#itRespTelefono').changed(() => callback());
+  select('#itRespCorreo').changed(() => callback());
+
+  const callback = (() => {
+    let sizes = [];
+    sizes.push(select('#itRespNombre').value().length);
+    sizes.push(select('#itRespApellido').value().length);
+    sizes.push(select('#itRespNif').value().length);
+    sizes.push(select('#itRespTelefono').value().length);
+    sizes.push(select('#itRespCorreo').value().length);
+    setRequired(false);
+    for (let size of sizes) {
+      if (size > 0) {
+        setRequired(true);
+        break;
+      }
     }
   });
 
