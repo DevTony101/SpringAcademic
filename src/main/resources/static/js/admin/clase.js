@@ -1,16 +1,16 @@
 let table;
-let slCurso;
+let slAsignaturaCrear;
+let slCursoBusqueda, slCursoCrear;
 let slProfesorBusqueda, slProfesorCrear;
-let slAsignaturaBusqueda, slAsignaturaCrear;
 let horario;
 
 function setup() {
   noCanvas();
   horario = [];
-  slCurso = select('#cursoCrear');
+  slCursoBusqueda = select('#cursoBusqueda');
+  slCursoCrear = select('#cursoCrear');
   slProfesorBusqueda = select('#profesorBusqueda');
   slProfesorCrear = select('#profesorCrear');
-  slAsignaturaBusqueda = select('#asignaturaBusqueda');
   slAsignaturaCrear = select('#asignaturaCrear');
   initTable();
   initSelects();
@@ -84,7 +84,7 @@ function sendForm() {
     url = './profesores?nombre=' + nombre;
     p1 = getData(encodeURI(url));
 
-    const curso = slCurso.value().split(" ");
+    const curso = slCursoCrear.value().split(" ");
     const nivel = curso[0];
     const etapa = curso[2];
     url = './curso/asignaturas?nivel=' + nivel + '&etapa=' + etapa + '&nombre=' + slAsignaturaCrear.value();
@@ -129,22 +129,16 @@ function initSelects() {
 
   data = getData('/cursos');
   data.then(json => {
+    slCursoBusqueda.option('Todos');
     json.forEach(curso => {
-      slCurso.option(curso.nivel + ' - ' + curso.etapa);
+      slCursoBusqueda.option(curso.nivel + ' - ' + curso.etapa);
+      slCursoCrear.option(curso.nivel + ' - ' + curso.etapa);
     });
   });
 
-  data = getData('/asignaturas');
-  slAsignaturaBusqueda.option('Todos');
-  data.then(json => {
-    json.forEach(asignatura => {
-      slAsignaturaBusqueda.option(asignatura.nombre);
-    });
-  });
-
-  slCurso.changed(() => {
+  slCursoCrear.changed(() => {
     $('#asignaturaCrear option').remove();
-    const curso = slCurso.value().split(" ");
+    const curso = slCursoCrear.value().split(" ");
     const nivel = curso[0];
     const etapa = curso[2];
     const url = '/curso/asignaturas?nivel=' + nivel + '&etapa=' + etapa;
@@ -203,11 +197,21 @@ function initTable() {
 }
 
 function getResultados() {
-  const asignatura = slAsignaturaBusqueda.value();
+  let data;
+  const curso = slCursoBusqueda.value();
   let profesor = slProfesorBusqueda.value();
-  profesor = profesor.split(" ")[0];
-  const url = '/clases?asignatura=' + asignatura + '&profesor=' + profesor;
-  const data = getData(encodeURI(url));
+  if (curso === 'Todos' && profesor === 'Todos') {
+    data = getData(encodeURI('/clases'));
+  } else if (curso !== 'Todos' && profesor !== 'Todos') {
+    profesor = profesor.split(" ")[0];
+    data = getData(encodeURI('/clases?curso=' + curso + '&profesor=' + profesor));
+  } else if (curso !== 'Todos') {
+    data = getData(encodeURI('/clases?curso=' + curso));
+  } else  {
+    profesor = profesor.split(" ")[0];
+    data = getData(encodeURI('/clases?profesor=' + profesor));
+  }
+
   data.then(json => {
     table.clear().draw();
     json.forEach(clase => {

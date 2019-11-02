@@ -1,6 +1,7 @@
 package edu.unimagdalena.springacademic.controllers.rest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jboss.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,29 @@ public class RClaseController {
   private static Logger LOG = Logger.getLogger(RClaseController.class);
 
   @GetMapping("/clases")
-  public List<Clase> getClases(@RequestParam(name = "asignatura", required = false) String asignatura,
+  public List<Clase> getClases(@RequestParam(name = "curso", required = false) String curso,
       @RequestParam(name = "profesor", required = false) String profesor) {
-    if (asignatura == null && !profesor.equals("TODOS")) {
-      return cService.getByProfesor(profesor);
-    } else if (profesor == null && asignatura.equals("TODOS")) {
-      return cService.getByAsignatura(asignatura);
-    } else if (asignatura.equals("Todos") && profesor.equals("Todos")) {
-      return cService.getAll();
+    List<Clase> clases;
+    if (curso != null && profesor != null) {
+      String[] nCurso = curso.split(" ");
+      int nivel = Integer.parseInt(nCurso[0]);
+      String etapa = nCurso[2];
+      clases = cService.getByCurso(nivel, etapa);
+      clases = clases.stream().filter(clase -> {
+        return (clase.getProfesor().getNombre().equals(profesor));
+      }).collect(Collectors.toList());
+    } else if (curso != null) {
+      String[] nCurso = curso.split(" ");
+      int nivel = Integer.parseInt(nCurso[0]);
+      String etapa = nCurso[2];
+      clases = cService.getByCurso(nivel, etapa);
+    } else if (profesor != null) {
+      clases = cService.getByProfesor(profesor);
     } else {
-      return cService.getByAsignaturaProfesor(asignatura, profesor);
+      clases = cService.getAll();
     }
+
+    return clases;
   }
 
   @PostMapping("/clases")
