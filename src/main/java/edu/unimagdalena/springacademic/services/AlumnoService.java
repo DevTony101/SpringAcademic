@@ -80,6 +80,7 @@ public class AlumnoService implements IAlumnoService {
       if (responsable.getNombre().isEmpty()) {
         alumno.setResponsable(null);
       } else {
+        responsable.getAlumnos().add(alumno);
         rService.guardarResponsable(responsable);
       }
 
