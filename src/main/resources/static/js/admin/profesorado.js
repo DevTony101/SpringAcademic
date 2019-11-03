@@ -4,71 +4,19 @@ let editMode = false;
 function setup() {
   noCanvas();
   initTable();
-  loadAsignaturas();
-  loadTitulaciones();
+  initValidations();
+  initForm();
+  initSelects();
   $('#successModal').modal('toggle');
-  const inputNif = select('#itNif');
-  const smNif = select('#smNif');
-
-  $('#formProfesor').on('submit', () => {
-    if (smNif.hasClass('show-error')) {
-      return false;
-    }
-
-    if (editMode) {
-      const profesor = {
-        id: select('#auxId').value(),
-        nombre: select('#itNombre').value(),
-        apellido: select('#itApellido').value(),
-        nif: select('#itNif').value(),
-        telefono: select('#itTelefono').value(),
-        correo: select('#itCorreo').value(),
-        titulacion: select('#itTitulacion').value()
-      };
-
-      console.log(profesor);
-
-      $.ajax("/profesores", {
-        contentType: "application/json",
-        dataType: 'json',
-        type: 'PUT',
-        data: JSON.stringify(profesor),
-        success: function (data) {
-          $('#mdCrearProfesor').modal('toggle');
-          getResultados();
-        }
-      });
-
-      select('#auxId').value('');
-      editMode = false;
-      return false;
-    }
-
-    return true;
-  });
-
   $('#btnBuscar').on('click', (e) => {
     e.preventDefault();
     getResultados();
   });
 
-  inputNif.input(() => {
-    const text = inputNif.value();
-    smNif.removeClass('show-error');
-    smNif.addClass('hidden');
-    const data = getData('/profesores');
-    data.then(json => {
-      json.forEach(profesor => {
-        if (text === profesor.nif) {
-          smNif.removeClass('hidden');
-          smNif.addClass('show-error');
-        }
-      });
-    });
-  });
-
   $('#btnNuevoProfesor').on('click', (e) => {
     e.preventDefault();
+    resetSM(select('#smNif'));
+    resetSM(select('#smCorreo'));
     select('#itNombre').value('');
     select('#itApellido').value('');
     select('#itNif').value('');
@@ -89,6 +37,91 @@ function setup() {
   });
 }
 
+function initForm() {
+  $('#formProfesor').on('submit', () => {
+    if (select('#smNif').hasClass('show-error')) {
+      return false;
+    }
+
+    if (select('#smCorreo').hasClass('show-error')) {
+      return false;
+    }
+
+    if (editMode) {
+      const profesor = {
+        id: select('#auxId').value(),
+        nombre: select('#itNombre').value(),
+        apellido: select('#itApellido').value(),
+        nif: select('#itNif').value(),
+        telefono: select('#itTelefono').value(),
+        correo: select('#itCorreo').value(),
+        titulacion: select('#itTitulacion').value()
+      };
+
+      $.ajax("/profesores", {
+        contentType: "application/json",
+        dataType: 'json',
+        type: 'PUT',
+        data: JSON.stringify(profesor),
+        success: function (data) {
+          $('#mdCrearProfesor').modal('toggle');
+          getResultados();
+        }
+      });
+
+      select('#auxId').value('');
+      editMode = false;
+      return false;
+    }
+
+    return true;
+  });
+}
+
+function initValidations() {
+  const itNif = select('#itNif');
+  const smNif = select('#smNif');
+  const itCorreo = select('#itCorreo');
+  const smCorreo = select('#smCorreo');
+
+  itNif.input(() => {
+    const nif = itNif.value();
+    resetSM(smNif);
+    if (!editMode) {
+      const data = getData('/profesores');
+      data.then(json => {
+        json.forEach(profesor => {
+          if (nif === profesor.nif) {
+            smNif.removeClass('hidden');
+            smNif.addClass('show-error');
+          }
+        });
+      });
+    }
+  });
+
+  itCorreo.input(() => {
+    const correo = itCorreo.value();
+    resetSM(smCorreo);
+    if (!editMode) {
+      const data = getData('/profesores');
+      data.then(json => {
+        json.forEach(profesor => {
+          if (correo === profesor.correo) {
+            smCorreo.removeClass('hidden');
+            smCorreo.addClass('show-error');
+          }
+        });
+      });
+    }
+  });
+}
+
+function initSelects() {
+  loadAsignaturas();
+  loadTitulaciones();
+}
+
 function loadAsignaturas() {
   const slAsignaturas = select('#slAsignatura');
   const data = getData('/asignaturas');
@@ -101,12 +134,12 @@ function loadAsignaturas() {
 }
 
 function loadTitulaciones() {
-  const slAsignaturas = select('#slTitulaciones');
+  const slTitulaciones = select('#slTitulaciones');
   const data = getData('/profesores');
-  slAsignaturas.option('Todos');
+  slTitulaciones.option('Todos');
   data.then(json => {
     json.forEach(profesor => {
-      slAsignaturas.option(profesor.titulacion);
+      slTitulaciones.option(profesor.titulacion);
     });
   });
 }
@@ -209,6 +242,8 @@ function editInfo(nif) {
   const data = getData(encodeURI('/profesores?nif=' + nif));
   $('#btnCrear').html('Modificar');
   $('#btnLimpiar').css('display', 'none');
+  resetSM(select('#smNif'));
+  resetSM(select('#smCorreo'));
   data.then(json => {
     const profesor = json[0];
     select('#auxId').value(profesor.id);
@@ -226,6 +261,11 @@ function editInfo(nif) {
     $('#mdCrearProfesor').modal('toggle');
     editMode = true;
   });
+}
+
+function resetSM(sm) {
+  sm.removeClass('show-error');
+  sm.addClass('hidden');
 }
 
 async function getData(apiUrl) {
