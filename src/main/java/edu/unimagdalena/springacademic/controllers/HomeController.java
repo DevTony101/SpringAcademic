@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import edu.unimagdalena.springacademic.entities.Profesor;
 import edu.unimagdalena.springacademic.entities.Role;
 import edu.unimagdalena.springacademic.entities.Usuario;
+import edu.unimagdalena.springacademic.services.ClaseService;
 import edu.unimagdalena.springacademic.services.UsuarioService;
 
 /**
@@ -18,6 +20,9 @@ public class HomeController {
   @Autowired
   private UsuarioService uService;
 
+  @Autowired
+  private ClaseService cService;
+
   @GetMapping("/home")
   public String home(Model model) {
     Usuario usuario = uService.getCurrentUsuario();
@@ -26,8 +31,10 @@ public class HomeController {
         model.addAttribute("usuario", usuario);
         return "home";
       } else if (role.getRole().equals("PROFESOR")) {
+        Profesor profesor = usuario.getUsuarioProfesor();
         model.addAttribute("usuario", usuario);
-        model.addAttribute("profesor", usuario.getUsuarioProfesor());
+        model.addAttribute("profesor", profesor);
+        model.addAttribute("clases", cService.getByProfesor(profesor.getNombre()));
         return "profesores/home";
       }
     }

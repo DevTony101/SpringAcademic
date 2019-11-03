@@ -6,101 +6,48 @@
 <body>
   <header th:replace="layout/profesorBase::header('Spring Academic')"></header>
   <div class="container-fluid my-4">
+    <span id="spNombre" th:text="${profesor.nombre}" hidden></span>
     <div class="row">
-      <div class="col-4">
+      <div class="col-12">
         <div class="card">
-          <div class="card-header">Bienvenido</div>
-          <div class="card-body">
-            <a class="weatherwidget-io" href="https://forecast7.com/es/11d24n74d21/santa-marta/"
-              data-label_1="SANTA MARTA" data-label_2="WEATHER" data-icons="Climacons Animated" data-theme="pure">SANTA
-              MARTA WEATHER</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-8">
-        <div class="card">
-          <div class="card-header">Perfil</div>
+          <div class="card-header">Inicio Rápido</div>
           <div class="card-body">
             <div class="row">
-              <div class="col-4">
-                <img src="images/stock_men.jpg" class="img-thumbnail rounded float-left">
+              <div class="col-6">
+                <div class="timetable"></div>
               </div>
-              <div class="col-8">
-                <ul class="list-group list-group-flush" style="padding-top: 0">
-                  <li class="list-group-item"><span th:text="'Nombre: ' + ${profesor.nombre}"></span></li>
-                  <li class="list-group-item"><span th:text="'Telefono: ' + ${profesor.telefono}"></span></li>
-                  <li class="list-group-item"><span th:text="'Correo: ' + ${profesor.correo}"></span></li>
-                  <li class="list-group-item"><span th:text="'Titulación: ' + ${profesor.titulacion}"></span></li>
-                </ul>
+              <div class="col-6">
+                <div class="card">
+                  <div class="card-header">Clases</div>
+                  <div class="card-body">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr class="table-light">
+                          <th scope="col">#</th>
+                          <th scope="col">Asignatura</th>
+                          <th scope="col">Curso</th>
+                          <th scope="col">Estudiantes</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr th:each="clase, iStat : ${clases}">
+                          <th scope="row" th:text="${iStat.count}"></th>
+                          <td th:text="${clase.asignatura.nombre}"></td>
+                          <td th:text="${clase.asignatura.curso.nivel + ' - ' + clase.asignatura.curso.etapa}"></td>
+                          <td th:text="${#sets.size(clase.asignatura.curso.alumnos)}"></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row my-3">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header">Clases</div>
-          <div class="card-body">
-            <table class="table table-striped">
-              <thead>
-                <tr class="table-light">
-                  <th scope="col">#</th>
-                  <th scope="col">Curso</th>
-                  <th scope="col">Estudiantes</th>
-                  <th scope="col">Dias</th>
-                  <th scope="col">Hora</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Matematicas</td>
-                  <td>15</td>
-                  <td>Lunes, Miercoles</td>
-                  <td>06:00 pm - 08:00 pm</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Sociales</td>
-                  <td>15</td>
-                  <td>Lunes, Miercoles</td>
-                  <td>06:00 pm - 08:00 pm</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Biologia</td>
-                  <td>15</td>
-                  <td>Lunes, Miercoles</td>
-                  <td>06:00 pm - 08:00 pm</td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>Historia</td>
-                  <td>15</td>
-                  <td>Lunes, Miercoles</td>
-                  <td>06:00 pm - 08:00 pm</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
   <footer th:replace="layout/profesorBase::footer()"></footer>
-  <script>
-    ! function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (!d.getElementById(id)) {
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://weatherwidget.io/js/widget.min.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }
-    }(document, 'script', 'weatherwidget-io-js');
-  </script>
   <script src="js/profesor/home.js"></script>
 </body>
 
