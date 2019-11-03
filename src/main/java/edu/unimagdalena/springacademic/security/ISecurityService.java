@@ -6,6 +6,5 @@ package edu.unimagdalena.springacademic.security;
 public interface ISecurityService {
 
   String getLoggedInUsername();
-
-  void autoLogin(String username, String password);
+  
 }
