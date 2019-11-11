@@ -159,7 +159,9 @@
             </div>
             <div class="form-group">
               <label for="itCorreo">Correo*</label>
-              <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo" required>
+              <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo"
+                data-container="body" data-toggle="popover" data-placement="right" data-trigger="manual"
+                data-content="Ingrese un correo válido" required>
               <small class="form-text text-muted hidden" id="smCorreo">El Correo Ya Se Encuentra Registrado</small>
             </div>
             <div class="form-group">

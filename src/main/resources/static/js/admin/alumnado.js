@@ -13,6 +13,14 @@ function setup() {
   });
 
   $('#formAlumno').on('submit', () => {
+
+    if (String(select('#itRespCorreo').value()).length > 0) {
+      if (!validateEmail(select('#itRespCorreo').value())) {
+        $('#itRespCorreo').popover('show');
+        return false;
+      }
+    }
+
     if (editMode) {
       const responsable = {
         id: select('#auxIdResp').value(),
@@ -53,6 +61,11 @@ function setup() {
       select('#auxIdResp').value('');
       editMode = false;
       return false;
+    } else if (String(select('#itCorreo').value()).length > 0) {
+      if (!validateEmail(select('#itCorreo').value())) {
+        $('#itCorreo').popover('show');
+        return false;
+      }
     }
 
     return true;
@@ -71,6 +84,8 @@ function setup() {
     cleanRespForm();
     initForm();
 
+    $('#itCorreo').popover('hide');
+    $('#itRespCorreo').popover('hide');
     select('#mdcrear-title').html('Nuevo Alumno');
     $('#btnCrear').html('Crear');
     $('#mdCrearAlumno').modal('toggle');
@@ -281,6 +296,11 @@ function cleanRespForm() {
   select('#itRespNif').value('');
   select('#itRespTelefono').value('');
   select('#itRespCorreo').value('');
+}
+
+function validateEmail(email) {
+  const filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return (filter.test(String(email)));
 }
 
 async function getData(apiUrl) {

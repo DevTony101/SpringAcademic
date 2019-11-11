@@ -25,6 +25,7 @@ function setup() {
     select('#itCorreo').value('');
     select('#itTitulacion').value('');
 
+    $('#itCorreo').popover('hide');
     select('#mdcrear-title').html('Nuevo Profesor');
     $('#btnCrear').html('Crear');
     $('#btnLimpiar').css('display', 'block');
@@ -44,6 +45,12 @@ function initForm() {
     }
 
     if (select('#smCorreo').hasClass('show-error')) {
+      return false;
+    }
+
+    if (!validateEmail(select('#itCorreo').value())) {
+      $('#itCorreo').popover('show');
+      $('#itCorreo').focus();
       return false;
     }
 
@@ -174,6 +181,7 @@ function initTable() {
     let url, res;
     switch (action) {
       case "Datos Personales":
+        $('#itCorreo').popover('hide');
         editInfo(nif);
         break;
       case "Clases":
@@ -266,6 +274,11 @@ function editInfo(nif) {
 function resetSM(sm) {
   sm.removeClass('show-error');
   sm.addClass('hidden');
+}
+
+function validateEmail(email) {
+  const filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return (filter.test(String(email)));
 }
 
 async function getData(apiUrl) {

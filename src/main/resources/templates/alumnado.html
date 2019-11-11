@@ -180,7 +180,9 @@
                     </div>
                     <div class="form-group">
                       <label for="itCorreo">Correo</label>
-                      <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo">
+                      <input type="text" id="itCorreo" th:field="*{correo}" class="form-control" placeholder="Correo"
+                        data-container="body" data-toggle="popover" data-placement="bottom" data-trigger="manual"
+                        data-content="Ingrese un correo válido">
                     </div>
                   </div>
                   <div class="col-6">
@@ -235,7 +237,8 @@
                 <div class="form-group">
                   <label for="itRespCorreo">Correo*</label>
                   <input type="text" id="itRespCorreo" th:field="*{responsable.correo}" class="form-control"
-                    placeholder="Correo">
+                    placeholder="Correo" data-container="body" data-toggle="popover" data-placement="right"
+                    data-trigger="manual" data-content="Ingrese un correo válido">
                 </div>
               </div>
             </div>
