@@ -3,6 +3,7 @@ let slAsignaturaCrear;
 let slCursoBusqueda, slCursoCrear;
 let slProfesorBusqueda, slProfesorCrear;
 let horario;
+let editMode = false;
 
 function setup() {
   noCanvas();
@@ -23,12 +24,17 @@ function setup() {
 
   $('#aCrearClase').on('click', (e) => {
     e.preventDefault();
+    editMode = false;
     loadSchedule();
     $('#mdCrearClase').modal('toggle');
   });
 
   slProfesorCrear.changed(() => {
     loadSchedule();
+  });
+
+  $('##mdCrearClase').on('hidden.bs.modal', () => {
+    editMode = false;
   });
 }
 
@@ -59,6 +65,7 @@ function initHorario() {
 
     if (!td.hasClass('occuped')) {
       if (td.hasClass('selected')) {
+        $(td).text('');
         td.removeClass('selected');
         // Ya que js no compara atributos de objetos
         // Es mejor usar filter para crear un nuevo array sin
@@ -69,6 +76,7 @@ function initHorario() {
           return (con1 || con2);
         });
       } else {
+        $(td).text(slAsignaturaCrear.value() + ' - ' + slCursoCrear.value().substring(0, 1) + slCursoCrear.value().substring(4, 5));
         td.addClass('selected');
         horario.push(hSem);
       };
@@ -79,9 +87,29 @@ function initHorario() {
 
 function sendForm() {
   $('#formClase').on('submit', () => {
+    let httpMethod = 'POST';
+    if (editMode) {
+      httpMethod = 'PUT';
+      horario.splice(0);
+      $('#tbHorario').find('td').each((i, elem) => {
+        if ($(elem).hasClass('dia') && $(elem).hasClass('selected')) {
+          const tr = $(elem).closest('tr');
+          const hSem = { // Objeto hora semanal
+            dia: $(elem).data('dia'),
+            hora: tr.data('hora'),
+            diaIndice: $(elem).data('indicedia'),
+            horaIndice: $(elem).data('indicehora')
+          };
+          console.log($(elem));
+          console.log(hSem);
+          horario.push(hSem);
+        }
+      });
+    }
+
     let url, p1, p2; // Promises
-    const nombre = slProfesorCrear.value().split(" ")[0];
-    url = './profesores?nombre=' + nombre;
+    const nif = $('#profesorCrear').children("option:selected").data('nif');
+    url = './profesores?nif=' + nif;
     p1 = getData(encodeURI(url));
 
     const curso = slCursoCrear.value().split(" ");
@@ -99,16 +127,20 @@ function sendForm() {
         horasSemanales: horario
       }
 
+      if (editMode) {
+        clase['id'] = select('#idCurso').value();
+      }
+
       $.ajax("/clases", {
         contentType: "application/json",
         dataType: 'json',
-        type: "POST",
+        type: httpMethod,
         data: JSON.stringify(clase),
         success: function (data) {
           horario.splice(0);
           $('#tbHorario').find('td').removeClass('selected');
           $('#mdCrearClase').modal('toggle');
-          $('#successModal').modal('toggle');
+          (httpMethod === 'POST' ? $('#successModal').modal('toggle') : console.log('Success update'));
         }
       });
     });
@@ -139,6 +171,10 @@ function initSelects() {
   });
 
   slCursoCrear.changed(() => {
+    $('#tbHorario').find('td').each((i, elem) => {
+      if ($(elem).hasClass('dia') && $(elem).hasClass('selected')) $(elem).text(' ');
+    });
+    $('#tbHorario').find('td').removeClass('selected');
     $('#asignaturaCrear option').remove();
     const curso = slCursoCrear.value().split(" ");
     const nivel = curso[0];
@@ -152,6 +188,13 @@ function initSelects() {
     });
 
     $('#asignaturaCrear').attr('disabled', false);
+  });
+
+  slAsignaturaCrear.changed(() => {
+    $('#tbHorario').find('td').each((i, elem) => {
+      if ($(elem).hasClass('dia') && $(elem).hasClass('selected')) $(elem).text(' ');
+    });
+    $('#tbHorario').find('td').removeClass('selected');
   });
 }
 
@@ -179,11 +222,15 @@ function initTable() {
     e.preventDefault();
     const data = table.row($(this).parents('tr')).data();
     const id = data[0];
+    const curso = data[1];
+    const asignatura = data[2];
+    const profesor = data[3];
     const action = $(this).text();
     const Http = new XMLHttpRequest();
     let url, res;
     switch (action) {
       case "Editar":
+        editInfo(id, curso, asignatura, profesor);
         break;
       case "Alumnos":
         break;
@@ -225,7 +272,7 @@ function getResultados() {
   });
 }
 
-function loadSchedule() {
+function loadSchedule(arg) { // arg -> argumento opcional (nombre de la asignatura)
   horario.splice(0);
   $('#tbHorario').find('td').removeClass('selected');
   $('#tbHorario').find('td').removeClass('occuped');
@@ -249,13 +296,32 @@ function loadSchedule() {
           const diaTd = Number($(elem).data('indicedia'));
           const horaTd = Number($(elem).data('indicehora'));
           if (diaIndice == diaTd && horaIndice == horaTd) {
-            $(elem).addClass('occuped');
+            if (arg && arg === clase.asignatura.nombre) {
+              $(elem).addClass('selected')
+            } else {
+              $(elem).addClass('occuped');
+            }
             $(elem).text(asignatura);
           }
         });
       });
     });
   });
+}
+
+function editInfo(id, curso, asignatura, profesor) {
+  editMode = true;
+  select('#idCurso').value(id);
+  $('#asignaturaCrear option').remove();
+  slAsignaturaCrear.option(asignatura);
+  $('#cursoCrear').val(curso);
+  $('#profesorCrear').val(profesor);
+  $('#cursoCrear').attr('disabled', true);
+  $('#profesorCrear').attr('disabled', true);
+  $('#asignaturaCrear').attr('disabled', true);
+
+  $('#mdCrearClase').modal('toggle');
+  loadSchedule(asignatura);
 }
 
 async function getData(apiUrl) {

@@ -89,6 +89,21 @@ public class ClaseService implements IClaseService {
 
   @Override
   public Clase actualizarClase(Clase clase) {
+    Set<HoraSemanal> horario = new HashSet<>(clase.getHorasSemanales());
+    clase.getHorasSemanales().clear();
+    horario.forEach(hora -> {
+      HoraSemanal hSem = hService.getByIndice(hora.getDiaIndice(), hora.getHoraIndice());
+      if(hSem == null) {
+        hora.getClases().add(clase);
+        hService.guardarHora(hora);
+        clase.getHorasSemanales().add(hora);
+      } else {
+        hSem.getClases().add(clase);
+        hService.guardarHora(hSem);
+        clase.getHorasSemanales().add(hSem);
+      }
+    });
+    
     return cRepo.save(clase);
   }
 
