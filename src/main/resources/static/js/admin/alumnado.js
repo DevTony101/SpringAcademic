@@ -266,6 +266,7 @@ function editInfo(id) {
     select('#itApellido').value(alumno.apellido);
     select('#itNif').value(alumno.nif);
     $('#itNif').attr('readonly', true);
+    $('#itRespNif').attr('readonly', true);
     select('#itTelefono').value(alumno.telefono);
     select('#itCorreo').value(alumno.correo);
     select('#itCurso').value(alumno.curso.nivel + ' - ' + alumno.curso.etapa);
