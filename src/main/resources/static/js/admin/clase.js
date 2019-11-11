@@ -25,7 +25,15 @@ function setup() {
   $('#aCrearClase').on('click', (e) => {
     e.preventDefault();
     editMode = false;
+
+    $('#asignaturaCrear option').remove();
+    $('#cursoCrear').attr('disabled', false);
+    $('#profesorCrear').attr('disabled', false);
+    $('#asignaturaCrear').attr('disabled', true);
+
     loadSchedule();
+    select('#mdcrear-title').html('Nueva Clase');
+    $('#btnCrear').html('Crear');
     $('#mdCrearClase').modal('toggle');
   });
 
@@ -311,6 +319,7 @@ function loadSchedule(arg) { // arg -> argumento opcional (nombre de la asignatu
 
 function editInfo(id, curso, asignatura, profesor) {
   editMode = true;
+  $('#btnCrear').html('Modificar');
   select('#idCurso').value(id);
   $('#asignaturaCrear option').remove();
   slAsignaturaCrear.option(asignatura);
@@ -320,6 +329,7 @@ function editInfo(id, curso, asignatura, profesor) {
   $('#profesorCrear').attr('disabled', true);
   $('#asignaturaCrear').attr('disabled', true);
 
+  select('#mdcrear-title').html('Editar Clase');
   $('#mdCrearClase').modal('toggle');
   loadSchedule(asignatura);
 }
