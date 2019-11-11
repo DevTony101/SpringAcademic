@@ -122,8 +122,10 @@ function initSelects() {
   slProfesorBusqueda.option('Todos');
   data.then(json => {
     json.forEach(profesor => {
-      slProfesorBusqueda.option(profesor.nombre + " " + profesor.apellido);
-      slProfesorCrear.option(profesor.nombre + " " + profesor.apellido);
+      const nombre = String(profesor.nombre + " " + profesor.apellido);
+      const htmlOption = `<option value='${nombre}' data-nif=${profesor.nif}>${nombre}</option>`;
+      $('#profesorCrear').append(htmlOption);
+      $('#profesorBusqueda').append(htmlOption);
     });
   });
 
@@ -199,23 +201,20 @@ function initTable() {
 function getResultados() {
   let data;
   const curso = slCursoBusqueda.value();
-  let profesor = slProfesorBusqueda.value();
-  if (curso === 'Todos' && profesor === 'Todos') {
+  const nif = $('#profesorBusqueda').children("option:selected").data('nif');
+  if (curso === 'Todos' && slProfesorBusqueda.value() === 'Todos') {
     data = getData(encodeURI('/clases'));
-  } else if (curso !== 'Todos' && profesor !== 'Todos') {
-    profesor = profesor.split(" ")[0];
-    data = getData(encodeURI('/clases?curso=' + curso + '&profesor=' + profesor));
+  } else if (curso !== 'Todos' && slCursoBusqueda.value() !== 'Todos') {
+    data = getData(encodeURI('/clases?curso=' + curso + '&nif=' + nif));
   } else if (curso !== 'Todos') {
     data = getData(encodeURI('/clases?curso=' + curso));
-  } else  {
-    profesor = profesor.split(" ")[0];
-    data = getData(encodeURI('/clases?profesor=' + profesor));
+  } else {
+    data = getData(encodeURI('/clases?nif=' + nif));
   }
 
   data.then(json => {
     table.clear().draw();
     json.forEach(clase => {
-      console.log(clase);
       table.row.add([
         clase.id,
         (clase.asignatura.curso.nivel + ' - ' + clase.asignatura.curso.etapa),
@@ -233,10 +232,11 @@ function loadSchedule() {
   $('#tbHorario').find('td').each((i, elem) => {
     if ($(elem).hasClass('dia')) $(elem).text(' ');
   });
-  let profesor = slProfesorCrear.value();
-  profesor = profesor.split(" ")[0];
-  const data = getData(encodeURI('/profesores?nombre=' + profesor));
+
+  const nif = $('#profesorCrear').children("option:selected").data('nif');
+  const data = getData(encodeURI('/profesores?nif=' + nif));
   data.then(json => {
+    console.log(json);
     const clases = json[0].clases;
     clases.forEach(clase => {
       let asignatura = clase.asignatura.nombre;

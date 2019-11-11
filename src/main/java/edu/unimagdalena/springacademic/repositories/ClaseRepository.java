@@ -21,8 +21,8 @@ public interface ClaseRepository extends JpaRepository<Clase, Long> {
   @Query("SELECT c FROM Clase c WHERE c.asignatura.nombre = :asignatura")
   List<Clase> findByAsignatura(@Param("asignatura") String asignatura);
 
-  @Query("SELECT c FROM Clase c WHERE c.profesor.nombre = :profesor")
-  List<Clase> findByProfesor(@Param("profesor") String profesor);
+  @Query("SELECT c FROM Clase c WHERE c.profesor.nif = :nif")
+  List<Clase> findByProfesor(@Param("nif") String nif);
 
   List<Clase> findAll();
 

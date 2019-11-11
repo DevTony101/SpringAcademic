@@ -108,8 +108,8 @@ public class ClaseService implements IClaseService {
   }
 
   @Override
-  public List<Clase> getByProfesor(String profesor) {
-    return cRepo.findByProfesor(profesor);
+  public List<Clase> getByProfesor(String nif) {
+    return cRepo.findByProfesor(nif);
   }
 
 }

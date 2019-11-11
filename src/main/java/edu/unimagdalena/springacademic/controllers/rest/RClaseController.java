@@ -29,23 +29,23 @@ public class RClaseController {
 
   @GetMapping("/clases")
   public List<Clase> getClases(@RequestParam(name = "curso", required = false) String curso,
-      @RequestParam(name = "profesor", required = false) String profesor) {
+      @RequestParam(name = "nif", required = false) String nif) {
     List<Clase> clases;
-    if (curso != null && profesor != null) {
+    if (curso != null && nif != null) {
       String[] nCurso = curso.split(" ");
       int nivel = Integer.parseInt(nCurso[0]);
       String etapa = nCurso[2];
       clases = cService.getByCurso(nivel, etapa);
       clases = clases.stream().filter(clase -> {
-        return (clase.getProfesor().getNombre().equals(profesor));
+        return (clase.getProfesor().getNif().equals(nif));
       }).collect(Collectors.toList());
     } else if (curso != null) {
       String[] nCurso = curso.split(" ");
       int nivel = Integer.parseInt(nCurso[0]);
       String etapa = nCurso[2];
       clases = cService.getByCurso(nivel, etapa);
-    } else if (profesor != null) {
-      clases = cService.getByProfesor(profesor);
+    } else if (nif != null) {
+      clases = cService.getByProfesor(nif);
     } else {
       clases = cService.getAll();
     }
