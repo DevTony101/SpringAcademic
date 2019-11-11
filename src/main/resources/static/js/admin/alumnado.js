@@ -192,7 +192,10 @@ function getResultados() {
   console.log(data);
   data.then(json => {
     table.clear().draw();
-    json.forEach(alumno => {
+    for (let alumno of json) {
+      if ($('#cbFiltro').is(':checked')) {
+        if (alumno.fechaBaja) continue;
+      }
       table.row.add([
         alumno.id,
         alumno.nombre,
@@ -201,7 +204,7 @@ function getResultados() {
         alumno.fechaAlta,
         (alumno.fechaBaja ? alumno.fechaBaja : 'No Figura')
       ]).draw(false);
-    });
+    }
   });
 }
 
