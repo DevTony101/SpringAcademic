@@ -41,7 +41,7 @@ function setup() {
     loadSchedule();
   });
 
-  $('##mdCrearClase').on('hidden.bs.modal', () => {
+  $('#mdCrearClase').on('hidden.bs.modal', () => {
     editMode = false;
   });
 }
@@ -113,6 +113,11 @@ function sendForm() {
           horario.push(hSem);
         }
       });
+
+      if (horario.length <= 0) {
+        $('#btnCrear').popover('show');
+        return false;
+      }
     }
 
     let url, p1, p2; // Promises
