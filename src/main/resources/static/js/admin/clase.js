@@ -1,4 +1,4 @@
-let table;
+let tablaBusqueda, tablaAlumnos;
 let slAsignaturaCrear;
 let slCursoBusqueda, slCursoCrear;
 let slProfesorBusqueda, slProfesorCrear;
@@ -223,7 +223,10 @@ function initTable() {
     "</div>" +
     "</div>";
 
-  table = $('#tbBusqueda').DataTable({
+  // Inicializacion para tabla de alumnos
+  tablaAlumnos = $('#tbAlumnos').DataTable();
+  // Inicializacion para tabla de busqueda
+  tablaBusqueda = $('#tbBusqueda').DataTable({
     "columnDefs": [{
       "data": null,
       "defaultContent": btnTabla,
@@ -233,7 +236,7 @@ function initTable() {
 
   $('#tbBusqueda tbody').on('click', 'a', function (e) {
     e.preventDefault();
-    const data = table.row($(this).parents('tr')).data();
+    const data = tablaBusqueda.row($(this).parents('tr')).data();
     const id = data[0];
     const curso = data[1];
     const asignatura = data[2];
@@ -246,15 +249,16 @@ function initTable() {
         editInfo(id, curso, asignatura, profesor);
         break;
       case "Alumnos":
+        mostrarAlumnos(id);
         break;
       case "Eliminar":
         url = "/clases/" + id;
         res = encodeURI(url);
         Http.open("DELETE", res);
         Http.send();
+        setTimeout(getResultados, 500);
         break;
     }
-    setTimeout(getResultados, 500);
   });
 }
 
@@ -273,9 +277,9 @@ function getResultados() {
   }
 
   data.then(json => {
-    table.clear().draw();
+    tablaBusqueda.clear().draw();
     json.forEach(clase => {
-      table.row.add([
+      tablaBusqueda.row.add([
         clase.id,
         (clase.asignatura.curso.nivel + ' - ' + clase.asignatura.curso.etapa),
         clase.asignatura.nombre,
@@ -337,6 +341,22 @@ function editInfo(id, curso, asignatura, profesor) {
   select('#mdcrear-title').html('Editar Clase');
   $('#mdCrearClase').modal('toggle');
   loadSchedule(asignatura);
+}
+
+function mostrarAlumnos(id) {
+  const data = getData(encodeURI('/clases/' + id));
+  data.then(json => {
+    tablaAlumnos.clear().draw();
+    const alumnos = json.asignatura.curso.alumnos;
+    alumnos.forEach(alumno => {
+      tablaAlumnos.row.add([
+        alumno.id,
+        alumno.nombre,
+        alumno.apellido
+      ]).draw(false);
+    });
+    $('#modalAlumnos').modal('toggle');
+  });
 }
 
 async function getData(apiUrl) {

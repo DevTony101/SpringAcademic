@@ -142,7 +142,7 @@
   <!-- modal success para clases -->
   <div class="modal fade" id="successModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-      <div class="modal-content  alert alert-success">
+      <div class="modal-content alert alert-success">
         <div class="modal-header">
           <h5 class="modal-title">Información<i class="fas fa-info-circle mx-3"></i></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -153,6 +153,35 @@
           <p style="padding-bottom: 0">
             La Clase se ha Registrado de Manera Exitosa!
           </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal para alumnos -->
+  <div class="modal fade" id="modalAlumnos" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Alumnos<i class="fas fa-info-circle mx-3"></i></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table id="tbAlumnos" class="table table-bordered table-hover text-center">
+            <thead>
+              <tr class="table-success">
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
