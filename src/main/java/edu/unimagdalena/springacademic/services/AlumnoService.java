@@ -98,10 +98,7 @@ public class AlumnoService implements IAlumnoService {
   @Override
   public Alumno getById(Long id) {
     Optional<Alumno> alumno = repo.findById(id);
-    if (alumno.isPresent()) {
-      return alumno.get();
-    }
-    return null;
+    return (alumno.isPresent() ? alumno.get() : null);
   }
 
   @Override
