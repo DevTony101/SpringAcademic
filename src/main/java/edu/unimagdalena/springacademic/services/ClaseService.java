@@ -52,39 +52,48 @@ public class ClaseService implements IClaseService {
     clase.setAsignatura(asignatura);
     aService.actualizarAsignatura(asignatura);
 
-    Profesor profesor = clase.getProfesor();
-    profesor = pService.getProfesorByNif(profesor.getNif());
-    profesor.getClases().add(clase);
-    clase.setProfesor(profesor);
-    pService.actualizarProfesor(profesor);
+    Clase aux = verificarClase(asignatura.getCurso(), asignatura);
+    if (aux == null) {
+      Profesor profesor = clase.getProfesor();
+      profesor = pService.getProfesorByNif(profesor.getNif());
+      profesor.getClases().add(clase);
+      clase.setProfesor(profesor);
+      pService.actualizarProfesor(profesor);
 
-    // Creacion y guardado de las horas semanales
-    Set<HoraSemanal> horario = new HashSet<>(clase.getHorasSemanales());
-    clase.getHorasSemanales().clear();
-    horario.forEach(hora -> {
-      HoraSemanal hSem = hService.getByIndice(hora.getDiaIndice(), hora.getHoraIndice());
-      if(hSem == null) {
-        hora.getClases().add(clase);
-        hService.guardarHora(hora);
-        clase.getHorasSemanales().add(hora);
-      } else {
-        hSem.getClases().add(clase);
-        hService.guardarHora(hSem);
-        clase.getHorasSemanales().add(hSem);
-      }
-    });
+      // Creacion y guardado de las horas semanales
+      Set<HoraSemanal> horario = new HashSet<>(clase.getHorasSemanales());
+      clase.getHorasSemanales().clear();
+      horario.forEach(hora -> {
+        HoraSemanal hSem = hService.getByIndice(hora.getDiaIndice(), hora.getHoraIndice());
+        if (hSem == null) {
+          hora.getClases().add(clase);
+          hService.guardarHora(hora);
+          clase.getHorasSemanales().add(hora);
+        } else {
+          hSem.getClases().add(clase);
+          hService.guardarHora(hSem);
+          clase.getHorasSemanales().add(hSem);
+        }
+      });
 
-    Curso curso = asignatura.getCurso();
-    List<Alumno> alumnos = alService.getAlumnosByCurso(curso);
-    LOG.info(alumnos.toString());
+      Curso curso = asignatura.getCurso();
+      List<Alumno> alumnos = alService.getAlumnosByCurso(curso);
+      LOG.info(alumnos.toString());
 
-    alumnos.forEach(alumno -> {
-      alumno.setNCurso(UUID.randomUUID().toString());
-      alumno.getClases().add(clase);
-      clase.getAlumnos().add(alumno);
-    });
+      alumnos.forEach(alumno -> {
+        alumno.setNCurso(UUID.randomUUID().toString());
+        alumno.getClases().add(clase);
+        clase.getAlumnos().add(alumno);
+      });
 
-    return cRepo.save(clase);
+      return cRepo.save(clase);
+    } else {
+      clase.setId(aux.getId());
+      Set<HoraSemanal> horario = new HashSet<>(aux.getHorasSemanales());
+      horario.addAll(clase.getHorasSemanales());
+      clase.setHorasSemanales(new HashSet<>(horario));
+      return actualizarClase(clase);
+    }
   }
 
   @Override
@@ -93,7 +102,7 @@ public class ClaseService implements IClaseService {
     clase.getHorasSemanales().clear();
     horario.forEach(hora -> {
       HoraSemanal hSem = hService.getByIndice(hora.getDiaIndice(), hora.getHoraIndice());
-      if(hSem == null) {
+      if (hSem == null) {
         hora.getClases().add(clase);
         hService.guardarHora(hora);
         clase.getHorasSemanales().add(hora);
@@ -103,7 +112,7 @@ public class ClaseService implements IClaseService {
         clase.getHorasSemanales().add(hSem);
       }
     });
-    
+
     return cRepo.save(clase);
   }
 
@@ -125,6 +134,21 @@ public class ClaseService implements IClaseService {
   @Override
   public List<Clase> getByProfesor(String nif) {
     return cRepo.findByProfesor(nif);
+  }
+
+  public Clase verificarClase(Curso curso, Asignatura asignatura) {
+    // Funcion que verifica si existe una clase dada una asignatura
+    // Y un curso dado
+    Clase clase = null;
+    List<Clase> clases = getByCurso(curso.getNivel(), curso.getEtapa());
+    for (Clase c : clases) {
+      if (c.getAsignatura().getNombre().equals(asignatura.getNombre())) {
+        clase = c;
+        break;
+      }
+    }
+
+    return clase;
   }
 
 }
