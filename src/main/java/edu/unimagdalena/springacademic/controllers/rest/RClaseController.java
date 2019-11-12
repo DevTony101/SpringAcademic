@@ -54,6 +54,11 @@ public class RClaseController {
     return clases;
   }
 
+  @GetMapping("/clases/{id}")
+  public Clase getClase(@PathVariable Long id) {
+    return cService.getById(id);
+  }
+
   @PostMapping("/clases")
   public Clase guardarClase(@RequestBody Clase clase) {
     LOG.info(clase);

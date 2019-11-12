@@ -15,6 +15,8 @@ public interface IClaseService {
 
   void eliminarClase(Long id);
 
+  Clase getById(Long id);
+
   List<Clase> getByCurso(Integer nivel, String etapa);
 
   List<Clase> getByAsignatura(String asignatura);

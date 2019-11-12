@@ -2,6 +2,7 @@ package edu.unimagdalena.springacademic.services;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 
@@ -119,6 +120,12 @@ public class ClaseService implements IClaseService {
   @Override
   public void eliminarClase(Long id) {
     cRepo.deleteById(id);
+  }
+
+  @Override
+  public Clase getById(Long id) {
+    Optional<Clase> clase = cRepo.findById(id);
+    return (clase.isPresent() ? clase.get() : null);
   }
 
   @Override
