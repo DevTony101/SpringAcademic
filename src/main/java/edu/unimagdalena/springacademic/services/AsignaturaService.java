@@ -39,6 +39,26 @@ public class AsignaturaService implements IAsignaturaService {
   }
 
   @Override
+  public boolean existe(Asignatura asignatura) {
+    Curso curso = asignatura.getCurso();
+    if (curso == null) {
+      String nCurso = asignatura.getNCurso();
+      int nivel = Integer.parseInt(nCurso.substring(0, 1));
+      String etapa = nCurso.substring(4, nCurso.length());
+      curso = cService.getByNivelEtapa(nivel, etapa);
+    }
+
+    List<Asignatura> asignaturas = getByCurso(curso);
+    for (Asignatura a : asignaturas) {
+      if (a.getNombre().equals(asignatura.getNombre())) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  @Override
   public List<Asignatura> getAll() {
     return repo.findAll();
   }

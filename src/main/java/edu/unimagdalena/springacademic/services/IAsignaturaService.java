@@ -16,6 +16,8 @@ public interface IAsignaturaService {
 
   Asignatura getByNombre(String nombre);
 
+  boolean existe(Asignatura asignatura);
+
   List<Asignatura> getByCurso(Curso curso);
 
   List<Asignatura> getAll();
