@@ -36,7 +36,14 @@ public class CursoController {
 
   @PostMapping("/crearCurso")
   public String crearCurso(@ModelAttribute @Valid Curso curso) {
-    cService.guardarCurso(curso);
-    return "redirect:/mantenimientoCursos?success";
+    String status = "success";
+    if (cService.getByNivelEtapa(curso.getNivel(), curso.getEtapa()) != null) {
+      status = "failed";
+    } else {
+      cService.guardarCurso(curso);
+    }
+
+    return "redirect:/mantenimientoCursos?" + status;
   }
+
 }

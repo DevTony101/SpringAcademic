@@ -5,6 +5,7 @@ function setup() {
   noCanvas();
   initTable();
   $('#successModal').modal('toggle');
+  $('#failedModal').modal('toggle');
   getResultados();
 
   $('#formCurso').on('submit', () => {

@@ -80,7 +80,7 @@
   <!-- modal success -->
   <div th:if="${param.success}" class="modal fade" id="successModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-      <div class="modal-content  alert alert-success">
+      <div class="modal-content alert alert-success">
         <div class="modal-header">
           <h5 class="modal-title">Información<i class="fas fa-info-circle mx-3"></i></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -90,6 +90,28 @@
         <div class="modal-body">
           <p style="padding-bottom: 0">
             El Curso se ha Registrado de Manera Exitosa!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal failed -->
+  <div th:if="${param.failed}" class="modal fade" id="failedModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content alert alert-danger">
+        <div class="modal-header">
+          <h5 class="modal-title">Información<i class="fas fa-info-circle mx-3"></i></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="padding-bottom: 0">
+            El Curso ya se Encuentra Registrado!
           </p>
         </div>
         <div class="modal-footer">
