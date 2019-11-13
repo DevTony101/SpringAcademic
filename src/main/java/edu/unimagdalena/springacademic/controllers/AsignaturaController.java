@@ -39,8 +39,14 @@ public class AsignaturaController {
 
   @PostMapping("/crearAsignatura")
   public String crearAsignatura(@ModelAttribute @Valid Asignatura asignatura) {
-    aService.guardarAsignatura(asignatura);
-    return "redirect:/mantenimientoAsignaturas?success";
+    String status = "success";
+    if (aService.existe(asignatura)) {
+      status = "failed";
+    } else {
+      aService.guardarAsignatura(asignatura);
+    }
+
+    return "redirect:/mantenimientoAsignaturas?" + status;
   }
 
 }
