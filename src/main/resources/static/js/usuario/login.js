@@ -10,16 +10,20 @@ function setup() {
         const usuario = json;
         usuario.usuarioProfesor.usuario = null;
         console.log(usuario);
-        $.ajax("/restablecerContraseña", {
-          contentType: "application/json",
-          dataType: 'json',
-          type: 'POST',
-          data: JSON.stringify(usuario),
-          success: function (data) {
-            $('#alertCorreo').css('display', 'block');
-            console.log(data);
-          }
-        });
+        if (usuario.token) {
+          $('#alertToken').css('display', 'block');
+        } else {
+          $.ajax("/restablecerContraseña", {
+            contentType: "application/json",
+            dataType: 'json',
+            type: 'POST',
+            data: JSON.stringify(usuario),
+            success: function (data) {
+              $('#alertCorreo').css('display', 'block');
+              console.log(data);
+            }
+          });
+        }
       }).catch(err => {
         $('#alertUsuario').css('display', 'block');
       });
