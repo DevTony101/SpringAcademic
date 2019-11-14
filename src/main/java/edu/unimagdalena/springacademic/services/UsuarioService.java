@@ -60,6 +60,11 @@ public class UsuarioService implements IUsuarioService {
   }
 
   @Override
+  public Usuario actualizarUsuario(Usuario usuario) {
+    return repo.save(usuario);
+  }
+
+  @Override
   public Usuario getCurrentUsuario() {
     String usuario = securityService.getLoggedInUsername();
     return getUsuarioByNombre(usuario);
@@ -68,6 +73,11 @@ public class UsuarioService implements IUsuarioService {
   @Override
   public Usuario getUsuarioByNombre(String usuario) {
     return repo.findByUsuario(usuario);
+  }
+
+  @Override
+  public Usuario getUsuarioByToken(String token) {
+    return repo.findByToken(token);
   }
 
   @Override

@@ -13,9 +13,13 @@ public interface IUsuarioService {
 
   Usuario guardarUsuario(Usuario usuario);
 
+  Usuario actualizarUsuario(Usuario usuario);
+
   void eliminarUsuario(Usuario usuario);
 
   Usuario getCurrentUsuario();
 
   Usuario getUsuarioByNombre(String usuario);
+
+  Usuario getUsuarioByToken(String token);
 }

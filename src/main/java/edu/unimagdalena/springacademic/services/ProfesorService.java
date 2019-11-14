@@ -26,7 +26,7 @@ public class ProfesorService implements IProfesorService {
     String nombre = profesor.getNombre().toLowerCase() + profesor.getApellido().substring(0, 2).toLowerCase();
     Usuario usuario = uService.crearUsuario(nombre, "PROFESOR");
     usuario.setUsuarioProfesor(profesor);
-    uService.guardarUsuario(usuario);
+    usuario = uService.guardarUsuario(usuario);
     profesor.setUsuario(usuario);
     return repo.save(profesor);
   }
