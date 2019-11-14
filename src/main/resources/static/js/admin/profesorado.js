@@ -236,10 +236,12 @@ function getResultados() {
   table.clear().draw();
   data.then(json => {
     json.forEach(profesor => {
+      const usuario = profesor.usuario;
       table.row.add([
         profesor.nombre,
         profesor.nif,
         profesor.correo,
+        usuario.usuario,
         profesor.telefono
       ]).draw(false);
     });
