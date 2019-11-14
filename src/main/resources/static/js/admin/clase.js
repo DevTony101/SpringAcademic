@@ -26,10 +26,10 @@ function setup() {
     e.preventDefault();
     editMode = false;
 
-    $('#asignaturaCrear option').remove();
+    actualizarAsignaturas();
     $('#cursoCrear').attr('disabled', false);
     $('#profesorCrear').attr('disabled', false);
-    $('#asignaturaCrear').attr('disabled', true);
+    $('#asignaturaCrear').attr('disabled', false);
 
     loadSchedule();
     select('#mdcrear-title').html('Nueva Clase');
@@ -163,7 +163,8 @@ function sendForm() {
 }
 
 function initSelects() {
-  let data = getData('/profesores');
+  let data;
+  data = getData('/profesores');
   slProfesorBusqueda.option('Todos');
   data.then(json => {
     json.forEach(profesor => {
@@ -181,6 +182,7 @@ function initSelects() {
       slCursoBusqueda.option(curso.nivel + ' - ' + curso.etapa);
       slCursoCrear.option(curso.nivel + ' - ' + curso.etapa);
     });
+    actualizarAsignaturas();
   });
 
   slCursoCrear.changed(() => {
@@ -188,19 +190,7 @@ function initSelects() {
       if ($(elem).hasClass('dia') && $(elem).hasClass('selected')) $(elem).text(' ');
     });
     $('#tbHorario').find('td').removeClass('selected');
-    $('#asignaturaCrear option').remove();
-    const curso = slCursoCrear.value().split(" ");
-    const nivel = curso[0];
-    const etapa = curso[2];
-    const url = '/curso/asignaturas?nivel=' + nivel + '&etapa=' + etapa;
-    data = getData(encodeURI(url));
-    data.then(json => {
-      json.forEach(asignatura => {
-        slAsignaturaCrear.option(asignatura.nombre);
-      });
-    });
-
-    $('#asignaturaCrear').attr('disabled', false);
+    actualizarAsignaturas();
   });
 
   slAsignaturaCrear.changed(() => {
@@ -356,6 +346,19 @@ function mostrarAlumnos(id) {
       ]).draw(false);
     });
     $('#modalAlumnos').modal('toggle');
+  });
+}
+
+function actualizarAsignaturas() {
+  $('#asignaturaCrear option').remove();
+  const curso = slCursoCrear.value().split(" ");
+  const nivel = curso[0];
+  const etapa = curso[2];
+  const url = '/curso/asignaturas?nivel=' + nivel + '&etapa=' + etapa;
+  getData(encodeURI(url)).then(json => {
+    json.forEach(asignatura => {
+      slAsignaturaCrear.option(asignatura.nombre);
+    });
   });
 }
 
