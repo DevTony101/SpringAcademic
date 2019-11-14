@@ -42,12 +42,14 @@ public class EmailSender {
 
     mailSender.setUsername(Constants.GMAIL_USER);
     mailSender.setPassword(Constants.GMAIL_PASSWORD);
+    LOG.info(Constants.GMAIL_USER);
+    LOG.info(Constants.GMAIL_PASSWORD);
 
     Properties props = mailSender.getJavaMailProperties();
     props.put("mail.transport.protocol", "smtp");
     props.put("mail.smtp.auth", "true");
     props.put("mail.smtp.starttls.enable", "true");
-    // props.put("mail.debug", "true");
+    props.put("mail.debug", "true");
 
     return mailSender;
   }
