@@ -11,4 +11,5 @@ import edu.unimagdalena.springacademic.entities.Usuario;
 @Repository
 public interface UsuarioRepository  extends JpaRepository<Usuario, Long> {
   Usuario findByUsuario(String usuario);
+  Usuario findByToken(String token);
 }
