@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -41,6 +43,8 @@ public class Usuario implements Serializable {
   private String clave;
   @Column(name = "respaldo", nullable = false)
   private String respaldo;
+  @Column(name = "token", nullable = true)
+  private String token;
   @Column(name = "enabled", nullable = false)
   private Boolean enabled;
 
@@ -55,5 +59,6 @@ public class Usuario implements Serializable {
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "profesor_id", referencedColumnName = "id")
+  @JsonIgnoreProperties("clases")
   private Profesor usuarioProfesor;
 }
