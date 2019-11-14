@@ -5,7 +5,7 @@ package edu.unimagdalena.springacademic.utils;
  */
 public class Constants {
 
-  public static final String GMAIL_USER = "app.plus.sas@gmail.com";
-  public static final String GMAIL_PASSWORD = "softwareltda";
+  public static final String GMAIL_USER = System.getenv("GMAIL_USER");
+  public static final String GMAIL_PASSWORD = System.getenv("GMAIL_PASSWORD");
   
 }
