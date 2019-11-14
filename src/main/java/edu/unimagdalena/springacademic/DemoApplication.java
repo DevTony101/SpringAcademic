@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import edu.unimagdalena.springacademic.entities.Usuario;
 import edu.unimagdalena.springacademic.services.RoleService;
 import edu.unimagdalena.springacademic.services.UsuarioService;
+import edu.unimagdalena.springacademic.utils.Constants;
 
 @SpringBootApplication
 public class DemoApplication {
@@ -26,7 +27,7 @@ public class DemoApplication {
 	@PostConstruct
 	public void inicializar() {
 		rService.crearRoles("ADMIN", "ALUMNO", "PROFESOR");
-		Usuario usuario = uService.crearUsuario("admin", "ADMIN", "300710");
+		Usuario usuario = uService.crearUsuario(Constants.ADMIN_USER, "ADMIN", Constants.ADMIN_PASSWORD);
 		uService.guardarUsuario(usuario);
 	}
 }
