@@ -29,7 +29,7 @@ public class EmailSender {
     message.setTo(toEmail);
     message.setSubject("Academic Password Recovery");
     String msg = "Hola! Hemos detectado que has perdido el acceso a tu cuenta. Para recuperarla entra al siguiente link.";
-    msg += "\n\nlocalhost:8080/restablecerContraseña?token=" + token;
+    msg += "\n\nhttps://springacademic.herokuapp.com/restablecerContraseña?token=" + token;
     message.setText(msg);
     emailSender.send(message);
   }
