@@ -34,7 +34,7 @@ public class HomeController {
         Profesor profesor = usuario.getUsuarioProfesor();
         model.addAttribute("usuario", usuario);
         model.addAttribute("profesor", profesor);
-        model.addAttribute("clases", cService.getByProfesor(profesor.getNombre()));
+        model.addAttribute("clases", cService.getByProfesor(profesor.getNif()));
         return "profesores/home";
       }
     }
