@@ -18,10 +18,13 @@
 		integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
 	</script>
 	<script src="https://kit.fontawesome.com/f03089975e.js"></script>
+
+	<!-- p5.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js"></script>
 </head>
 
 <body>
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-12" style="padding: 0">
@@ -47,6 +50,14 @@
 										<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
+
+								<div id="alertUsuario" class="alert alert-danger" role="alert" style="display: none;">
+									<strong>Oye!</strong> Ingresa un Nombre de Usuario Válido!
+								</div>
+
+								<div id="alertCorreo" class="alert alert-success" role="alert" style="display: none;">
+									<strong>Revisa tu Correo!</strong> Hemos Enviado Información Útil
+								</div>
 								<hr>
 								<div class="form-group my-4">
 									<div class="input-group">
@@ -67,7 +78,7 @@
 										style="border-radius: 20px;">Entrar</button>
 								</div>
 								<div class="clearfix text-center">
-									<a href="#" class="pull-right">¿Olvidaste la Contraseña?</a>
+									<a href="#" id="linkContra" class="pull-right">¿Olvidaste la Contraseña?</a>
 								</div>
 							</form>
 						</div>
@@ -78,19 +89,6 @@
 	</div>
 
 	<footer>
-		<script src="js/vanta/three.r92.min.js"></script>
-		<script src="js/vanta/vanta.waves.min.js"></script>
-		<script>
-			VANTA.WAVES({
-				el: "#waves",
-				color: 0x8838,
-				shininess: 43.00,
-				waveHeight: 14.00,
-				waveSpeed: 0.7,
-				zoom: 0.75
-			});
-		</script>
-
 		<!-- JQuery JS -->
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"
 			integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -104,6 +102,10 @@
 		<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
 			integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous">
 		</script>
+
+		<script src="js/vanta/three.r92.min.js"></script>
+		<script src="js/vanta/vanta.waves.min.js"></script>
+		<script src="js/usuario/login.js"></script>
 	</footer>
 </body>
 
