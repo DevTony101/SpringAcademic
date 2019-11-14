@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org">
+
+<head th:replace="layout/adminBase::head('Restablecer Contraseña')"></head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <i class="fab fa-earlybirds fa-3x" style="margin-right: 20px; color: limegreen"></i>
+      <a class="navbar-brand" href="#">Restablecer Contraseña</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <div class="container my-4">
+      <div class="row">
+        <div class="col-12">
+          <div class="card border-success">
+            <div class="card-header">Restaurar Contraseña</div>
+            <div class="card-body" style="padding-bottom: 0">
+              <span id="spanUsuario" th:text="${usuario.usuario}" style="display: none;"></span>
+              <div id="alertContra" class="alert alert-danger" role="alert" style="display: none;">
+                <strong>Atención!</strong> Las Contraseñas no Coinciden
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form id="formUsuario" action="#">
+                <label for="itContra1">Contraseña</label>
+                <input type="password" class="form-control" id="itContra1" style="margin-bottom: 25px;" required />
+                <label for="itContra2">Confirmación Contraseña</label>
+                <input type="password" class="form-control" id="itContra2" required />
+
+                <div class="form-group" style="margin-top: 25px;">
+                  <button type="submit" id="btnBuscar" class="btn btn-raised btn-success">Enviar</button>
+                  <button type="reset" class="btn btn-raised btn-primary mx-4">Limpiar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- modal success para profesor -->
+  <div class="modal fade" id="successModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content alert alert-success">
+        <div class="modal-header">
+          <h5 class="modal-title">Información<i class="fas fa-info-circle mx-3"></i></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p style="padding-bottom: 0">
+            La Contraseña se ha Actualizado de Manera Exitosa!
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer th:replace="layout/adminBase::footer()"></footer>
+  <script src="js/usuario/contra.js"></script>
+</body>
+
+</html>
