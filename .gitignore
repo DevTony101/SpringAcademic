@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Custom ###
+src/main/java/edu/unimagdalena/springacademic/utils/
