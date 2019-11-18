@@ -105,8 +105,8 @@ function editInfo(id) {
 
 function getResultados() {
   const data = getData('/cursos');
-  table.clear().draw();
   data.then(json => {
+    table.clear().draw();
     json.forEach(curso => {
       table.row.add([
         curso.id,

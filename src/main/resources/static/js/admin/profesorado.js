@@ -233,8 +233,8 @@ function getResultados() {
   }
   res = encodeURI(url + query);
   const data = getData(res);
-  table.clear().draw();
   data.then(json => {
+    table.clear().draw();
     json.forEach(profesor => {
       const usuario = profesor.usuario;
       table.row.add([

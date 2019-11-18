@@ -8,9 +8,9 @@ function setup() {
 }
 
 function getAsignaturas() {
-  table.clear().draw();
   const data = getData('/asignaturas');
   data.then(json => {
+    table.clear().draw();
     json.forEach(asignatura => {
       table.row.add([
         asignatura.id,
