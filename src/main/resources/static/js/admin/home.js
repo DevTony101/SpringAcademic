@@ -5,9 +5,9 @@ function setup() {
   const chartCursos = new Chart(ctxCursos, {
     type: 'doughnut',
     data: {
-      labels: ['Matematicas', 'Sociales', 'Biologia', 'Historia', 'Geografia'],
+      labels: ['Math', 'Chemistry', 'Biology', 'History', 'Geography'],
       datasets: [{
-        label: 'Profesores por Curso',
+        label: 'Teachers by Course',
         data: [12, 19, 3, 5, 2],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -29,7 +29,7 @@ function setup() {
     options: {
       title: {
         display: true,
-        text: 'Profesores por Curso'
+        text: 'Teachers by Course'
       }
     }
   });
@@ -42,7 +42,7 @@ function setup() {
     data: {
       labels: ['2016', '2017', '2018', '2019'],
       datasets: [{
-        label: '# de Altas',
+        label: '# of New Students',
         data: [12, 19, 3, 5, 2, 3],
         backgroundColor: [
           'rgba(75, 192, 92, 0.2)',
@@ -58,7 +58,7 @@ function setup() {
         ],
         borderWidth: 1
       }, {
-        label: '# de Bajas',
+        label: '# of Suspended Students',
         data: [12, 19, 3, 5, 2, 3],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
@@ -78,7 +78,7 @@ function setup() {
     options: {
       title: {
         display: true,
-        text: 'Altas y Bajas'
+        text: 'Created and Suspended'
       },
       scales: {
         yAxes: [{
