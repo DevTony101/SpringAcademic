@@ -1,5 +1,14 @@
 # SpringAcademic
-A project based on a thesis by Eloísa Alés Esquivel. The project is for academic purposes only and should not be taken otherwise.
+This is a sample project. It was made for academic and demonstrational purposes only and should not be taken otherwise.
+ 
+![Banner1](/banner1.png) ![Banner2](banner2.png)
 
-### Authors
-Miguel Manjarres - Miguel Acevedo
+## Technologies and Concepts Used
+- Spring Boot
+- Spring MVC
+- Spring Security
+- RESTful APIs
+- Heroku (deployment)
+
+## Inspiration
+This app is based on a thesis made by Eloísa Alés Esquivel. [Here's the link to the original PDF file](http://bibing.us.es/proyectos/abreproy/12358/fichero/MemoriaPFC.pdf).
