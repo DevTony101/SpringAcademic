@@ -65,8 +65,8 @@
               Maintenance
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="/mantenimientoCursos">Mantenimiento de Cursos</a>
-              <a class="dropdown-item" href="/mantenimientoAsignaturas">Mantenimiento de Asignaturas</a>
+              <a class="dropdown-item" href="/mantenimientoCursos">Maintenance of Courses</a>
+              <a class="dropdown-item" href="/mantenimientoAsignaturas">Maintenance of Subjects</a>
             </div>
           </li>
         </ul>
@@ -74,7 +74,7 @@
       <form class="form-inline" th:action="@{/logout}" method="post">
         <i class="far fa-user-circle fa-2x mx-1" style="color: whitesmoke;"></i>
         <span class="mx-3" style="color: whitesmoke; font-weight: bold;" th:text="${usuario.usuario}"></span>
-        <button class="btn btn-outline-danger" type="submit">Cerrar Sesion</button>
+        <button class="btn btn-outline-danger" type="submit">Log Out</button>
       </form>
     </nav>
   </header>
